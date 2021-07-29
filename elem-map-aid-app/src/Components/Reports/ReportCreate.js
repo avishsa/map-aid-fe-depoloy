@@ -1,169 +1,126 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Field, reduxForm } from 'redux-form';
+import React from "react";
+import { useForm } from "react-hook-form";
+import { getYYYYMMDD, getHHMM } from "../../Utilities/TimeFormatter";
 
 
-import { getYYYYMMDD, getHHMM } from '../../Utilities/TimeFormatter';
-import { required, phone, latestDate } from '../../Utilities/formValidation';
-import { createReport } from '../../actions';
-import { renderCheckBox, renderDistressGroupField, renderInputLabel, renderGenderGroupField, renderColor, renderMap } from './ReportCreate/formFields';
-const colors = { black: '#000000', white: "#ffffff" };
+export default function App() {
+    //reportTime
+    const defaultValues = {
+        exampleRequired: "required",
+        locationText: "בורלא 29, תל אביב",
+        reportDate: getYYYYMMDD(new Date()),
+        reportTime: getHHMM(new Date())
+    };
+    const { register, handleSubmit, watch, formState: { errors } } = useForm({ defaultValues });
+    const onSubmit = data => console.log(data);
 
-class ReportCreate extends Component {
-    componentDidMount () {
-        var date = new Date();
-        var dateFormat = getYYYYMMDD(date);
-        var timeFormat = getHHMM(date);
-        const location = {lat:32.3523,lon:32.3432};
-        this.props.initialize({
-            timeTB: timeFormat,
-            dateTB: dateFormat,
-            location: location,
-            shirtColor: colors.black,
-            trousersColor: colors.white
-        });
+    console.log(watch("genderText"));
 
-    }
+    return (<div className="container d-flex flex-column">
+        <h2 className="text-end"> מילוי טופס דיווח</h2>
+        <form className="form-inline" onSubmit={handleSubmit(onSubmit)}>
+            <div className="d-flex flex-row-reverse bd-highlight">
+                <input type="checkbox" {...register("isDistressed")} />
+                <label className="form-check-label mx-2">זיהיתי מצוקה</label>
+            </div>
+            {watch("isDistressed") && (<input
+                className="form-control d-flex float-end bd-highlight w-25 mt-1"
+                {...register("distressedText")}
 
-    onSubmit = formValues => {
+            />)}
 
-        console.log("submitted", formValues);
-        this.props.createReport(formValues);
-        
-    }
-
-
-
-
-    render() {
-        const stringAddress ="מאזה 49, תל אביב";
-        return (
-            <div className="container d-flex flex-column">
-                <h2 className="text-end"> מילוי טופס דיווח</h2>
-                <form id="createReportForm" className="form-inline" onSubmit={this.props.handleSubmit(this.onSubmit)}>
-                    <Field
-                        name="distressedDescription"
-                        type="text"
-                        component={renderDistressGroupField}
-                        id="destress"
-                        label="זיהיתי מצוקה"
-                        placeholder="תיאור המצוקה"
-                    />
-
-                    <div id="" className="container d-flex flex-column bd-highlight">
-                        <div className="form-row">
-                            <Field
-                                id="mapTB"
-                                name="mapTB"
-                                type="map"
-                                component={renderMap}
-                                label= {stringAddress}
-                            />
-                        </div>
+            <div id="" className="container d-flex flex-column bd-highlight">
+                <div className="form-row" id="locationField">
+                    <div className="w-50 d-flex flex-column float-end">
+                        <label className="form-label d-flex flex-row-reverse" htmlFor="locationText"> מיקום
+                        </label>
                         <div className="d-flex flex-row-reverse">
-                            <Field
-                                name="dateTB"
-                                type="date"
-                                component={renderInputLabel}
-                                label="תאריך"
-                            />
-                            <Field
-                                name="timeTB"
-                                type="time"
-                                component={renderInputLabel}
-                                label="שעה"
-                            />
+                            <input {...register("locationText")} className="form-control text-end" disabled />
+                            <label className="w-25 form-control btn btn-outline-secondary mx-2" onClick={() => { console.log("redirect to map") }}>שינוי</label>
                         </div>
+                    </div>)
+                </div>
+                <div className="d-flex flex-row-reverse">
+                    <div className="form-group mx-2 mt-2" >
+                        <label htmlFor="reportDate"
+                            className="d-flex form-label flex-row-reverse">
+                            תאריך
+                        </label>
+                        <input
+                            {...register("reportDate", { required: true })}
+                            className="text-end float-end form-control"
+                            type="date"
+                            dir="rtl" />
+                        {errors.reportDate && <span className="float-end">זהו שדה נדרש</span>}
                     </div>
+                    <div className="form-group mx-2 mt-2" >
+                        <label htmlFor="reportTime"
+                            className="d-flex form-label flex-row-reverse">
+                            שעה
+                        </label>
+                        <input
+                            {...register("reportTime", { required: true })}
+                            className="text-end float-end form-control"
+                            type="time"
+                            dir="rtl" />
+                        {errors.reportTime && <span className="float-end" >זהו שדה נדרש</span>}
+                    </div>
+                </div>
 
-                    <div id="homelessIdDiv" className="mt-3 container d-flex flex-column bd-highlight">
-                        <h4 className="mb-3 text-end">זיהוי</h4>
-                        
-                        <Field
-                            className="row"
-                            name="gender"
-                            type="checkbox"
-                            component={renderGenderGroupField}
-                            id="gender"
-                        />
-                        <Field
-                            name="shirtColor"
-                            component={renderColor}
-                            id="shirtColor"
-                            imgSrc="./tshirt.png"
-                            type="color"
-                            label="tshirt"
-                        />
-                        <Field
-                            name="trousersColor"
-                            component={renderColor}
-                            id="shirtColor"
-                            imgSrc="./trousers.png"
-                            type="color"
-                            label="trousers"
-                        />
-                        <Field
-                            name="descriptionTB"
-                            id="descriptionTB"
-                            type="text"
-                            className="w-50"
-                            component={renderInputLabel}
-                            label="תיאור כללי"
-                        />
-                    </div>
-                    <div id="reporterIdDiv" className="mt-3 container d-flex flex-column bd-highlight">
-                        <h4 className="mb-3 text-end">פרטי המדווח/ת</h4>
-                        <Field
-                            name="nameTB"
-                            type="text"
-                            component={renderInputLabel}
-                            label="שם"
-                        />
-                        <Field
-                            name="phoneTB"
-                            type="text"
-                            component={renderInputLabel}
-                            pattern="\d*"
-                            label="טלפון"
-                            title="מספר טלפון מכיל רק ספרות" />
+            </div>
+            <div id="homelessIdDiv" className="mt-3 container d-flex flex-column bd-highlight">
+                <h4 className="mb-3 text-end">זיהוי</h4>
+                <div className="d-flex flex-row-reverse form-group">
+                    <input {...register("genderText")} type="radio" value="male" className="btn-check" id="male" autoComplete="off" />
+                    <label className="btn btn-outline-danger" htmlFor="male">גבר</label>
 
-                        <Field
-                            id="NotifyCB"
-                            name="NotifyCB"
-                            type="checkbox"
-                            component={renderCheckBox}
-                            label="הודיעו לי כאשר הפניה שלי נענית"
-                        />
-                    </div>
-                    <div id="buttonDiv" className="mt-3 container d-flex justify-content-center bd-highlight">
-                        <button  className="w-25 btn btn-primary text-center " 
-                        type="submit">אשר ושלח
-                        </button>
-                    </div>
-                </form>
-            </div >
-        );
-    }
+                    <input {...register("genderText")} type="radio" value="female" className="btn-check" id="female" autoComplete="off" />
+                    <label className="btn btn-outline-success" htmlFor="female">אישה</label>
+                </div>
+                <div className="my-3 form-row ">
+                    <img className="float-end " src="./tshirt.png" alt="tshirtColor" style={{ height: "50px", width: "50px" }} />
+                    <input type='color' {...register("tshirtColor")} className="mx-5 float-end" />
+                </div>
+                <div className="my-3 form-row ">
+                    <img className="float-end " src="./trousers.png" alt="trousersColor" style={{ height: "50px", width: "50px" }} />
+                    <input type='color' {...register("tshirtColor")} className="mx-5 float-end" />
+                </div>
+            </div>
+            <div id="reporterIdDiv" className="mt-3 container d-flex flex-column bd-highlight">
+                <h4 className="mb-3 text-end">פרטי המדווח/ת</h4>
+                <div className="form-group mx-2 mt-2" >
+                    <label htmlFor="nameTB"
+                        className="d-flex form-label flex-row-reverse">
+                        שם
+                    </label>
+                    <input
+                        className="w-25 float-end form-control"
+                        id="nameTB" {...register("reporterNameText")} dir="rtl" />
+                </div>
+                <div className="form-group mx-2 mt-2" >
+                    <label htmlFor="phoneTB"
+                        className="d-flex form-label flex-row-reverse">
+                        טלפון
+                    </label>
+                    <input
+                        className=" w-25 float-end form-control"
+                        id="phoneTB" {...register("reporterNameText")} dir="rtl" />
+                </div>
+                <div className="d-flex flex-row-reverse bd-highlight">
+                    <input type="checkbox" {...register("isNotify")} />
+                    <label className="form-check-label mx-2">הודיעו לי כאשר הפניה שלי נענית</label>
+                </div>
+
+
+            </div>
+            <div id="buttonDiv" className="mt-3 container d-flex justify-content-center bd-highlight">
+                <button className=" btn btn-primary text-center "
+                    type="submit">אשר ושלח
+                </button>
+            </div>
+        </form>
+    </div>
+
+
+    );
 }
-
-const validate = formValues => {
-
-    const errors = {};
-    errors.phoneTB = phone(formValues.phoneTB);
-    errors.dateTB = latestDate(formValues.dateTB) + required(formValues.dateTB);
-
-    errors.timeTB = required(formValues.timeTB)
-    //to validate that map has value
-    return errors;
-};
-const formWrapped = reduxForm({
-    form: 'reportCreate',
-    validate
-})(ReportCreate);
-
-export default connect(
-    null,
-    {
-        createReport
-    }
-)(formWrapped);
