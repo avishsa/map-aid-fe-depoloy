@@ -28,7 +28,7 @@ it("test form click isDistressed", () => {
       });
     
     const distressedCB = container.querySelector('#destressCB');
-    console.log("########################33",container.innerHTML);
+    
     expect(distressedCB.checked).toBe(false);
     act(() => {
         distressedCB.dispatchEvent(new MouseEvent('click', {bubbles: true}));

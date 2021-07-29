@@ -1,14 +1,14 @@
 
 
-import reports from './../apis/reports';
+import {mockApi} from '../mock_apis/reports';
 import { CREATE_REPORT } from './types';
 
 export const createReport = formValues =>  async dispatch => {
         const createReportURL = "";        
-        // const promise = await reports.post(createReportURL, formValues);
+        const promise = await mockApi(createReportURL,formValues);//await reports.post(createReportURL, formValues);
         dispatch({
             type: CREATE_REPORT,
-            payload: {id:1,name:"Avishag"}//promise.data
+            payload: promise.data// server response   promise.data
         })
     };
 

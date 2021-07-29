@@ -6,29 +6,41 @@ import { Field, reduxForm } from 'redux-form';
 import { getYYYYMMDD, getHHMM } from '../../Utilities/TimeFormatter';
 import { required, phone, latestDate } from '../../Utilities/formValidation';
 import { createReport } from '../../actions';
-import { renderCheckBox,renderDistressGroupField, renderInputLabel, renderGenderGroupField, renderColor, renderMap } from './ReportCreate/formFields';
+import { renderCheckBox, renderDistressGroupField, renderInputLabel, renderGenderGroupField, renderColor, renderMap } from './ReportCreate/formFields';
+const colors = { black: '#000000', white: "#ffffff" };
+
 class ReportCreate extends Component {
-    componentWillMount() {
+    componentDidMount () {
         var date = new Date();
         var dateFormat = getYYYYMMDD(date);
         var timeFormat = getHHMM(date);
-        this.props.initialize({ timeTB: timeFormat, dateTB: dateFormat });
+        const location = {lat:32.3523,lon:32.3432};
+        this.props.initialize({
+            timeTB: timeFormat,
+            dateTB: dateFormat,
+            location: location,
+            shirtColor: colors.black,
+            trousersColor: colors.white
+        });
+
     }
 
     onSubmit = formValues => {
 
         console.log("submitted", formValues);
         this.props.createReport(formValues);
+        
     }
 
 
 
 
     render() {
+        const stringAddress ="מאזה 49, תל אביב";
         return (
             <div className="container d-flex flex-column">
                 <h2 className="text-end"> מילוי טופס דיווח</h2>
-                <form className="form-inline" onSubmit={this.props.handleSubmit(this.onSubmit)}>
+                <form id="createReportForm" className="form-inline" onSubmit={this.props.handleSubmit(this.onSubmit)}>
                     <Field
                         name="isDistressed"
                         type="checkbox"
@@ -37,15 +49,15 @@ class ReportCreate extends Component {
                         label="זיהיתי מצוקה"
                         placeholder="תיאור המצוקה"
                     />
-                    
+
                     <div id="" className="container d-flex flex-column bd-highlight">
                         <div className="form-row">
                             <Field
-
+                                id="mapTB"
                                 name="mapTB"
                                 type="map"
                                 component={renderMap}
-                                label="מיקום"
+                                label= {stringAddress}
                             />
                         </div>
                         <div className="d-flex flex-row-reverse">
@@ -66,6 +78,7 @@ class ReportCreate extends Component {
 
                     <div id="homelessIdDiv" className="mt-3 container d-flex flex-column bd-highlight">
                         <h4 className="mb-3 text-end">זיהוי</h4>
+                        
                         <Field
                             className="row"
                             name="gender"
@@ -78,6 +91,7 @@ class ReportCreate extends Component {
                             component={renderColor}
                             id="shirtColor"
                             imgSrc="./tshirt.png"
+                            type="color"
                             label="tshirt"
                         />
                         <Field
@@ -85,12 +99,14 @@ class ReportCreate extends Component {
                             component={renderColor}
                             id="shirtColor"
                             imgSrc="./trousers.png"
+                            type="color"
                             label="trousers"
                         />
                         <Field
                             name="descriptionTB"
+                            id="descriptionTB"
                             type="text"
-                            widthInput="w-50"
+                            className="w-50"
                             component={renderInputLabel}
                             label="תיאור כללי"
                         />
@@ -119,8 +135,10 @@ class ReportCreate extends Component {
                             label="הודיעו לי כאשר הפניה שלי נענית"
                         />
                     </div>
-                    <div id="button" className="mt-3 container d-flex justify-content-center bd-highlight">
-                    <button type="button" className="w-25 btn btn-primary text-center " type="submit">אשר ושלח</button>
+                    <div id="buttonDiv" className="mt-3 container d-flex justify-content-center bd-highlight">
+                        <button  className="w-25 btn btn-primary text-center " 
+                        type="submit">אשר ושלח
+                        </button>
                     </div>
                 </form>
             </div >
