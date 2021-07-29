@@ -21,7 +21,7 @@ export const renderColor = ({ input, imgSrc, type, icon, label, id, meta: { touc
 }
 
 const onCBCLick = id => {
-    const elmnt = document.querySelector(`#${id}TB`);
+    const elmnt = document.querySelector(`#${id}`);
     elmnt.type === "hidden" ? elmnt.type = "text" : elmnt.type = "hidden";
 }
 export const renderDistressGroupField = ({ input, type, label, id, meta: { touched, error } }) => {
@@ -30,22 +30,22 @@ export const renderDistressGroupField = ({ input, type, label, id, meta: { touch
             <div className="container">
                 <div className="d-flex flex-row-reverse bd-highlight">
                     <input
-                        id={id + "CB"}
-                        className="form-check-input"
-                        {...input}
-                        type={type}
+                        id="DistressedCB"
+                        className="form-check-input"                        
+                        type="checkbox"
                         onClick={() => onCBCLick(id)}
                     />
                     <label
                         className="form-check-label mx-2"
-                        htmlFor={id + "CB"}>
+                        htmlFor="DistressedCB">
                         {label}
                     </label>
                 </div>
                 <div className="d-flex float-end bd-highlight w-25 mt-1">
                     <input
                         className="form-control"
-                        id={id + "TB"}
+                        {...input}
+                        id={id}
                         type="hidden"
                     />
                 </div>

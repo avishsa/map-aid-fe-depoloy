@@ -42,8 +42,8 @@ class ReportCreate extends Component {
                 <h2 className="text-end"> מילוי טופס דיווח</h2>
                 <form id="createReportForm" className="form-inline" onSubmit={this.props.handleSubmit(this.onSubmit)}>
                     <Field
-                        name="isDistressed"
-                        type="checkbox"
+                        name="distressedDescription"
+                        type="text"
                         component={renderDistressGroupField}
                         id="destress"
                         label="זיהיתי מצוקה"
