@@ -1,10 +1,11 @@
 import React from "react";
-import { useForm, FormProvider, useFormContext } from "react-hook-form";
+import { useForm, Controller, FormProvider, useFormContext } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { reportFormSchema, formFields } from './ReportCreate/reportScheme';
 import { getDateTime } from "../../Utilities/TimeFormatter";
-import ColorSlider from "./ReportCreate/ColorSlider";
+import {post} from "../../mock_apis/reports";
+import ColorSliderWrapper from "./ReportCreate/ColorSlider";
 
 function DistressedGroup() {
     const { register, watch } = useFormContext(); // retrieve all hook methods
@@ -18,14 +19,14 @@ function DistressedGroup() {
     </div>);
 }
 function MapGroup(location) {
-    const loc = location.location;    
+    const loc = location.location;
     return (<div className="form-row" id="locationField">
         <div className="w-50 d-flex flex-column float-end">
             <label className="form-label d-flex flex-row-reverse" htmlFor={formFields.locationText}> מיקום
             </label>
             <div className="d-flex flex-row-reverse">
                 <input value={loc} className="form-control text-end" disabled />
-                
+
                 <label className="w-25 form-control btn btn-outline-secondary mx-2" onClick={() => { console.log("redirect to map") }}>שינוי</label>
             </div>
         </div>)
@@ -33,10 +34,10 @@ function MapGroup(location) {
 }
 function RequiredFields(location) {
     const loc = location.location;
-    console.log("RequiredFields",loc);
+    console.log("RequiredFields", loc);
     const { register, formState: { errors } } = useFormContext(); // retrieve all hook methods
     return (<div id="" className="container d-flex flex-column bd-highlight">
-        <MapGroup location={loc}/>
+        <MapGroup location={loc} />
         <div className="d-flex flex-row-reverse">
             <div className="form-group mx-2 mt-2" >
                 <label htmlFor="reportDate"
@@ -52,7 +53,7 @@ function RequiredFields(location) {
     );
 }
 function HomelessDetails() {
-    const { register, watch } = useFormContext(); // retrieve all hook methods
+    const { register, watch,control } = useFormContext(); // retrieve all hook methods
     return (<div id="homelessIdDiv" className="mt-3 container d-flex flex-column bd-highlight">
         <h4 className="mb-3 text-end">זיהוי</h4>
         <div className="d-flex flex-row-reverse form-group">
@@ -67,6 +68,7 @@ function HomelessDetails() {
         </div>
         <div className="my-3 form-row ">
             <img className="float-end " src="./trousers.png" alt="trousersColor" style={{ height: "50px", width: "50px" }} />
+            
             <input type='color' {...register("trousersColor")} className="mx-5 float-end" />
         </div>
         <InputLabel type="text" label="תיאור כללי" id="descriptionText" className="" />
@@ -125,14 +127,15 @@ function InputLabel({ type, label, id }) {
 }
 export default function App() {
     const today = new Date();
-    const location = {location_text:"בורלא 29, תל אביב", location_json:{lon:32.1616, lat:32.1514}};
-    const defaultValues = {notify_me:false,person_gender:"male", report_date:getDateTime(today)}
-    const methods = useForm({defaultValues,resolver: yupResolver(reportFormSchema) });
+    const location = { location_text: "בורלא 29, תל אביב", location_json: { lon: 32.1616, lat: 32.1514 } };
+    const defaultValues = { notify_me: false, person_gender: "male", report_date: getDateTime(today) }
+    const methods = useForm({ defaultValues, resolver: yupResolver(reportFormSchema) });
     const onSubmit = data => {
-        
-        console.log({...data,...location});
+
+        console.log({ ...data, ...location });
+        post({ ...data, ...location });        
     }
-    const { watch, formState: {errors} } = methods;
+    const { watch, formState: { errors } } = methods;
 
 
     console.dir(watch());
@@ -143,13 +146,13 @@ export default function App() {
         <FormProvider {...methods}>
             <form className="form-inline" onSubmit={methods.handleSubmit(onSubmit)}>
                 <DistressedGroup />
-                <RequiredFields location={location.text}/>
+                <RequiredFields location={location.text} />
                 <HomelessDetails />
                 <ReporterDetails />
-                <div id="buttonDiv" className="mt-3 container d-flex justify-content-center bd-highlight">               
-                <input value="אשר ושלח" type="submit" className=" btn btn-primary text-center" />
+                <div id="buttonDiv" className="mt-3 container d-flex justify-content-center bd-highlight">
+                    <input value="אשר ושלח" type="submit" className=" btn btn-primary text-center" />
                 </div>
-                
+
             </form>
         </FormProvider>
     </div>
