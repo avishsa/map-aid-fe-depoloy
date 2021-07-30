@@ -12,3 +12,7 @@ export const getHHMM = date => {
     date.getMinutes() < 10 ? strDate += '0' + (date.getMinutes()) : strDate += date.getMinutes();
     return strDate;
 }
+//2018-06-12T19:30
+ export const getDateTime = date =>{
+    return `${getYYYYMMDD(date)}T${getHHMM(date)}`;
+ }
