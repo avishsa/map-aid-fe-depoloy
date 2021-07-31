@@ -1,11 +1,11 @@
 import React from "react";
-import { useForm, Controller, FormProvider, useFormContext } from "react-hook-form";
+import { useForm, FormProvider, useFormContext } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { reportFormSchema, formFields } from './ReportCreate/reportScheme';
 import { getDateTime } from "../../Utilities/TimeFormatter";
-import {post} from "../../mock_apis/reports";
-import ColorSliderWrapper from "./ReportCreate/ColorSlider";
+import { post } from "../../mock_apis/reports";
+
 
 function DistressedGroup() {
     const { register, watch } = useFormContext(); // retrieve all hook methods
@@ -18,26 +18,23 @@ function DistressedGroup() {
         />)}
     </div>);
 }
-function MapGroup(location) {
-    const loc = location.location;
+function MapGroup({ location }) {
     return (<div className="form-row" id="locationField">
         <div className="w-50 d-flex flex-column float-end">
             <label className="form-label d-flex flex-row-reverse" htmlFor={formFields.locationText}> מיקום
             </label>
             <div className="d-flex flex-row-reverse">
-                <input value={loc} className="form-control text-end" disabled />
-
+                <input value={location} className="form-control text-end" disabled />
                 <label className="w-25 form-control btn btn-outline-secondary mx-2" onClick={() => { console.log("redirect to map") }}>שינוי</label>
             </div>
         </div>)
     </div>);
 }
-function RequiredFields(location) {
-    const loc = location.location;
-    console.log("RequiredFields", loc);
+function RequiredFields({ location }) {
+
     const { register, formState: { errors } } = useFormContext(); // retrieve all hook methods
     return (<div id="" className="container d-flex flex-column bd-highlight">
-        <MapGroup location={loc} />
+        <MapGroup location={location} />
         <div className="d-flex flex-row-reverse">
             <div className="form-group mx-2 mt-2" >
                 <label htmlFor="reportDate"
@@ -53,61 +50,75 @@ function RequiredFields(location) {
     );
 }
 function HomelessDetails() {
-    const { register, watch,control } = useFormContext(); // retrieve all hook methods
     return (<div id="homelessIdDiv" className="mt-3 container d-flex flex-column bd-highlight">
         <h4 className="mb-3 text-end">זיהוי</h4>
-        <div className="d-flex flex-row-reverse form-group">
-            <input {...register(formFields.genderText)} type="radio" value="male" className="btn-check" id="male" autoComplete="off" />
-            <label className="btn btn-outline-danger" htmlFor="male">גבר</label>
-            <input {...register(formFields.genderText)} type="radio" value="female" className="btn-check" id="female" autoComplete="off" />
-            <label className="btn btn-outline-success" htmlFor="female">אישה</label>
-        </div>
-        <div className="my-3 form-row ">
-            <img className="float-end " src="./tshirt.png" alt="tshirtColor" style={{ height: "50px", width: "50px" }} />
-            <input type='color' {...register("tshirtColor")} className="mx-5 float-end" />
-        </div>
-        <div className="my-3 form-row ">
-            <img className="float-end " src="./trousers.png" alt="trousersColor" style={{ height: "50px", width: "50px" }} />
-            
-            <input type='color' {...register("trousersColor")} className="mx-5 float-end" />
-        </div>
+        <RadioInput
+            name={formFields.genderText}
+            listOptions={[
+                {
+                    value: "male",
+                    label: "גבר",
+                    color: "btn-outline-danger"
+                },
+                {
+                    value: "female",
+                    label: "אישה",
+                    color: "btn-outline-success"
+                }
+            ]} />
+        <InputColorImage imgSrc="./tshirt.png" name={formFields.tshirtColor} />
+        <InputColorImage imgSrc="./trousers.png" name={formFields.trousersColor} />
         <InputLabel type="text" label="תיאור כללי" id="descriptionText" className="" />
     </div>);
 }
-
+function RadioInput({ name, listOptions }) {
+    const { register } = useFormContext();
+    return (
+        <div className="d-flex flex-row-reverse form-group">
+            {
+                listOptions.map(({ value, label, color }) => (<div>
+                    <input {...register(name)} type="radio" value={value} className="btn-check" id={value} autoComplete="off" />
+                    <label className={`btn ${color}`} htmlFor={value}>{label}</label>
+                </div>))
+            }
+        </div>
+    );
+}
+function InputColorImage({ imgSrc, name }) {
+    const { register } = useFormContext(); // retrieve all hook methods
+    return (<div className="my-3 form-row ">
+        {imgSrc && <img className="float-end m-2 " src={imgSrc} alt="tshirtColor" style={{ height: "50px", width: "50px" }} />}
+        <input type='color' {...register(name)} list="colors" className=" d-flex flex-row mt-1 mx-5 form-control float-end" style={{ height: "50px", width: "70px" }} />
+        <datalist id="colors" className="float-end">
+            <option >#000000</option>
+            <option >#ff0000</option>
+            <option>#0000ff</option>
+            <option>#00ff00</option>
+            <option>#ffff00</option>
+            <option>#654321</option>
+            <option>#808080</option>
+            <option>#ffffff</option>
+        </datalist>
+    </div>
+    );
+}
 function ReporterDetails() {
-    const { register, watch } = useFormContext(); // retrieve all hook methods
     return (<div id="reporterIdDiv" className="mt-3 container d-flex flex-column bd-highlight">
         <h4 className="mb-3 text-end">פרטי המדווח/ת</h4>
-        <div className="form-group mx-2 mt-2" >
-            <label htmlFor="nameTB"
-                className="d-flex form-label flex-row-reverse">
-                שם
-            </label>
-            <input
-                className="w-25 float-end form-control"
-                id="nameTB" {...register("reporterNameText")} dir="rtl" />
-        </div>
-        <div className="form-group mx-2 mt-2" >
-            <label htmlFor="phoneTB"
-                className="d-flex form-label flex-row-reverse">
-                טלפון
-            </label>
-            <input
-                className=" w-25 float-end form-control"
-                id="phoneTB" {...register("reporterNameText")} dir="rtl" />
-        </div>
-        <div className="d-flex flex-row-reverse bd-highlight">
-            <input type="checkbox" {...register(formFields.isNotify)} />
-            <label className="form-check-label mx-2">הודיעו לי כאשר הפניה שלי נענית</label>
-        </div>
-
-
+        <InputLabel type="text" label="שם" id={formFields.reporterNameText} />
+        <InputLabel type="text" label="טלפון" id={formFields.reporterPhoneText} />
+        <Checkbox type="checkbox" label="הודיעו לי כאשר הפניה שלי נענית" id={formFields.isNotify} />
     </div>);
 }
 
 
-
+function Checkbox({ label, id }) {
+    const { register } = useFormContext(); // retrieve all hook methods
+    return (<div className="mt-3 d-flex flex-row-reverse bd-highlight">
+        <input type="checkbox" {...register(id)} />
+        <label className="form-check-label mx-2">{label}</label>
+    </div>);
+}
 function InputLabel({ type, label, id }) {
     const { register } = useFormContext(); // retrieve all hook methods
     return (<div className="form-group mx-2 mt-2" >
@@ -118,7 +129,7 @@ function InputLabel({ type, label, id }) {
         </label>
         <input
             {...register(id)}
-            className="text-end float-end form-control"
+            className="float-end w-25 form-control"
             type={type}
             dir="rtl" />
 
@@ -133,7 +144,7 @@ export default function App() {
     const onSubmit = data => {
 
         console.log({ ...data, ...location });
-        post({ ...data, ...location });        
+        post({ ...data, ...location });
     }
     const { watch, formState: { errors } } = methods;
 

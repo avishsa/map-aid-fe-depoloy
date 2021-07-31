@@ -1,15 +1,7 @@
 
 import * as yup from "yup";
-import { parse, isDate } from "date-fns";
 const today = new Date();
-function parseDateString(value, originalValue) {
-    console.log("parseDateString",originalValue);
-  const parsedDate = isDate(originalValue)
-    ? originalValue
-    : parse(originalValue, "yyyy-MM-dd", new Date());
-    console.log("parseDateString",parsedDate);
-  return parsedDate;
-}
+
 export const formFields ={
     isDistressed: "distressed",
     distressedText: "distressed_info",
@@ -18,7 +10,7 @@ export const formFields ={
     trousersColor : "person_pants_color",
     descriptionText: "person_general_description",
     reporterNameText: "reporter_full_name",
-    reporterNameText: "reporter_phone_number",
+    reporterPhoneText: "reporter_phone_number",
     isNotify: "notify_me" ,
     reportDate: "report_date",
 }
