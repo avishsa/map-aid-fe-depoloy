@@ -1,0 +1,46 @@
+* {
+    font-size: 14pt;
+    /* position: absolute;
+    left: 377pt;
+    top: 184pt;    
+    border-radius: 4pt;*/
+}
+h2 {
+    font-size: 32pt;
+    font-weight: bold;
+    /* position: absolute;
+    left: 100pt;
+    top: 150pt; */
+}
+input{
+    height:32pt;
+    font-size: 16 pt;
+    border-radius: 4pt;
+}
+h4 {
+    color: rgb( 66 ,91 ,206);
+    font-weight: 600;
+}
+
+
+.short-text-input{
+    width: 133 pt;
+}
+.long-text-input{
+
+    width: 266pt;
+}
+.long-text-input{
+    width: 100%;
+}
+#submitBtn {
+    color: white;
+    background-color: rgb(48 ,67 ,239);
+}
+#person_general_description{
+    opacity: 83%;
+    
+}
+#locationTextInput{
+    width: 266pt;
+}

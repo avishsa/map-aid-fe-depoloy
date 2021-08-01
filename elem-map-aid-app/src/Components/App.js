@@ -1,5 +1,6 @@
 
 import ReportCreate from './Reports/ReportCreate';
+import '../css/App.css';
 
 function App() {
   return (

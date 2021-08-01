@@ -1,4 +1,4 @@
-import React from 'react';
+  import React from 'react';
 import ReactDOM from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import { queryByTestId } from '@testing-library/dom';
@@ -14,8 +14,6 @@ afterEach(() => {
     document.body.removeChild(container);
     container = null;
 });
-
-
 
 it("renders without crashing", () => {
     act(() => {
