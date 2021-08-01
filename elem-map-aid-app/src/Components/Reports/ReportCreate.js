@@ -118,7 +118,7 @@ function InputColorImage({ imgSrc, name }) {
 function ReporterDetails() {
     return (<div id="reporterIdDiv" className="mt-3  d-flex flex-column  bd-highlight">
         <h4 className="mb-3 text-end">פרטי המדווח/ת</h4>
-        <div className="d-flex flex-row">
+        <div className="d-flex flex-row-reverse">
         <InputLabel 
         type="text" 
         label= {formFields.reporterNameText.label} 
