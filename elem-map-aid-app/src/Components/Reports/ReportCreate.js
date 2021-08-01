@@ -4,8 +4,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import { reportFormSchema, formFields } from './ReportCreate/reportScheme';
 import { getDateTime } from "../../Utilities/TimeFormatter";
-import { post } from "../../mock_apis/reports";
 
+import { createReport } from "../../mock_apis/reports";
+debugger;
+const location = { location_text: "בורלא 29, תל אביב", location_json: { lon: 32.1616, lat: 32.1514 } };
 
 function DistressedGroup() {
     const { register, watch } = useFormContext(); // retrieve all hook methods
@@ -21,7 +23,7 @@ function DistressedGroup() {
     </div>);
 }
 function MapGroup({ location }) {
-    console.log("vewvevwevgwevgew", location);
+    
     return (<div className="form-row" id="locationField">
         <div className="w-50 d-flex flex-column float-end">
             <label className="form-label d-flex flex-row-reverse" htmlFor={formFields.locationText}> מיקום
@@ -143,38 +145,25 @@ function InputLabel({ type, label, id }) {
     </div>
     );
 }
-export default function App() {
-    const today = new Date();
-    const location = { location_text: "בורלא 29, תל אביב", location_json: { lon: 32.1616, lat: 32.1514 } };
-    const defaultValues = { notify_me: false, person_gender: "male", report_date: getDateTime(today) }
+export default function ReportCreate(props) {
+    const defaultValues = { notify_me: false, person_gender: "male", report_date: getDateTime(new Date()) }
     const methods = useForm({ defaultValues, resolver: yupResolver(reportFormSchema) });
-    const onSubmit = data => {
-
-        console.log({ ...data, ...location });
-        post({ ...data, ...location });
-    }
-    const { watch, formState: { errors } } = methods;
-
-
-    console.dir(watch());
-    console.log(errors, defaultValues);
-
+    const onSubmit = data =>  createReport({ ...data, ...location });
     return (<div className="container d-flex flex-column">
         <h2 className="text-end"> מילוי טופס דיווח</h2>
         <FormProvider {...methods}>
-            <form className="form-inline needs-validation" onSubmit={methods.handleSubmit(onSubmit)}>
+            <form id="createReport" className="form-inline needs-validation" onSubmit={methods.handleSubmit(onSubmit)}>
                 <DistressedGroup />
                 <RequiredFields location={location.location_text} />
                 <HomelessDetails />
                 <ReporterDetails />
                 <div id="buttonDiv" className="mt-3 container d-flex justify-content-center bd-highlight">
                     <input value="אשר ושלח" type="submit" className=" btn btn-primary text-center" />
-                </div>
-
+                </div>                
             </form>
         </FormProvider>
     </div>
-
-
     );
 }
+
+
