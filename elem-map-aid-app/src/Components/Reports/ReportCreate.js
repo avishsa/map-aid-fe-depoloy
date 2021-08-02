@@ -60,14 +60,14 @@ function RequiredFields({ location }) {
                     type="datetime-local"
                     className="form-control "
                     {...register(formFields.reportDate.name)}
-                    
+
                 />
                 <div className="d-flex text-end flex-row-reverse float-end valid-feedback">
                     {errors && !errors[formFields.reportDate.name] && isSubmitted && 'נראה טוב'}
                 </div>
                 <div className="d-flex text-end flex-row-reverse float-end invalid-feedback">
-                    
-                    { errors[formFields.reportDate.name] && errors[formFields.reportDate.name].message}
+
+                    {errors[formFields.reportDate.name] && errors[formFields.reportDate.name].message}
 
                 </div>
 
@@ -90,21 +90,39 @@ function HomelessDetails() {
     </div>);
 }
 function RadioInput({ name, label, listOptions }) {
-    const { register } = useFormContext();
+    const { register,watch, formState: { errors,isDirty } } = useFormContext();
+    
     return (
-        <div className="">
+        <div className="d-flex mx-4 flex-column">
             <label htmlFor={name}
-                className="d-flex mx-4 form-label flex-row-reverse">{label}</label>
+                className="d-flex form-label flex-row-reverse">{label}</label>
 
-            <div className="d-flex mx-3 flex-row-reverse form-group">
+            <div className="d-flex flex-row-reverse form-group">
 
                 {
                     listOptions.map(({ value, label, className }, index) => (<div key={index}>
-                        <input {...register(name)} type="radio" value={value} className="btn-check" id={value} autoComplete="off" />
-                        <label className={`m-1 btn ${className}`} htmlFor={value}>{label}</label>
+                        <input
+                            {...register(name)}
+                            type="radio"
+                            className="btn-check"
+                            id={value}
+                            autoComplete="off"
+                        />
+                        <label
+                            className={`m-1 btn ${className}`}
+                            htmlFor={value}>
+                            {label}
+                        </label>
                     </div>))
                 }
+                
             </div>
+            <div className="d-flex flex-row-reverse text-end invalid-feedback">
+
+                    {errors[name] && errors[name].message }
+                    {!watch(name) && "בחר ערך"}
+
+                </div>
         </div>
     );
 }
@@ -179,14 +197,17 @@ function InputLabel({ type, label, id }) {
     );
 }
 export default function ReportCreate(props) {
-    const defaultValues = { notify_me: false, person_gender: "male", report_date: getDateTime(new Date()) }
-    const methods = useForm({ 
-        mode:'onBlur',
-        defaultValues, 
-        resolver: yupResolver(reportFormSchema) 
+    const defaultValues = {
+        notify_me: false,
+        report_date: getDateTime(new Date())
+    }
+    const methods = useForm({
+        mode: 'onBlur',
+        defaultValues,
+        resolver: yupResolver(reportFormSchema)
     });
-    const onSubmit = data => createReport({ ...data, ...location });
-    console.log(methods.formState.errors);
+    const onSubmit = data => { console.log(data); createReport({ ...data, ...location }) };
+    
     return (<div className="container w-75 d-flex flex-column">
         <h2 className="text-end"> מילוי טופס דיווח</h2>
         <FormProvider {...methods}>
