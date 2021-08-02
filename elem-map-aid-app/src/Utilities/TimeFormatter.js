@@ -18,3 +18,7 @@ export const getHHMM = date => {
  export const getDateTime = date =>{
     return `${getYYYYMMDD(date)}T${getHHMM(date)}`;
  }
+ //
+ export const getDateTimeText = date =>{
+    return `${getHHMM(date)} ${getYYYYMMDD(date)}`;
+ }

@@ -120,7 +120,7 @@ function RadioInput({ name, label, listOptions }) {
             <div className="d-flex flex-row-reverse text-end invalid-feedback">
 
                     {errors[name] && errors[name].message }
-                    {!watch(name) && "בחר ערך"}
+                    
 
                 </div>
         </div>
@@ -189,9 +189,7 @@ function InputLabel({ type, label, id }) {
         <div className="d-flex text-end flex-row-reverse float-end invalid-feedback">
             {errors[id] && errors[id].message}
         </div>
-        <div className="d-flex text-end flex-row-reverse float-end valid-feedback">
-            {!errors[id] && isSubmitted && 'נראה טוב'}
-        </div>
+        
 
     </div>
     );
