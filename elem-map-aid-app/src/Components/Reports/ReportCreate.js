@@ -12,7 +12,7 @@ const location = { location_text: "בורלא 29, תל אביב", location_json:
 
 function DistressedGroup() {
     const { register, watch } = useFormContext(); // retrieve all hook methods
-    return (<div className="mx-4">
+    return (<div className="d-flex flex-column bd-highlight">
         <div className="d-flex flex-row-reverse bd-highlight">
             <input
                 id="distressedCB"
@@ -24,53 +24,53 @@ function DistressedGroup() {
                 className="form-check-label mx-2">{formFields.isDistressed.label}</label>
         </div>
         {watch(formFields.isDistressed.name) && (<input
-            className="long-text-input form-control d-flex text-end flex-column float-end bd-highlight mt-1"
+            className="long-text-input form-control d-flex text-end flex-column float-end bd-highlight"
             {...register(formFields.descriptionText.name)}
             placeholder={formFields.descriptionText.label}
         />)}
     </div>);
 }
 function MapGroup({ location }) {
-    return (<div className="form-row m-2 " id="locationField">
-        <div className="w-50 d-flex flex-column float-end">
-            <label className="form-label d-flex flex-row-reverse" htmlFor={formFields.locationText}> מיקום
+    return (<div className="form-row" id="locationField">
+        <div id="locationTextContainer" className="d-flex flex-column">
+            <label className="form-label required d-flex flex-row-reverse" htmlFor={formFields.locationText}> מיקום
             </label>
-            <div className="d-flex flex-row-reverse">
+            <div id="" className="d-flex flex-row-reverse">
                 <input id="locationTextInput" value={location}
-                    className=" short-text-input form-control text-end" disabled />
-                <label id="locationChangeBtn" className="form-control btn btn-outline-secondary mx-2" onClick={() => { console.log("redirect to map") }}>שינוי</label>
+                    className="short-text-input form-control text-end" disabled />
+                <label id="locationChangeBtn" className="form-control btn" onClick={() => { console.log("redirect to map") }}>שינוי</label>
             </div>
         </div>
     </div>);
 }
 function RequiredFields({ location }) {
-
     const { register, formState: { errors, isSubmitted } } = useFormContext(); // retrieve all hook methods    
-    console.log("DATEPPP", errors);
-    return (<div id="" className="container d-flex flex-column bd-highlight">
+    return (<div id="" className="d-flex flex-column bd-highlight">
+        
+        <div id="" className="d-flex flex-row bd-highlight">
+            <div className="d-flex w-100 flex-row-reverse">
+                <div className="form-group w-100 required" >
+                    <label
+                        htmlFor={formFields.reportDateTime.name}
+                        className="d-flex required form-label flex-row-reverse">
+                        {formFields.reportDateTime.label}
+                    </label>
+                    <input
+                        type="datetime-local"
+                        className="form-control "
+                        {...register(formFields.reportDateTime.name)}
 
-        <div className="d-flex flex-row-reverse">
-            <div className="form-group required mx-2 mt-2" >
-                <label
-                    htmlFor={formFields.reportDate.name}
-                    className="d-flex form-label flex-row-reverse">
-                    {formFields.reportDate.label}
-                </label>
-                <input
-                    type="datetime-local"
-                    className="form-control "
-                    {...register(formFields.reportDate.name)}
+                    />
+                    <div className="d-flex text-end required flex-row-reverse float-end valid-feedback">
+                        {errors && !errors[formFields.reportDateTime.name] && isSubmitted && 'נראה טוב'}
+                    </div>
+                    <div className="d-flex text-end flex-row-reverse float-end invalid-feedback">
 
-                />
-                <div className="d-flex text-end flex-row-reverse float-end valid-feedback">
-                    {errors && !errors[formFields.reportDate.name] && isSubmitted && 'נראה טוב'}
+                        {errors[formFields.reportDateTime.name] && errors[formFields.reportDateTime.name].message}
+
+                    </div>
+
                 </div>
-                <div className="d-flex text-end flex-row-reverse float-end invalid-feedback">
-
-                    {errors[formFields.reportDate.name] && errors[formFields.reportDate.name].message}
-
-                </div>
-
             </div>
         </div>
         <MapGroup location={location} />
@@ -78,9 +78,10 @@ function RequiredFields({ location }) {
     );
 }
 function HomelessDetails() {
-    return (<div id="homelessIdDiv" className="m-3 container d-flex flex-column bd-highlight">
-        <h4 className="mx-4 text-end">זיהוי</h4>
+    return (<div id="homelessIdDiv" className="d-flex flex-column bd-highlight">
+        <h4 className="text-end">זיהוי</h4>
         <RadioInput
+            className="required"
             name={formFields.genderText.name}
             label={formFields.genderText.label}
             listOptions={formFields.genderText.options} />
@@ -89,48 +90,50 @@ function HomelessDetails() {
         <InputLabel type="text" label={formFields.descriptionText.label} id={formFields.descriptionText.name} className="" />
     </div>);
 }
-function RadioInput({ name, label, listOptions }) {
-    const { register,watch, formState: { errors,isDirty } } = useFormContext();
-    
+function RadioInput({ name, label, className, listOptions }) {
+    const { register, watch, formState: { errors, isDirty } } = useFormContext();
+
     return (
-        <div className="d-flex mx-4 flex-column">
+        <div className="d-flex flex-column">
             <label htmlFor={name}
-                className="d-flex form-label flex-row-reverse">{label}</label>
+                className={`d-flex form-label flex-row-reverse ${className}`}   >{label}</label>
 
             <div className="d-flex flex-row-reverse form-group">
-
                 {
-                    listOptions.map(({ value, label, className }, index) => (<div key={index}>
-                        <input
-                            {...register(name)}
-                            type="radio"
-                            className="btn-check"
-                            id={value}
-                            autoComplete="off"
-                        />
-                        <label
-                            className={`m-1 btn ${className}`}
+                    listOptions.map(({ value, label }, index) => (<div className="mx-1" key={index}>
+                        <label                            
+                        className="form-check-label mx-1"                        
                             htmlFor={value}>
                             {label}
                         </label>
+                        <input
+                            {...register(name)}
+                            type="radio"    
+                            className="form-check-input"                        
+                            id={value}
+                            name={name}
+                            
+                            autocomplete="off"
+                        />
+                        
                     </div>))
                 }
-                
+
             </div>
             <div className="d-flex flex-row-reverse text-end invalid-feedback">
 
-                    {errors[name] && errors[name].message }
-                    
+                {errors[name] && errors[name].message}
 
-                </div>
+
+            </div>
         </div>
     );
 }
 function InputColorImage({ imgSrc, name }) {
     const { register } = useFormContext(); // retrieve all hook methods
-    return (<div className="mt-5 mx-3 d-flex flex-row-reverse">
-        {imgSrc && <img className="" src={imgSrc} alt="tshirtColor" style={{ height: "50px", width: "50px" }} />}
-        <div className=" mx-5">
+    return (<div className="d-flex flex-row-reverse my-2">
+        {imgSrc && <img className="" src={imgSrc} alt="tshirtColor" style={{ height: "37pt", width: "37pt" }} />}
+        <div className="">
             <input type='color' {...register(name)} list="colors" className=" form-control" style={{ height: "50px", width: "70px" }} />
             <datalist id="colors" className="float-end">
                 <option >#000000</option>
@@ -172,10 +175,10 @@ function Checkbox({ label, id }) {
         <label className="form-check-label mx-2">{label}</label>
     </div>);
 }
-function InputLabel({ type, label, id }) {
+function InputLabel({ type, label, id,className }) {
     const { register, formState: { errors, isSubmitted } } = useFormContext(); // retrieve all hook methods
 
-    return (<div className="form-group mx-2 mt-2 d-flex flex-column" >
+    return (<div className=" form-group  d-flex flex-column mx-1" >
         <label
             htmlFor={id}
             className="d-flex form-label flex-row-reverse">
@@ -183,13 +186,13 @@ function InputLabel({ type, label, id }) {
         </label>
         <input
             {...register(id)}
-            className="form-control"
+            className="form-control "
             type={type}
             dir="rtl" />
         <div className="d-flex text-end flex-row-reverse float-end invalid-feedback">
             {errors[id] && errors[id].message}
         </div>
-        
+
 
     </div>
     );
@@ -197,17 +200,22 @@ function InputLabel({ type, label, id }) {
 export default function ReportCreate(props) {
     const defaultValues = {
         notify_me: false,
-        report_date: getDateTime(new Date())
+        report_datetime: getDateTime(new Date())
     }
     const methods = useForm({
         mode: 'onBlur',
         defaultValues,
         resolver: yupResolver(reportFormSchema)
     });
-    const onSubmit = data => { console.log(data); createReport({ ...data, ...location }) };
-    
-    return (<div className="container w-75 d-flex flex-column">
-        <h2 className="text-end"> מילוי טופס דיווח</h2>
+    const onSubmit = data => {
+        console.log(data);
+        //createData
+        createReport({ ...data, ...location })
+    };
+
+
+    return (<div id="formContainer" className="container d-flex flex-column">
+        <h1 className="text-end"> מילוי טופס דיווח</h1>
         <FormProvider {...methods}>
             <form id="createReport" className="form-inline needs-validation" noValidate onSubmit={methods.handleSubmit(onSubmit)}>
                 <DistressedGroup />

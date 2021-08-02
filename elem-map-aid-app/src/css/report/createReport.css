@@ -1,12 +1,12 @@
 * {
-    font-size: 14pt;
+    /* font-size: 14pt; */
     /* position: absolute;
     left: 377pt;
     top: 184pt;    
     border-radius: 4pt;*/
 }
-h2 {
-    font-size: 32pt;
+h1 {
+    /* font-size: 32pt; */
     font-weight: bold;
     /* position: absolute;
     left: 100pt;
@@ -21,17 +21,24 @@ h4 {
     color: rgb( 66 ,91 ,206);
     font-weight: 600;
 }
-
-
+.form-control  {
+    border: none;
+}
+.required:before {
+    content:" *";
+    width: 3pt;
+    height: 3pt;
+    color: rgb(255, 146, 0);
+}
 .short-text-input{
-    width: 133 pt;
+    /* width: 133 pt; */
 }
 .long-text-input{
 
-    width: 266pt;
+    /* width: 266pt; */
 }
-.long-text-input{
-    width: 100%;
+#formContainer{
+    width: 265pt;
 }
 #submitBtn {
     color: white;
@@ -41,6 +48,17 @@ h4 {
     opacity: 83%;
     
 }
+#locationTextContainer{
+    background-color: white;
+    
+}
 #locationTextInput{
     width: 266pt;
+    background-color: white;
+    vertical-align: middle;
+}
+#locationChangeBtn{
+    color: rgb(66, 91, 206);
+    background-color: white;
+    font-size: 14pt;
 }
