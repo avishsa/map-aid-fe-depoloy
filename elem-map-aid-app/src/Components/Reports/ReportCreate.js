@@ -2,7 +2,7 @@ import React from "react";
 import { useForm, FormProvider, useFormContext } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { reportFormSchema, formFields } from '../../scheme/reportScheme';
+import { reportFormSchema, formFields, colorsOptions } from '../../scheme/reportScheme';
 import { getDateTime } from "../../Utilities/TimeFormatter";
 import { createReport } from "../../mock_apis/reports";
 
@@ -99,20 +99,24 @@ function RadioInput({ name, label, className, listOptions }) {
 }
 function InputColorImage({ imgSrc, name }) {
     const { register } = useFormContext(); // retrieve all hook methods
-    return (<div className="d-flex flex-row-reverse my-2">
+    console.log(colorsOptions,colorsOptions.map(({value,className},index)=>{ return (<div style={{'backgroundColor':value}} >
+            fasf
+            </div>)
+    }));
+    return (<div className="d-flex flex-row-reverse">
         {imgSrc && <img className="" src={imgSrc} alt="tshirtColor" style={{ height: "37pt", width: "37pt" }} />}
         <div className="">
-            <input type='color' {...register(name)} list="colors" className=" form-control" style={{ height: "50px", width: "70px" }} />
-            <datalist id="colors" className="float-end">
-                <option >#000000</option>
-                <option >#ff0000</option>
-                <option>#0000ff</option>
-                <option>#00ff00</option>
-                <option>#ffff00</option>
-                <option>#654321</option>
-                <option>#808080</option>
-                <option>#ffffff</option>
-            </datalist>
+            <input type='range' {...register(name)} min="1" max={colorsOptions.length} className="form-range"
+              />
+              <div className="d-flex flex-row">
+            {
+                colorsOptions.map(({value,className},index)=>
+                    <div style={{height: "37pt", width: "37pt" ,backgroundColor:value}} className='d-flex flex-row' >
+                        
+                        </div>
+                )
+            }
+            </div>
         </div>
     </div>
     );
