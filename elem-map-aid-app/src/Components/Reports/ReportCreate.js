@@ -98,14 +98,14 @@ function RadioInput({ name, label, className, listOptions }) {
     );
 }
 function InputColorImage({ imgSrc, name }) {
-    const { register } = useFormContext(); // retrieve all hook methods
-    console.log(colorsOptions,colorsOptions.map(({value,className},index)=>{ return (<div style={{'backgroundColor':value}} >
-            fasf
-            </div>)
-    }));
-    return (<div className="d-flex flex-row-reverse">
-        {imgSrc && <img className="" src={imgSrc} alt="tshirtColor" style={{ height: "37pt", width: "37pt" }} />}
+    const { register,watch } = useFormContext(); // retrieve all hook methods
+    const colorImg =Number(watch(name))!==-1 ? colorsOptions[Number(watch(name))-1].value: "black";
+    console.log("CCCOOOOOOOOOOOO",name,watch(name),colorsOptions,colorImg);
+    return (<div className="d-flex flex-row-reverse " style={{marginBottom:"20pt"}}>
+        {/* {imgSrc && <img className="" src={imgSrc} alt="tshirtColor" style={{marginLeft:"10pt", height: "37pt", width: "37pt" }} />} */}
+        {imgSrc && <i className="fas fa-tshirt" style={{color:colorImg}} ></i>}
         <div className="">
+            {watch(name)=="-1" && <div className="d-flex flex-row-reverse text-end">טרם נבחר צבע</div>}
             <input type='range' {...register(name)} min="1" max={colorsOptions.length} className="form-range"
               />
               <div className="d-flex flex-row">
@@ -172,7 +172,10 @@ function InputLabel({ type, label, id, classNameLabel }) {
 export default function ReportCreate(props) {
     const defaultValues = {
         notify_me: false,
-        report_datetime: getDateTime(new Date())
+        report_datetime: getDateTime(new Date()),
+        "person_shirt_color": "-1",
+        "person_pants_color": "-1",
+
     }
     const methods = useForm({
         mode: 'onBlur',
@@ -181,8 +184,12 @@ export default function ReportCreate(props) {
     });
     const onSubmit = data => {
         console.log(data);
-        //createData
+        data[formFields.tshirtColor.name] = data[formFields.tshirtColor.name]!=="-1" ? 
+        colorsOptions[Number(data[formFields.tshirtColor])] : "";
+        data[formFields.trousersColor.name] = data[formFields.trousersColor.name]!=="-1" ? 
+        colorsOptions[Number(data[formFields.trousersColor.name])] : "";
         createReport({ ...data, ...location })
+        console.log(data);
     };
 
 
