@@ -1,21 +1,39 @@
 * {
-    /* font-size: 14pt; */
-    /* position: absolute;
-    left: 377pt;
-    top: 184pt;    
-    border-radius: 4pt;*/
+    font-size: 14pt;
 }
 h1 {
     /* font-size: 32pt; */
     font-weight: bold;
+    margin-bottom: 23.5pt;
     /* position: absolute;
     left: 100pt;
     top: 150pt; */
 }
 input{
     height:32pt;
-    font-size: 16 pt;
+    font-size: 16pt;
     border-radius: 4pt;
+}
+::-webkit-calendar-picker-indicator {
+    background-image: url('./tshirt.png');
+    color:Cornsilk;
+    opacity:1;
+    font-size:1.5rem;
+    transition:all ease 400ms;
+    transform:scale(1);
+    margin-left:5px;
+  }
+.requiredFieldMsg{
+    margin-top: 25pt;    
+    margin-bottom: 30pt;
+    font-size: 12pt;
+}
+.form-check-input[type=radio]{
+    border-radius: 4pt;
+}
+.form-check-label{
+    margin-right: 9pt;
+    padding-top: 2pt;
 }
 h4 {
     color: rgb( 66 ,91 ,206);
@@ -24,36 +42,43 @@ h4 {
 .form-control  {
     border: none;
 }
-.required:before {
+.required-astrix:before {
     content:" *";
     width: 3pt;
     height: 3pt;
+    margin-left: 6pt;
     color: rgb(255, 146, 0);
 }
-.short-text-input{
-    /* width: 133 pt; */
-}
-.long-text-input{
 
-    /* width: 266pt; */
+ .inputLabel{
+    margin-top: 14pt;
+} 
+.containerForm{
+    margin-top: 29pt;
 }
 #formContainer{
     width: 265pt;
 }
+#distressText{
+    margin-top: 10pt;
+}
 #submitBtn {
     color: white;
     background-color: rgb(48 ,67 ,239);
+    width: 184pt;
+    height: 53pt;
+    border-radius: 32pt;
 }
 #person_general_description{
     opacity: 83%;
     
 }
 #locationTextContainer{
-    background-color: white;
+    margin-top: 15.5pt;
     
 }
 #locationTextInput{
-    width: 266pt;
+    
     background-color: white;
     vertical-align: middle;
 }
@@ -61,4 +86,8 @@ h4 {
     color: rgb(66, 91, 206);
     background-color: white;
     font-size: 14pt;
+    width: 59pt;
+}
+#notify_meContainer{
+    margin-top: 25pt;
 }
