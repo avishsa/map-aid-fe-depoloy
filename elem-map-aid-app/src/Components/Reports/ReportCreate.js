@@ -81,7 +81,7 @@ function RadioInput({ name, label, className, listOptions }) {
                             id={value}
                             name={name}
 
-                            autocomplete="off"
+                            autoComplete="off"
                         />
 
                     </div>))
@@ -99,8 +99,7 @@ function RadioInput({ name, label, className, listOptions }) {
 }
 function InputColorImage({ imgSrc, name }) {
     const { register,watch } = useFormContext(); // retrieve all hook methods
-    const colorImg =Number(watch(name))!==-1 ? colorsOptions[Number(watch(name))-1].value: "black";
-    console.log("CCCOOOOOOOOOOOO",name,watch(name),colorsOptions,colorImg);
+    const colorImg =Number(watch(name))!==-1 ? colorsOptions[Number(watch(name))-1].value: "black";    
     return (<div className="d-flex flex-row-reverse " style={{marginBottom:"20pt"}}>
         {/* {imgSrc && <img className="" src={imgSrc} alt="tshirtColor" style={{marginLeft:"10pt", height: "37pt", width: "37pt" }} />} */}
         {imgSrc && <i className="fas fa-tshirt" style={{color:colorImg}} ></i>}
@@ -111,7 +110,7 @@ function InputColorImage({ imgSrc, name }) {
               <div className="d-flex flex-row">
             {
                 colorsOptions.map(({value,className},index)=>
-                    <div style={{height: "37pt", width: "37pt" ,backgroundColor:value}} className='d-flex flex-row' >
+                    <div key={`${index}_${name}`}style={{height: "37pt", width: "37pt" ,backgroundColor:value}} className='d-flex flex-row' >
                         
                         </div>
                 )
