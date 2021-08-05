@@ -7,6 +7,7 @@ import { getDateTime } from "../../Utilities/TimeFormatter";
 import { createReport } from "../../mock_apis/reports";
 
 import '../../css/report/createReport.css';
+//bjbjb
 
 const location = { location_text: "בורלא 29, תל אביב", location_json: { lon: 32.1616, lat: 32.1514 } };
 
