@@ -7,6 +7,7 @@ import { getDateTime } from "../../Utilities/TimeFormatter";
 import { createReport } from "../../mock_apis/reports";
 
 import '../../css/report/createReport.css';
+//bjbjb
 
 const location = { location_text: "בורלא 29, תל אביב", location_json: { lon: 32.1616, lat: 32.1514 } };
 
@@ -192,7 +193,7 @@ export default function ReportCreate(props) {
     };
 
 
-    return (<div id="formContainer" className="container d-flex flex-column">
+    return (<div id="formContainer" className="container d-flex flex-column justify-content-center">
         <h1 className="text-end"> מילוי טופס דיווח</h1>
         <FormProvider {...methods}>
             <form id="createReport" className="form-inline needs-validation" noValidate onSubmit={methods.handleSubmit(onSubmit)}>
