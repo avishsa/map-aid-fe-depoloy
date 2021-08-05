@@ -40,7 +40,7 @@ function MapGroup({ location }) {
             <div id="" className=" d-flex  flex-row-reverse justify-content-between">
                 <input id="locationTextInput" value={location}
                     className="form-control text-end" disabled />
-                <label id="locationChangeBtn" className=" btn-sm form-control btn mx-1" onClick={() => { console.log("redirect to map") }}>שינוי</label>
+                <button id="locationChangeBtn" className=" btn-sm form-control btn mx-1" onClick={() => { console.log("redirect to map") }}>שינוי</button>
             </div>
         </div>
     );
@@ -171,7 +171,7 @@ function Checkbox({ label, id, className }) {
         <label className="form-check-label mx-2">{label}</label>
     </div>);
 }
-function InputLabel({ type, label, id, classNameLabel }) {
+function InputLabel({ type, label, id, classNameLabel,classNameInput }) {
     const { register, formState: { errors, isSubmitted } } = useFormContext(); // retrieve all hook methods
 
     return (<div className="d-flex flex-column mx-1" >
@@ -182,7 +182,7 @@ function InputLabel({ type, label, id, classNameLabel }) {
         </label>
         <input
             {...register(id)}
-            className="form-control "
+            className={`form-control ${classNameInput}`}
             type={type}
             dir="rtl" />
         <div className="d-flex text-end flex-row-reverse float-end invalid-feedback">
@@ -226,7 +226,8 @@ export default function ReportCreate(props) {
                     type="datetime-local"
                     label={formFields.reportDateTime.label}
                     id={formFields.reportDateTime.name}
-                    classNameLabel='required-astrix'
+                    classNameLabel='required-astrix '
+                    
                 />
                 <MapGroup location={location.location_text} />
                 <HomelessDetails />

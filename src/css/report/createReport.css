@@ -23,6 +23,9 @@ input{
     transform:scale(1);
     margin-left:5px;
   }
+.padding-date{
+    padding :0 10 ;
+}
 .requiredFieldMsg{
     margin-top: 25pt;    
     margin-bottom: 30pt;
