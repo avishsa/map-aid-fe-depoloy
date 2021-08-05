@@ -99,23 +99,35 @@ function RadioInput({ name, label, className, listOptions }) {
     );
 }
 function InputColorImage({ imgSrc, name }) {
-    const { register,watch } = useFormContext(); // retrieve all hook methods
-    const colorImg =Number(watch(name))!==-1 ? colorsOptions[Number(watch(name))-1].value: "black";    
-    return (<div className="d-flex flex-row-reverse justify-content-between " style={{marginBottom:"20pt"}}>
+    const { register, watch } = useFormContext(); // retrieve all hook methods
+    const colorImg = Number(watch(name)) !== -1 ? colorsOptions[Number(watch(name)) - 1].value : "black";
+    return (<div className="d-flex mt-3 flex-row-reverse justify-content-between " style={{ marginBottom: "20pt" }}>
         {/* {imgSrc && <img className="" src={imgSrc} alt="tshirtColor" style={{marginLeft:"10pt", height: "37pt", width: "37pt" }} />} */}
-        {imgSrc && <i className="mt-1 d-flex flex-row align-items-start fas fa-tshirt " style={{color:colorImg}} ></i>}
-        <div className="d-flex flex-column col-10">
-            {watch(name)=="-1" && <div className="d-flex w-100 flex-row-reverse text-end">טרם נבחר צבע</div>}
-            <input type='range' {...register(name)} min="1" max={colorsOptions.length} className="form-range"
-              />
-              <div className="d-flex flex-row w-100">
-            {
-                colorsOptions.map(({value,className},index)=>
-                    <div key={`${index}_${name}`}style={{height: "30pt", width: "30pt" ,backgroundColor:value}} className='d-flex flex-row' >
+        <div>
+        {imgSrc && <i className="mt-1 d-flex flex-row-reverse align-items-end fas fa-tshirt  fa-3x " style={{ color: colorImg }} ></i>}
+        {/* {watch(name) == "-1" && <div className="d-flex mt-1 flex-row-reverse ">טרם נבחר צבע</div>} */}
+        </div>
+        <div className="d-flex flex-column col-8">
+
+            <div className="d-flex flex-row-reverse ">
+                <input  type='range'
+                 {...register(name)}
+                  min="1" max={colorsOptions.length} 
+                  className="text-end mx-2 d-flex flex-row form-range" />
+            </div>           
+            <div className="d-flex flex-row justify-content-end w-100">
+                {
+                    colorsOptions.map(({ value, className }, index) =>
                         
-                        </div>
-                )
-            }
+                        
+                        <label
+                        key={`${index}_${name}`} 
+                        style={{ marginLeft: "5pt", height: "20pt", width: "25pt", backgroundColor: value }} 
+                        className='d-flex flex-row'                         
+                        >                            
+                        </label>
+                    )
+                }
             </div>
         </div>
     </div>
@@ -140,9 +152,9 @@ function ReporterDetails() {
             id={formFields.isNotify.name} />
     </div>);
 }
-function Checkbox({ label, id,className }) {
+function Checkbox({ label, id, className }) {
     const { register } = useFormContext(); // retrieve all hook methods
-    return (<div id={`${id}Container`}className={`d-flex flex-row-reverse bd-highlight `}>
+    return (<div id={`${id}Container`} className={`d-flex flex-row-reverse bd-highlight `}>
         <input className="form-check-input" type="checkbox" {...register(id)} />
         <label className="form-check-label mx-2">{label}</label>
     </div>);
@@ -184,10 +196,10 @@ export default function ReportCreate(props) {
     });
     const onSubmit = data => {
         console.log(data);
-        data[formFields.tshirtColor.name] = data[formFields.tshirtColor.name]!=="-1" ? 
-        colorsOptions[Number(data[formFields.tshirtColor])] : "";
-        data[formFields.trousersColor.name] = data[formFields.trousersColor.name]!=="-1" ? 
-        colorsOptions[Number(data[formFields.trousersColor.name])] : "";
+        data[formFields.tshirtColor.name] = data[formFields.tshirtColor.name] !== "-1" ?
+            colorsOptions[Number(data[formFields.tshirtColor])] : "";
+        data[formFields.trousersColor.name] = data[formFields.trousersColor.name] !== "-1" ?
+            colorsOptions[Number(data[formFields.trousersColor.name])] : "";
         createReport({ ...data, ...location })
         console.log(data);
     };

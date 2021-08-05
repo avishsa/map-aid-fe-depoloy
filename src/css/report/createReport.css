@@ -15,7 +15,7 @@ input{
     border-radius: 4pt;
 }
 ::-webkit-calendar-picker-indicator {
-    background-image: url('./tshirt.png');
+    background-image: url('/src/images/calendar.png');
     color:Cornsilk;
     opacity:1;
     font-size:1.5rem;
