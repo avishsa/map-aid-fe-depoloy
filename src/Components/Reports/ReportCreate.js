@@ -101,36 +101,48 @@ function RadioInput({ name, label, className, listOptions }) {
 function InputColorImage({ imgSrc, name }) {
     const { register, watch } = useFormContext(); // retrieve all hook methods
     const colorImg = Number(watch(name)) !== -1 ? colorsOptions[Number(watch(name)) - 1].value : "black";
-    return (<div className="d-flex mt-3 flex-row-reverse justify-content-between " style={{ marginBottom: "20pt" }}>
-        {/* {imgSrc && <img className="" src={imgSrc} alt="tshirtColor" style={{marginLeft:"10pt", height: "37pt", width: "37pt" }} />} */}
-        <div>
-        {imgSrc && <i className="mt-1 d-flex flex-row-reverse align-items-end fas fa-tshirt  fa-3x " style={{ color: colorImg }} ></i>}
-        {/* {watch(name) == "-1" && <div className="d-flex mt-1 flex-row-reverse ">טרם נבחר צבע</div>} */}
-        </div>
-        <div className="d-flex flex-column col-8">
 
-            <div className="d-flex flex-row-reverse ">
-                <input  type='range'
-                 {...register(name)}
-                  min="1" max={colorsOptions.length} 
-                  className="text-end mx-2 d-flex flex-row form-range" />
-            </div>           
-            <div className="d-flex flex-row justify-content-end w-100">
+    return (
+
+        <div className="d-flex mt-3 flex-row-reverse " style={{ marginBottom: "20pt" }}>
+            
+
+            <div className="d-flex mt-1 px-2 flex-row-reverse col-4">
                 {
-                    colorsOptions.map(({ value, className }, index) =>
-                        
-                        
-                        <label
-                        key={`${index}_${name}`} 
-                        style={{ marginLeft: "5pt", height: "20pt", width: "25pt", backgroundColor: value }} 
-                        className='d-flex flex-row'                         
-                        >                            
-                        </label>
-                    )
+                    watch(name) == "-1" ?
+                        (<div className="text-end ">
+                            טרם נבחר צבע</div>) :
+                        imgSrc && <i 
+                        className="fas fa-tshirt  fa-3x " 
+                        style={{ color: colorImg }} ></i>
                 }
+
+            </div>
+            <div className="d-flex flex-column ">
+
+                <div className="d-flex flex-row-reverse ">
+                    <input type='range'
+                        {...register(name)}
+                        min="1" max={colorsOptions.length}
+                        className="text-end mx-2 d-flex flex-row form-range" />
+                </div>
+                <div className="d-flex flex-row justify-content-end w-100">
+                    {
+                        colorsOptions.map(({ value, className }, index) =>
+
+
+                            <label
+                                key={`${index}_${name}`}
+                                style={{ marginLeft: "2pt", height: "10pt", width: "15pt", backgroundColor: value }}
+                                className='d-flex flex-row'
+                            >
+                            </label>
+                        )
+                    }
+                </div>
             </div>
         </div>
-    </div>
+    
     );
 }
 function ReporterDetails() {
