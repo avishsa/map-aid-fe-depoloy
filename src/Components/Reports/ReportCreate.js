@@ -227,7 +227,7 @@ export default function ReportCreate(props) {
                     label={formFields.reportDateTime.label}
                     id={formFields.reportDateTime.name}
                     classNameLabel='required-astrix '
-                    classNameInput="text-end date-input"
+                    classNameInput="d-flex flex-row-reverse"
                 />
                 <MapGroup location={location.location_text} />
                 <HomelessDetails />
