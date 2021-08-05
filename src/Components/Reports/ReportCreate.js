@@ -37,7 +37,7 @@ function MapGroup({ location }) {
         <div id="locationTextContainer" className="d-flex flex-column">
             <label className="form-label required-astrix d-flex flex-row-reverse" htmlFor={formFields.locationText}> מיקום
             </label>
-            <div id="" className=" d-flex w-100 flex-row-reverse justify-content-between">
+            <div id="" className=" d-flex  flex-row-reverse justify-content-between">
                 <input id="locationTextInput" value={location}
                     className="form-control text-end" disabled />
                 <label id="locationChangeBtn" className=" btn-sm form-control btn mx-1" onClick={() => { console.log("redirect to map") }}>שינוי</label>
@@ -126,7 +126,7 @@ function InputColorImage({ imgSrc, name }) {
                         min="1" max={colorsOptions.length}
                         className="text-end mx-2 d-flex flex-row form-range" />
                 </div>
-                <div className="d-flex flex-row justify-content-end w-100">
+                <div className="d-flex flex-row justify-content-center">
                     {
                         colorsOptions.map(({ value, className }, index) =>
 
