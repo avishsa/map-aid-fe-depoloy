@@ -101,17 +101,17 @@ function RadioInput({ name, label, className, listOptions }) {
 function InputColorImage({ imgSrc, name }) {
     const { register,watch } = useFormContext(); // retrieve all hook methods
     const colorImg =Number(watch(name))!==-1 ? colorsOptions[Number(watch(name))-1].value: "black";    
-    return (<div className="d-flex flex-row-reverse " style={{marginBottom:"20pt"}}>
+    return (<div className="d-flex flex-row-reverse justify-content-between " style={{marginBottom:"20pt"}}>
         {/* {imgSrc && <img className="" src={imgSrc} alt="tshirtColor" style={{marginLeft:"10pt", height: "37pt", width: "37pt" }} />} */}
-        {imgSrc && <i className="fas fa-tshirt" style={{color:colorImg}} ></i>}
-        <div className="">
-            {watch(name)=="-1" && <div className="d-flex flex-row-reverse text-end">טרם נבחר צבע</div>}
+        {imgSrc && <i className="mt-1 d-flex flex-row align-items-start fas fa-tshirt " style={{color:colorImg}} ></i>}
+        <div className="d-flex flex-column col-10">
+            {watch(name)=="-1" && <div className="d-flex w-100 flex-row-reverse text-end">טרם נבחר צבע</div>}
             <input type='range' {...register(name)} min="1" max={colorsOptions.length} className="form-range"
               />
-              <div className="d-flex flex-row">
+              <div className="d-flex flex-row w-100">
             {
                 colorsOptions.map(({value,className},index)=>
-                    <div key={`${index}_${name}`}style={{height: "37pt", width: "37pt" ,backgroundColor:value}} className='d-flex flex-row' >
+                    <div key={`${index}_${name}`}style={{height: "30pt", width: "30pt" ,backgroundColor:value}} className='d-flex flex-row' >
                         
                         </div>
                 )
