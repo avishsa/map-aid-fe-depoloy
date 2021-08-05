@@ -26,7 +26,10 @@ input{
 .padding-date{
     padding :0 10 ;
 }
-
+.date-input{
+    padding: 0;
+    margin: 0;
+}
 .requiredFieldMsg{
     margin-top: 25pt;    
     margin-bottom: 30pt;
