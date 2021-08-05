@@ -1,5 +1,5 @@
 * {
-    font-size: 14pt;
+    font-size: 12pt;
 }
 h1 {
     /* font-size: 32pt; */
@@ -11,7 +11,7 @@ h1 {
 }
 input{
     height:32pt;
-    font-size: 16pt;
+    font-size: 12pt;
     border-radius: 4pt;
 }
 ::-webkit-calendar-picker-indicator {
@@ -85,7 +85,7 @@ h4 {
 #locationChangeBtn{
     color: rgb(66, 91, 206);
     background-color: white;
-    font-size: 14pt;
+    font-size: 12pt;
     width: 59pt;
 }
 #notify_meContainer{
