@@ -21,7 +21,7 @@ input{
     font-size:1.5rem;
     transition:all ease 400ms;
     transform:scale(1);
-    margin-left:5px;
+    /* margin-left:5px; */
   }
 .padding-date{
     padding :0 10 ;
