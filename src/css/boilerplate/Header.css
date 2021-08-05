@@ -1,6 +1,40 @@
+
+img {
+    width: 111pt;
+    
+    margin-top: 0pt;
+    padding-top: 0pt;
+}
+ul {
+    margin-bottom: 0pt;
+    padding-bottom: 0pt;
+}
+li {
+    margin-bottom: 0pt;
+    padding-bottom: 0pt;
+}
+nav{
+    margin-bottom: 0pt;
+    padding-bottom: 0pt;
+}
 .nav-link{
     color:black;
+    margin-left: 0pt;
+    margin-right: 0pt;
+    margin-top: 15pt;
+    margin-bottom: 0;
+    padding-left: 10;
+    padding-right: 0;
+    padding-top: 10;
+    padding-bottom: 0;
 }
+.navbar{
+    margin-right: 20pt;
+    padding-right: 0;
+    margin-bottom: 0pt;
+    padding-bottom: 0pt;
+}
+
 #emergacyLink{
     color:rgb( 242 ,68 ,5);
 }

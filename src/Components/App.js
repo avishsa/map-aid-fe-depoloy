@@ -6,7 +6,7 @@ import '../css/App.css';
 
 function App() {
   return (
-    <div className="App container d-flex flex-column justify-content-end">
+    <div className="App w-100container d-flex flex-column justify-content-end">
       <Header/>
       <ReportCreate/>
       <Footer/>
