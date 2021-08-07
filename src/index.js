@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { create } from "jss";
+import rtl from "jss-rtl";
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import reduxThunk from 'redux-thunk';
@@ -12,20 +14,53 @@ import './index.css';
 import App from './Components/App';
 import reportWebVitals from './reportWebVitals';
 import reducers from './reducers';
+import { createTheme,  jssPreset,ThemeProvider,StylesProvider, createMuiTheme } from '@material-ui/core/styles';
+import { heIL } from '@material-ui/core/locale';
+import VarelaRoundttf from "./css/fonts/VarelaRound-Regular.ttf"
+const varelaRound = {
+  fontFamily: 'varelaRound',
+  fontStyle: 'normal',
+  fontDisplay: 'swap',
+  fontWeight: 400,
+  src: `
+    url(${VarelaRoundttf}) format('ttf')
+  `
+};
+
+const theme = createTheme({
+  typography: {
+    fontFamily:[
+      'varelaRound'
+    ].join(',')
+  },
+
+  palette: {
+    primary: { main: '#1976d2' },
+  },
+}, heIL);
+
+const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
   reducers,
   composeEnhancers(applyMiddleware(reduxThunk))
-  );
+);
 
 
 
 ReactDOM.render(
   // <React.StrictMode>
   <Provider store={store}>
-    <App />
+    <ThemeProvider theme={theme}>
+    <StylesProvider jss={jss}>
+      <ThemeProvider theme={createMuiTheme({ direction: "rtl" })}>
+        <App />
+        </ThemeProvider>
+      
+      </StylesProvider>
+    </ThemeProvider>
   </Provider>
   // </React.StrictMode> 
   ,

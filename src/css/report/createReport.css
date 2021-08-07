@@ -13,8 +13,33 @@ input{
     height:32pt;
     font-size: 12pt;
     border-radius: 4pt;
+    background-color: white ;
+
 }
-::-webkit-calendar-picker-indicator {
+#datetime-local{
+    font-family: 'VarelaRound';    
+    background-color: white ;
+    padding-right: 5pt;
+    width: 100%;
+    height: 22pt;
+    margin-top: 5pt;
+    
+}
+#datetime-local-label:before {
+    content:" *";
+    width: 3pt;
+    height: 3pt;
+    margin-left: 6pt;
+    color: rgb(255, 146, 0);
+}
+#datetime-local-label{
+    font-family: 'VarelaRound';    
+    color: black;
+    font-size: 16pt;
+    font-weight: 500;
+    
+}
+::-webkit-calendar-picker-indicator::after {
     background-image: url('/src/images/calendar.png');
     color:Cornsilk;
     opacity:1;

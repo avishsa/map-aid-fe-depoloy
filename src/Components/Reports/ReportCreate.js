@@ -1,12 +1,13 @@
 import React from "react";
-import { useForm, FormProvider, useFormContext } from "react-hook-form";
+import { useForm, Controller, FormProvider, useFormContext } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { reportFormSchema, formFields, colorsOptions } from '../../scheme/reportScheme';
 import { getDateTime } from "../../Utilities/TimeFormatter";
 import { createReport } from "../../mock_apis/reports";
-
+import DatePicker from "./ReportCreate/DatePicker_HE";
 import '../../css/report/createReport.css';
+import DatePicker_HE from "./ReportCreate/DatePicker_HE";
 //bjbjb
 
 const location = { location_text: "בורלא 29, תל אביב", location_json: { lon: 32.1616, lat: 32.1514 } };
@@ -14,7 +15,7 @@ const location = { location_text: "בורלא 29, תל אביב", location_json:
 function DistressedGroup() {
     const { register, watch } = useFormContext(); // retrieve all hook methods
     return (<div className="d-flex flex-column bd-highlight">
-        <div id="DistressedCBContainer" className="d-flex flex-row-reverse lign-items-start bd-highlight">
+        <div id="DistressedCBContainer" className="d-flex flex-row lign-items-start bd-highlight">
             <input
                 id="distressedCB"
                 type="checkbox"
@@ -26,7 +27,7 @@ function DistressedGroup() {
         </div>
         {watch(formFields.isDistressed.name) && (<input
             id="distressText"
-            className="long-text-input form-control d-flex text-end flex-column float-end bd-highlight"
+            className="long-text-input form-control d-flex  flex-column float-end bd-highlight"
             {...register(formFields.descriptionText.name)}
             placeholder={formFields.descriptionText.label}
         />)}
@@ -35,9 +36,9 @@ function DistressedGroup() {
 function MapGroup({ location }) {
     return (
         <div id="locationTextContainer" className="d-flex flex-column">
-            <label className="form-label required-astrix d-flex flex-row-reverse" htmlFor={formFields.locationText}> מיקום
+            <label className="form-label required-astrix d-flex flex-row" htmlFor={formFields.locationText}> מיקום
             </label>
-            <div id="" className=" d-flex  flex-row-reverse justify-content-between">
+            <div id="" className=" d-flex  flex-row justify-content-between">
                 <input id="locationTextInput" value={location}
                     className="form-control text-end" disabled />
                 <button id="locationChangeBtn" className=" btn-sm form-control btn mx-1" onClick={() => { console.log("redirect to map") }}>שינוי</button>
@@ -65,9 +66,9 @@ function RadioInput({ name, label, className, listOptions }) {
     return (
         <div className="d-flex flex-column">
             <label htmlFor={name}
-                className={`d-flex form-label flex-row-reverse ${className}`}   >{label}</label>
+                className={`d-flex form-label flex-row ${className}`}   >{label}</label>
 
-            <div className="d-flex flex-row-reverse">
+            <div className="d-flex flex-row">
                 {
                     listOptions.map(({ value, label }, index) => (<div className="mx-1" key={index}>
                         <label
@@ -89,7 +90,7 @@ function RadioInput({ name, label, className, listOptions }) {
                 }
 
             </div>
-            <div className="d-flex flex-row-reverse text-end invalid-feedback">
+            <div className="d-flex flex-row invalid-feedback">
 
                 {errors[name] && errors[name].message}
 
@@ -104,23 +105,23 @@ function InputColorImage({ imgSrc, name }) {
 
     return (
 
-        <div className="d-flex mt-3 flex-row-reverse " style={{ marginBottom: "20pt" }}>
-            
+        <div className="d-flex mt-3 flex-row " style={{ marginBottom: "20pt" }}>
 
-            <div className="d-flex mt-1 px-2 flex-row-reverse col-4">
+
+            <div className="d-flex mt-1 px-2 flex-row col-4">
                 {
                     watch(name) == "-1" ?
-                        (<div className="text-end ">
+                        (<div className="">
                             טרם נבחר צבע</div>) :
-                        imgSrc && <i 
-                        className="fas fa-tshirt  fa-3x " 
-                        style={{ color: colorImg }} ></i>
+                        imgSrc && <i
+                            className="fas fa-tshirt  fa-3x "
+                            style={{ color: colorImg }} ></i>
                 }
 
             </div>
             <div className="d-flex flex-column ">
 
-                <div className="d-flex flex-row-reverse ">
+                <div className="d-flex flex-row ">
                     <input type='range'
                         {...register(name)}
                         min="1" max={colorsOptions.length}
@@ -142,13 +143,13 @@ function InputColorImage({ imgSrc, name }) {
                 </div>
             </div>
         </div>
-    
+
     );
 }
 function ReporterDetails() {
     return (<div id="reporterIdDiv" className="containerForm d-flex flex-column  bd-highlight">
         <h4 className="text-end">פרטי המדווח/ת</h4>
-        <div className="d-flex flex-row-reverse">
+        <div className="d-flex flex-row">
             <InputLabel
                 type="text"
                 label={formFields.reporterNameText.label}
@@ -166,18 +167,18 @@ function ReporterDetails() {
 }
 function Checkbox({ label, id, className }) {
     const { register } = useFormContext(); // retrieve all hook methods
-    return (<div id={`${id}Container`} className={`d-flex flex-row-reverse bd-highlight `}>
+    return (<div id={`${id}Container`} className={`d-flex flex-row bd-highlight `}>
         <input className="form-check-input" type="checkbox" {...register(id)} />
         <label className="form-check-label mx-2">{label}</label>
     </div>);
 }
-function InputLabel({ type, label, id, classNameLabel,classNameInput }) {
+function InputLabel({ type, label, id, classNameLabel, classNameInput }) {
     const { register, formState: { errors, isSubmitted } } = useFormContext(); // retrieve all hook methods
 
     return (<div className="d-flex flex-column mx-1" >
         <label
             htmlFor={id}
-            className={`d-flex form-label flex-row-reverse inputLabel ${classNameLabel}`}>
+            className={`d-flex form-label flex-row inputLabel ${classNameLabel}`}>
             {label}
         </label>
         <input
@@ -185,7 +186,7 @@ function InputLabel({ type, label, id, classNameLabel,classNameInput }) {
             className={`form-control ${classNameInput}`}
             type={type}
             dir="rtl" />
-        <div className="d-flex text-end flex-row-reverse float-end invalid-feedback">
+        <div className="d-flex flex-row invalid-feedback">
             {errors[id] && errors[id].message}
         </div>
 
@@ -193,6 +194,22 @@ function InputLabel({ type, label, id, classNameLabel,classNameInput }) {
     </div>
     );
 }
+// function InputDate({ }) {
+//     const { control } = useFormContext();
+//     return (<Controller        
+//         render={({ field: { onChange, onBlur, value, ref } }) => (
+//             <DatePicker_HE
+//               onChange={onChange}
+//               onBlur={onBlur}
+//               selected={value}
+//             />
+//           )}
+//         control={control}
+//         valueName="selected"
+//         name="report_date"
+//         onChange={(date) => date}
+//     />);
+// }
 export default function ReportCreate(props) {
     const defaultValues = {
         notify_me: false,
@@ -222,6 +239,9 @@ export default function ReportCreate(props) {
         <FormProvider {...methods}>
             <form id="createReport" className="form-inline needs-validation" noValidate onSubmit={methods.handleSubmit(onSubmit)}>
                 <DistressedGroup />
+                
+                <DatePicker_HE value={getDateTime(new Date())}/>
+                
                 <InputLabel
                     type="datetime-local"
                     label={formFields.reportDateTime.label}
@@ -233,8 +253,8 @@ export default function ReportCreate(props) {
                 <HomelessDetails />
                 <ReporterDetails />
 
-                <div className="wrapperRequiredFieldMsg d-flex flex-row-reverse mx-1">
-                    <div className="requiredFieldMsg   d-flex flex-row-reverse required-astrix">
+                <div className="wrapperRequiredFieldMsg d-flex flex-row mx-1">
+                    <div className="requiredFieldMsg   d-flex flex-row required-astrix">
                         שדות חובה
                     </div>
                 </div>
