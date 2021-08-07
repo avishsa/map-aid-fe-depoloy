@@ -155,6 +155,7 @@ function ReporterDetails() {
                 label={formFields.reporterNameText.label}
                 id={formFields.reporterNameText.name} />
             <InputLabel
+                dir="ltr"
                 type="text"
                 label={formFields.reporterPhoneText.label}
                 id={formFields.reporterPhoneText.name} />
@@ -172,7 +173,7 @@ function Checkbox({ label, id, className }) {
         <label className="form-check-label mx-2">{label}</label>
     </div>);
 }
-function InputLabel({ type, label, id, classNameLabel, classNameInput }) {
+function InputLabel({ dir,type, label, id, classNameLabel, classNameInput }) {
     const { register, formState: { errors, isSubmitted } } = useFormContext(); // retrieve all hook methods
 
     return (<div className="d-flex flex-column mx-1" >
@@ -185,8 +186,8 @@ function InputLabel({ type, label, id, classNameLabel, classNameInput }) {
             {...register(id)}
             className={`form-control ${classNameInput}`}
             type={type}
-            dir="rtl" />
-        <div className="d-flex flex-row invalid-feedback">
+            dir={dir? dir:"rtl"} />
+        <div className="d-flex flex-row  invalid-feedback">
             {errors[id] && errors[id].message}
         </div>
 
@@ -240,13 +241,13 @@ export default function ReportCreate(props) {
             <form id="createReport" className="form-inline needs-validation" noValidate onSubmit={methods.handleSubmit(onSubmit)}>
                 <DistressedGroup />
                 
-                <DatePicker_HE value={getDateTime(new Date())}/>
+                
                 
                 <InputLabel
                     type="datetime-local"
                     label={formFields.reportDateTime.label}
                     id={formFields.reportDateTime.name}
-                    classNameLabel='required-astrix '
+                    classNameLabel='required-astrix'
                     classNameInput="d-flex flex-row date-input"
                 />
                 <MapGroup location={location.location_text} />
