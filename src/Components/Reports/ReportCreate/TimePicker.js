@@ -38,7 +38,7 @@ export default function DateAndTimePickers({ value }) {
     return (
         <MuiThemeProvider theme={theme}>
             <MuiPickersUtilsProvider utils={DateFnsUtils} >
-                <KeyboardDatePicker
+                <KeyboardTimePicker
                     className={classes.root}
                     autoOk
                     variant="inline"
