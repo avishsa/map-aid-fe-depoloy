@@ -25,31 +25,28 @@ const theme = createMuiTheme({
 );
 
 const useStyles = makeStyles((theme) => ({
-    
     root: {
         backgroundColor: "white",
         fontFamily: "VarelaRound",
-    },
-
+        textAlign:"right"
+    }
 }));
 
 export default function DateAndTimePickers({ value }) {
     const classes = useStyles();
-    const [selectedDate, handleDateChange] = useState(new Date());
-    
+    const [selectedTime, handleTImeChange] = useState(new Date());
     return (
-        <MuiThemeProvider bgcolor="text.primary" theme={theme}>
-            <MuiPickersUtilsProvider bgcolor="text.primary" utils={DateFnsUtils} locale={heIL}>
+        <MuiThemeProvider theme={theme}>
+            <MuiPickersUtilsProvider utils={DateFnsUtils} >
                 <KeyboardDatePicker
                     className={classes.root}
-                    
-                    bgcolor="text.primary"
                     autoOk
                     variant="inline"
-                    format="dd/MM/yyyy"
-                    value={selectedDate}
+                    format="HH:MM"
+                    value={selectedTime}
+                    
                     InputAdornmentProps={{ position: "start" }}
-                    onChange={date => handleDateChange(date)}
+                    onChange={time => handleTImeChange(time)}
 
                 />
 

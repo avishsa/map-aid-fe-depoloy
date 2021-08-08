@@ -4,10 +4,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import { reportFormSchema, formFields, colorsOptions } from '../../scheme/reportScheme';
 import { getDateTime } from "../../Utilities/TimeFormatter";
-import { createReport } from "../../mock_apis/reports";
+import { createReport } from "../../api/reports";
 import DatePicker from "./ReportCreate/DatePicker_HE";
 import '../../css/report/createReport.css';
 import DatePicker_HE from "./ReportCreate/DatePicker_HE";
+import  TimePicker from "./ReportCreate/TimePicker";
+// import TimePicker from "react-time-picker";
 //bjbjb
 
 const location = { location_text: "בורלא 29, תל אביב", location_json: { lon: 32.1616, lat: 32.1514 } };
@@ -225,7 +227,7 @@ export default function ReportCreate(props) {
         <FormProvider {...methods}>
             <form id="createReport" className="form-inline needs-validation" noValidate onSubmit={methods.handleSubmit(onSubmit)}>
                 <DatePicker_HE/>
-                
+                <TimePicker/>
                 
                 <DistressedGroup />
                 

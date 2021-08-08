@@ -43,7 +43,7 @@ input{
     background-image: url('/src/images/calendar.png');
     color:Cornsilk;
     opacity:1;
-    font-size:1.5rem;
+    font-size:14pt;
     transition:all ease 400ms;
     transform:scale(1);
     /* margin-left:5px; */

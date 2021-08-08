@@ -26,18 +26,20 @@ const varelaRound = {
     url(${VarelaRoundttf}) format('ttf')
   `
 };
-
 const theme = createTheme({
   typography: {
-    fontFamily:[
-      'varelaRound'
-    ].join(',')
+      fontFamily: 'VarelaRound',
+      fontWeightRegular: 500,
   },
-
-  palette: {
-    primary: { main: '#1976d2' },
-  },
-}, heIL);
+  // palette:{
+  //     primary:{
+  //         main: "#f9fbe7",
+  //         light:"#ffffff",
+  //         dark: "#afc2cb"
+  //     }
+  // }
+  
+},heIL);
 
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 

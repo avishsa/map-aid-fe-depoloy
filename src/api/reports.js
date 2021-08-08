@@ -1,10 +1,12 @@
 import axios from "axios";
-const serverUrl =""; 
+const serverUrl ="http://localhost:5000/api/report/"; 
 const basicAxios = axios.create({
     baseURL:serverUrl
 })
 export const createReport = report =>{
-    return basicAxios.post('',report,{});
+    return basicAxios.post('create',report,{})
+    .then(result=>console.log(result))
+    .catch(error=>error);
     
 }; 
 export const deleteReport = report =>{

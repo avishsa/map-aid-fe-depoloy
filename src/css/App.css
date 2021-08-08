@@ -2,12 +2,23 @@
     font-family: 'VarelaRound';
     src: url('fonts/VarelaRound-Regular.ttf');
 }
-
-* {
-    font-family: 'VarelaRound';    
+*{
+  font-family: 'VarelaRound';    
+}
+#root{
+  font-family: 'VarelaRound';    
+  background-color: rgb(233, 236, 241); 
+}
+.container {
+  font-family: 'VarelaRound';    
     background-color: rgb(233, 236, 241); 
+}
+.d-flex {
+  font-family: 'VarelaRound';    
+  
 }
 input {
   border: none;
+  background-color: white; 
 }
 
