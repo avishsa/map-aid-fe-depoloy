@@ -73,11 +73,6 @@ function RadioInput({ name, label, className, listOptions }) {
             <div className="d-flex flex-row">
                 {
                     listOptions.map(({ value, label }, index) => (<div className="mx-1" key={index}>
-                        <label
-                            className="form-check-label mx-1"
-                            htmlFor={value}>
-                            {label}
-                        </label>
                         <input
                             {...register(name)}
                             type="radio"
@@ -87,6 +82,12 @@ function RadioInput({ name, label, className, listOptions }) {
 
                             autoComplete="off"
                         />
+                        <label
+                            className="form-check-label mx-1"
+                            htmlFor={value}>
+                            {label}
+                        </label>
+                        
 
                     </div>))
                 }
@@ -176,8 +177,11 @@ function Checkbox({ label, id, className }) {
     </div>);
 }
 function InputLabel({ dir,type, label, id, classNameLabel, classNameInput }) {
-    const { register, formState: { errors, isSubmitted } } = useFormContext(); // retrieve all hook methods
-
+    const { register,watch, formState: { errors, isSubmitted } } = useFormContext(); // retrieve all hook methods
+    if(type==="datetime-local"){
+        
+        console.log(watch("report_datetime"));
+    }
     return (<div className="d-flex flex-column mx-1" >
         <label
             htmlFor={id}
@@ -199,9 +203,10 @@ function InputLabel({ dir,type, label, id, classNameLabel, classNameInput }) {
 }
 
 export default function ReportCreate(props) {
+
     const defaultValues = {
-        notify_me: false,
-        report_datetime: getDateTime(new Date()),
+        "notify_me": false,
+        "report_datetime": getDateTime(new Date()),
         "person_shirt_color": "-1",
         "person_pants_color": "-1",
 
@@ -237,6 +242,7 @@ export default function ReportCreate(props) {
                     type="datetime-local"
                     label={formFields.reportDateTime.label}
                     id={formFields.reportDateTime.name}
+                    
                     classNameLabel='required-astrix'
                     classNameInput="d-flex flex-row date-input"
                 />

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
+import { makeStyles,createTheme } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core'
 import DateFnsUtils from "@date-io/date-fns";
 import heIL from "date-fns/locale/he";
@@ -11,7 +11,7 @@ import {
     KeyboardDatePicker,
 } from '@material-ui/pickers';
 
-const theme = createMuiTheme({
+const theme = createTheme({
     typography: {
         fontFamily: 'VarelaRound',
         fontWeightRegular: 500,
@@ -38,12 +38,12 @@ export default function DateAndTimePickers({ value }) {
     const [selectedDate, handleDateChange] = useState(new Date());
     
     return (
-        <MuiThemeProvider bgcolor="text.primary" theme={theme}>
-            <MuiPickersUtilsProvider bgcolor="text.primary" utils={DateFnsUtils} locale={heIL}>
+        <MuiThemeProvider  theme={theme}>
+            <MuiPickersUtilsProvider  utils={DateFnsUtils} locale={heIL}>
                 <KeyboardDatePicker
                     className={classes.root}
                     
-                    bgcolor="text.primary"
+                    
                     autoOk
                     variant="inline"
                     format="dd/MM/yyyy"

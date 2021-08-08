@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
+import { makeStyles ,createTheme} from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core'
 import DateFnsUtils from "@date-io/date-fns";
 import heIL from "date-fns/locale/he";
@@ -11,7 +11,7 @@ import {
     KeyboardDatePicker,
 } from '@material-ui/pickers';
 
-const theme = createMuiTheme({
+const theme = createTheme({
     typography: {
         fontFamily: 'VarelaRound',
         fontWeightRegular: 500,

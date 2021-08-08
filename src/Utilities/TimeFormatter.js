@@ -1,8 +1,9 @@
 export const getYYYYMMDD = date => {
+    
     var strDate = `${date.getFullYear()}-`;
     date.getMonth() + 1 < 10 ? strDate += '0' + (date.getMonth() + 1) : strDate += date.getMonth() + 1;
     strDate += `-`;
-    date.getDate() + 1 < 10 ? strDate += '0' + date.getDate() : strDate += date.getDate();
+    date.getDate()  < 10 ? strDate += '0' + date.getDate() : strDate += date.getDate();
     
     return strDate;
 };

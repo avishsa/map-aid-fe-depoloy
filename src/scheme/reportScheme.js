@@ -1,7 +1,7 @@
 
 import * as yup from "yup";
-import { getDateTimeText, getHHMM, getYYYYMMDD } from '../Utilities/TimeFormatter';
-const today = new Date();
+import { getHHMM, getYYYYMMDD } from '../Utilities/TimeFormatter';
+
 
 const digitsOnly = (value) => /^\d*$/.test(value)
 export const getcolorsOptions = colorIndex=>{
