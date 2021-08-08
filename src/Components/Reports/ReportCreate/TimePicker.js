@@ -7,8 +7,8 @@ import "./DatePicker.css";
 
 import {
     MuiPickersUtilsProvider,
-    KeyboardTimePicker,
-    KeyboardDatePicker,
+    TimePicker
+    
 } from '@material-ui/pickers';
 
 const theme = createTheme({
@@ -38,7 +38,7 @@ export default function DateAndTimePickers({ value }) {
     return (
         <MuiThemeProvider theme={theme}>
             <MuiPickersUtilsProvider utils={DateFnsUtils} >
-                <KeyboardTimePicker
+                <TimePicker
                     className={classes.root}
                     autoOk
                     variant="inline"
