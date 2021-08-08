@@ -11,25 +11,25 @@ import {
 
 
 
-export default function MaterialUIPickers({value}) {
+export default function MaterialUIPickers() {
   
     return (
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <Grid container justifyContent="space-around">
           <KeyboardDatePicker
-            // disableToolbar
-            // variant="inline"
-            // format="MM/dd/yyyy"
-            // margin="normal"
+            disableToolbar
+            variant="inline"
+            format="MM/dd/yyyy"
+            margin="normal"
             id="date-picker-inline"
             label="Date picker inline"
-            value={value}            
             
-            // KeyboardButtonProps={{
-            //   'aria-label': 'change date',
-            // }}
+            
+            KeyboardButtonProps={{
+              'aria-label': 'change date',
+            }}
           />
-          {/* <KeyboardDatePicker
+           <KeyboardDatePicker
             margin="normal"
             id="date-picker-dialog"
             label="Date picker dialog"

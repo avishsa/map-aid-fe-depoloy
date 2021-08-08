@@ -195,22 +195,7 @@ function InputLabel({ dir,type, label, id, classNameLabel, classNameInput }) {
     </div>
     );
 }
-// function InputDate({ }) {
-//     const { control } = useFormContext();
-//     return (<Controller        
-//         render={({ field: { onChange, onBlur, value, ref } }) => (
-//             <DatePicker_HE
-//               onChange={onChange}
-//               onBlur={onBlur}
-//               selected={value}
-//             />
-//           )}
-//         control={control}
-//         valueName="selected"
-//         name="report_date"
-//         onChange={(date) => date}
-//     />);
-// }
+
 export default function ReportCreate(props) {
     const defaultValues = {
         notify_me: false,
@@ -239,6 +224,9 @@ export default function ReportCreate(props) {
         <h1 className="text-end"> מילוי טופס דיווח</h1>
         <FormProvider {...methods}>
             <form id="createReport" className="form-inline needs-validation" noValidate onSubmit={methods.handleSubmit(onSubmit)}>
+                <DatePicker_HE/>
+                
+                
                 <DistressedGroup />
                 
                 
