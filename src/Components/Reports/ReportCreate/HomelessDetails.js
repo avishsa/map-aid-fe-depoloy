@@ -6,6 +6,8 @@ import InputColorImage from "../../boilerplate/form/InputColorImage";
 import InputLabel from "../../boilerplate/form/InputLabel";
 
 export default function HomelessDetails() {
+    console.log(colorsOptions);
+    
     return (<div id="homelessIdDiv" className="containerForm d-flex flex-column bd-highlight">
         <h4 className="text-end">זיהוי</h4>
         <RadioInput
@@ -14,7 +16,7 @@ export default function HomelessDetails() {
             label={formFields.genderText.label}
             listOptions={formFields.genderText.options} />
         <InputColorImage colors={colorsOptions} imgSrc={formFields.tshirtColor.imgSrc} name={formFields.tshirtColor.name} />
-        <InputColorImage imgSrc={formFields.trousersColor.imgSrc} name={formFields.trousersColor.name} />
+        <InputColorImage colors={colorsOptions} imgSrc={formFields.trousersColor.imgSrc} name={formFields.trousersColor.name} />
         <InputLabel type="text" label={formFields.descriptionText.label} id={formFields.descriptionText.name} className="" />
     </div>);
 }

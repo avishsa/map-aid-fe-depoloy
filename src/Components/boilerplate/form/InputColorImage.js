@@ -2,9 +2,10 @@ import React from "react";
 import {  useFormContext } from "react-hook-form";
 import RadioInput from "../../boilerplate/form/RadioInput";
 export default function InputColorImage({ imgSrc, name,colors }) {
+    
     const { register, watch } = useFormContext(); // retrieve all hook methods
     const colorImg = Number(watch(name)) !== -1 ? colors[Number(watch(name)) - 1].value : "black";
-
+    console.log(colors.length);
     return (
 
         <div className="d-flex mt-3 flex-row " style={{ marginBottom: "20pt" }}>

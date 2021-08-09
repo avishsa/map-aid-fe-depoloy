@@ -55,8 +55,7 @@ export default function ReportCreate(props) {
                 <InputLabel
                     type="datetime-local"
                     label={formFields.reportDateTime.label}
-                    id={formFields.reportDateTime.name}
-                    
+                    id={formFields.reportDateTime.name}                    
                     classNameLabel='required-astrix'
                     classNameInput="d-flex flex-row date-input"
                 />
