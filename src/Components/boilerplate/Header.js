@@ -7,7 +7,7 @@ class Header extends Component {
         return (<header className=" container d-flex  flex-row">
             <div className="d-flex flex-column-reverse justify-content-start col-12 ">
                 <div className="d-flex flex-row-reverse ">
-                    <img src={AppLogo} /> 
+                    <img src={AppLogo} alt="logo elem" /> 
                 </div>
                 <NavApp />
             </div>

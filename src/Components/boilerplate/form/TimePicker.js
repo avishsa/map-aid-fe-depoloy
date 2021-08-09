@@ -1,14 +1,13 @@
 import React, { useState } from "react";
-import { makeStyles,createTheme } from '@material-ui/core/styles';
+import { makeStyles ,createTheme} from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core'
 import DateFnsUtils from "@date-io/date-fns";
 import heIL from "date-fns/locale/he";
-import "./DatePicker.css";
 
 import {
     MuiPickersUtilsProvider,
-    KeyboardTimePicker,
-    KeyboardDatePicker,
+    TimePicker
+    
 } from '@material-ui/pickers';
 
 const theme = createTheme({
@@ -25,31 +24,30 @@ const theme = createTheme({
 );
 
 const useStyles = makeStyles((theme) => ({
-    
     root: {
         backgroundColor: "white",
         fontFamily: "VarelaRound",
-    },
-
+        textAlign:"right"
+    }
 }));
 
 export default function DateAndTimePickers({ value }) {
     const classes = useStyles();
-    const [selectedDate, handleDateChange] = useState(new Date());
-    
+    const [selectedTime, handleTImeChange] = useState(new Date());
     return (
-        <MuiThemeProvider  theme={theme}>
-            <MuiPickersUtilsProvider  utils={DateFnsUtils} locale={heIL}>
-                <KeyboardDatePicker
+        <MuiThemeProvider theme={theme}>
+            
+            <MuiPickersUtilsProvider utils={DateFnsUtils} locale={heIL} >
+                <TimePicker
                     className={classes.root}
-                    
-                    
                     autoOk
                     variant="inline"
-                    format="dd/MM/yyyy"
-                    value={selectedDate}
-                    InputAdornmentProps={{ position: "start" }}
-                    onChange={date => handleDateChange(date)}
+                    format="HH:MM"
+                    value={selectedTime}
+                    maxDate={new Date()}
+                    
+                    
+                    onChange={time => handleTImeChange(time)}
 
                 />
 

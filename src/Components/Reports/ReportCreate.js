@@ -1,14 +1,13 @@
 import React from "react";
-import { useForm, Controller, FormProvider, useFormContext } from "react-hook-form";
+import { useForm, FormProvider, useFormContext } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { reportFormSchema, formFields, colorsOptions } from '../../scheme/reportScheme';
 import { getDateTime } from "../../Utilities/TimeFormatter";
 import { createReport } from "../../api/reports";
-import DatePicker from "./ReportCreate/DatePicker_HE";
 import '../../css/report/createReport.css';
-import DatePicker_HE from "./ReportCreate/DatePicker_HE";
-import  TimePicker from "./ReportCreate/TimePicker";
+import DatePickerHE from "../boilerplate/form/DatePickerHE";
+import  TimePicker from "../boilerplate/form/TimePicker";
 // import TimePicker from "react-time-picker";
 //bjbjb
 
@@ -63,7 +62,7 @@ function HomelessDetails() {
     </div>);
 }
 function RadioInput({ name, label, className, listOptions }) {
-    const { register, watch, formState: { errors, isDirty } } = useFormContext();
+    const { register, formState: { errors } } = useFormContext();
 
     return (
         <div className="d-flex flex-column">
@@ -113,7 +112,7 @@ function InputColorImage({ imgSrc, name }) {
 
             <div className="d-flex mt-1 px-2 flex-row col-4">
                 {
-                    watch(name) == "-1" ?
+                    watch(name) === "-1" ?
                         (<div className="">
                             טרם נבחר צבע</div>) :
                         imgSrc && <i
@@ -177,11 +176,8 @@ function Checkbox({ label, id, className }) {
     </div>);
 }
 function InputLabel({ dir,type, label, id, classNameLabel, classNameInput }) {
-    const { register,watch, formState: { errors, isSubmitted } } = useFormContext(); // retrieve all hook methods
-    if(type==="datetime-local"){
-        
-        console.log(watch("report_datetime"));
-    }
+    const { register, formState: { errors } } = useFormContext(); // retrieve all hook methods
+  
     return (<div className="d-flex flex-column mx-1" >
         <label
             htmlFor={id}
@@ -231,7 +227,7 @@ export default function ReportCreate(props) {
         <h1 className="text-end"> מילוי טופס דיווח</h1>
         <FormProvider {...methods}>
             <form id="createReport" className="form-inline needs-validation" noValidate onSubmit={methods.handleSubmit(onSubmit)}>
-                <DatePicker_HE/>
+                <DatePickerHE/>
                 <TimePicker/>
                 
                 <DistressedGroup />

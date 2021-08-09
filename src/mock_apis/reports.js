@@ -8,6 +8,6 @@ const mockApi = (formValues)=>new Promise(function(resolve, reject) {
   });
 export const createReport = (formValues)=>{
   mockApi(formValues)
-  .then(data=>console.log("api redirect to ThankYou / report RoadMap page using react router",data))
+  .then(data=>("api redirect to ThankYou / report RoadMap page using react router",data))
   .catch(error=>console.error(error));
 }

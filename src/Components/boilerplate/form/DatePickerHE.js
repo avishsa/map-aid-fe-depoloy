@@ -1,14 +1,13 @@
 import React, { useState } from "react";
-import { makeStyles ,createTheme} from '@material-ui/core/styles';
+import { makeStyles,createTheme } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core'
 import DateFnsUtils from "@date-io/date-fns";
 import heIL from "date-fns/locale/he";
-import "./DatePicker.css";
+// import  "../../css/boilerplate/form/DatePicker_HE";
 
 import {
     MuiPickersUtilsProvider,
-    TimePicker
-    
+    KeyboardDatePicker,
 } from '@material-ui/pickers';
 
 const theme = createTheme({
@@ -25,28 +24,31 @@ const theme = createTheme({
 );
 
 const useStyles = makeStyles((theme) => ({
+    
     root: {
         backgroundColor: "white",
         fontFamily: "VarelaRound",
-        textAlign:"right"
-    }
+    },
+
 }));
 
-export default function DateAndTimePickers({ value }) {
+function DatePickerHE({ value }) {
     const classes = useStyles();
-    const [selectedTime, handleTImeChange] = useState(new Date());
+    const [selectedDate, handleDateChange] = useState(new Date());
+    
     return (
-        <MuiThemeProvider theme={theme}>
-            <MuiPickersUtilsProvider utils={DateFnsUtils} >
-                <TimePicker
+        <MuiThemeProvider  theme={theme}>
+            <MuiPickersUtilsProvider  utils={DateFnsUtils} locale={heIL}>
+                <KeyboardDatePicker
                     className={classes.root}
+                    
+                    
                     autoOk
                     variant="inline"
-                    format="HH:MM"
-                    value={selectedTime}
+                    format="dd/MM/yyyy"
+                    value={selectedDate}
                     
-                    InputAdornmentProps={{ position: "start" }}
-                    onChange={time => handleTImeChange(time)}
+                    onChange={date => handleDateChange(date)}
 
                 />
 
@@ -55,3 +57,4 @@ export default function DateAndTimePickers({ value }) {
         </MuiThemeProvider>
     );
 }
+export default DatePickerHE;
