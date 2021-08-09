@@ -8,195 +8,17 @@ import { createReport } from "../../api/reports";
 import '../../css/report/createReport.css';
 import DatePickerHE from "../boilerplate/form/DatePickerHE";
 import  TimePicker from "../boilerplate/form/TimePicker";
-// import TimePicker from "react-time-picker";
-//bjbjb
+import DistressedGroup from "./ReportCreate/DistressedGroup";
+import MapGroup from "./ReportCreate/MapGroup";
+import HomelessDetails from "./ReportCreate/HomelessDetails";
+import ReporterDetails from "./ReportCreate/ReporterDetails";
+import InputLabel from "../boilerplate/form/InputLabel";
+
 
 const location = { location_text: "בורלא 29, תל אביב", location_json: { lon: 32.1616, lat: 32.1514 } };
 
-function DistressedGroup() {
-    const { register, watch } = useFormContext(); // retrieve all hook methods
-    return (<div className="d-flex flex-column bd-highlight">
-        <div id="DistressedCBContainer" className="d-flex flex-row lign-items-start bd-highlight">
-            <input
-                id="distressedCB"
-                type="checkbox"
-                {...register(formFields.isDistressed.name)}
-                className="form-check-input d-flex a"
-            />
-            <label id="distressedCBLabel" htmlFor="distressedCB"
-                className="form-check-label mx-2">{formFields.isDistressed.label}</label>
-        </div>
-        {watch(formFields.isDistressed.name) && (<input
-            id="distressText"
-            className="long-text-input form-control d-flex  flex-column float-end bd-highlight"
-            {...register(formFields.descriptionText.name)}
-            placeholder={formFields.descriptionText.label}
-        />)}
-    </div>);
-}
-function MapGroup({ location }) {
-    return (
-        <div id="locationTextContainer" className="d-flex flex-column">
-            <label className="form-label required-astrix d-flex flex-row" htmlFor={formFields.locationText}> מיקום
-            </label>
-            <div id="" className=" d-flex  flex-row justify-content-between">
-                <input id="locationTextInput" value={location}
-                    className="form-control text-end" disabled />
-                <button id="locationChangeBtn" className=" btn-sm form-control btn mx-1" onClick={() => { console.log("redirect to map") }}>שינוי</button>
-            </div>
-        </div>
-    );
-}
-
-function HomelessDetails() {
-    return (<div id="homelessIdDiv" className="containerForm d-flex flex-column bd-highlight">
-        <h4 className="text-end">זיהוי</h4>
-        <RadioInput
-            className="required-astrix"
-            name={formFields.genderText.name}
-            label={formFields.genderText.label}
-            listOptions={formFields.genderText.options} />
-        <InputColorImage imgSrc={formFields.tshirtColor.imgSrc} name={formFields.tshirtColor.name} />
-        <InputColorImage imgSrc={formFields.trousersColor.imgSrc} name={formFields.trousersColor.name} />
-        <InputLabel type="text" label={formFields.descriptionText.label} id={formFields.descriptionText.name} className="" />
-    </div>);
-}
-function RadioInput({ name, label, className, listOptions }) {
-    const { register, formState: { errors } } = useFormContext();
-
-    return (
-        <div className="d-flex flex-column">
-            <label htmlFor={name}
-                className={`d-flex form-label flex-row ${className}`}   >{label}</label>
-
-            <div className="d-flex flex-row">
-                {
-                    listOptions.map(({ value, label }, index) => (<div className="mx-1" key={index}>
-                        <input
-                            {...register(name)}
-                            type="radio"
-                            className="form-check-input"
-                            id={value}
-                            name={name}
-
-                            autoComplete="off"
-                        />
-                        <label
-                            className="form-check-label mx-1"
-                            htmlFor={value}>
-                            {label}
-                        </label>
-                        
-
-                    </div>))
-                }
-
-            </div>
-            <div className="d-flex flex-row invalid-feedback">
-
-                {errors[name] && errors[name].message}
 
 
-            </div>
-        </div>
-    );
-}
-function InputColorImage({ imgSrc, name }) {
-    const { register, watch } = useFormContext(); // retrieve all hook methods
-    const colorImg = Number(watch(name)) !== -1 ? colorsOptions[Number(watch(name)) - 1].value : "black";
-
-    return (
-
-        <div className="d-flex mt-3 flex-row " style={{ marginBottom: "20pt" }}>
-
-
-            <div className="d-flex mt-1 px-2 flex-row col-4">
-                {
-                    watch(name) === "-1" ?
-                        (<div className="">
-                            טרם נבחר צבע</div>) :
-                        imgSrc && <i
-                            className="fas fa-tshirt  fa-3x "
-                            style={{ color: colorImg }} ></i>
-                }
-
-            </div>
-            <div className="d-flex flex-column ">
-
-                <div className="d-flex flex-row ">
-                    <input type='range'
-                        {...register(name)}
-                        min="1" max={colorsOptions.length}
-                        className="text-end mx-2 d-flex flex-row form-range" />
-                </div>
-                <div className="d-flex flex-row justify-content-center">
-                    {
-                        colorsOptions.map(({ value, className }, index) =>
-
-
-                            <label
-                                key={`${index}_${name}`}
-                                style={{ marginLeft: "2pt", height: "10pt", width: "15pt", backgroundColor: value }}
-                                className='d-flex flex-row'
-                            >
-                            </label>
-                        )
-                    }
-                </div>
-            </div>
-        </div>
-
-    );
-}
-function ReporterDetails() {
-    return (<div id="reporterIdDiv" className="containerForm d-flex flex-column  bd-highlight">
-        <h4 className="text-end">פרטי המדווח/ת</h4>
-        <div className="d-flex flex-row">
-            <InputLabel
-                type="text"
-                label={formFields.reporterNameText.label}
-                id={formFields.reporterNameText.name} />
-            <InputLabel
-                dir="ltr"
-                type="text"
-                label={formFields.reporterPhoneText.label}
-                id={formFields.reporterPhoneText.name} />
-        </div>
-        <Checkbox
-            type="checkbox"
-            label={formFields.isNotify.label}
-            id={formFields.isNotify.name} />
-    </div>);
-}
-function Checkbox({ label, id, className }) {
-    const { register } = useFormContext(); // retrieve all hook methods
-    return (<div id={`${id}Container`} className={`d-flex flex-row bd-highlight `}>
-        <input className="form-check-input" type="checkbox" {...register(id)} />
-        <label className="form-check-label mx-2">{label}</label>
-    </div>);
-}
-function InputLabel({ dir,type, label, id, classNameLabel, classNameInput }) {
-    const { register, formState: { errors } } = useFormContext(); // retrieve all hook methods
-  
-    return (<div className="d-flex flex-column mx-1" >
-        <label
-            htmlFor={id}
-            className={`d-flex form-label flex-row inputLabel ${classNameLabel}`}>
-            {label}
-        </label>
-        <input
-            {...register(id)}
-            className={`form-control ${classNameInput}`}
-            type={type}
-            dir={dir? dir:"rtl"} />
-        <div className="d-flex flex-row  invalid-feedback">
-            {errors[id] && errors[id].message}
-        </div>
-
-
-    </div>
-    );
-}
 
 export default function ReportCreate(props) {
 
@@ -228,12 +50,8 @@ export default function ReportCreate(props) {
         <FormProvider {...methods}>
             <form id="createReport" className="form-inline needs-validation" noValidate onSubmit={methods.handleSubmit(onSubmit)}>
                 <DatePickerHE/>
-                <TimePicker/>
-                
-                <DistressedGroup />
-                
-                
-                
+                <TimePicker/>                
+                <DistressedGroup />              
                 <InputLabel
                     type="datetime-local"
                     label={formFields.reportDateTime.label}
@@ -245,7 +63,6 @@ export default function ReportCreate(props) {
                 <MapGroup location={location.location_text} />
                 <HomelessDetails />
                 <ReporterDetails />
-
                 <div className="wrapperRequiredFieldMsg d-flex flex-row mx-1">
                     <div className="requiredFieldMsg   d-flex flex-row required-astrix">
                         שדות חובה
