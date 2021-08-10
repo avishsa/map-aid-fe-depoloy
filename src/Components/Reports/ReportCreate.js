@@ -26,8 +26,8 @@ export default function ReportCreate(props) {
         "report_datetime": getDateTime(new Date()),
         "report_date": getYYYYMMDD(new Date()),
         "report_time": getHHMM(new Date()),
-        "person_shirt_color": "-1",
-        "person_pants_color": "-1",
+        "person_shirt_color": "",
+        "person_pants_color": "",
 
     }
     const methods = useForm({
@@ -38,17 +38,14 @@ export default function ReportCreate(props) {
     const onSubmit = data => {
         console.log(data,data[formFields.reportDate]);
         
-        data[formFields.tshirtColor.name] = data[formFields.tshirtColor.name] !== "-1" ?
-            colorsOptions[Number(data[formFields.tshirtColor])] : "";
-        data[formFields.trousersColor.name] = data[formFields.trousersColor.name] !== "-1" ?
-            colorsOptions[Number(data[formFields.trousersColor.name])] : "";
+        
         data["report_datetime"] = getDateFromString(getYYYYMMDD(data["report_date"]),data["report_time"]);
         createReport({ ...data, ...location })
         console.log(data);
     };
 
 
-    return (<div id="formContainer" className="container d-flex flex-column justify-content-center">
+    return (<div id="formContainer" className="d-flex flex-column justify-content-center">
         <h1 className="text-end"> מילוי טופס דיווח</h1>
         <FormProvider {...methods}>
             <form id="createReport" className="form-inline needs-validation" noValidate onSubmit={methods.handleSubmit(onSubmit)}>

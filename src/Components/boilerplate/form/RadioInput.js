@@ -1,13 +1,13 @@
 import React from "react";
 import {  useFormContext } from "react-hook-form";
 import {  formFields } from '../../../scheme/reportScheme';
-export default function RadioInput({ name, label, className, listOptions }) {
+export default function RadioInput({ name, label, className,classLabel,styleLabel, listOptions }) {
     const { register, formState: { errors } } = useFormContext();
 
     return (
         <div className="d-flex flex-column">
-            <label htmlFor={name}
-                className={`d-flex form-label flex-row ${className}`}   >{label}</label>
+            {label &&<label htmlFor={name}
+                className={`d-flex form-label flex-row ${className}`}   >{label}</label>}
 
             <div className="d-flex flex-row">
                 {
@@ -18,12 +18,14 @@ export default function RadioInput({ name, label, className, listOptions }) {
                             className="form-check-input"
                             id={value}
                             name={name}
-
+                            value={value}
+                            style = {styleLabel}
                             autoComplete="off"
                         />
                         <label
-                            className="form-check-label mx-1"
-                            htmlFor={value}>
+                            className={`${classLabel} form-check-label mx-1`}
+                            htmlFor={value}
+                            >
                             {label}
                         </label>
                         

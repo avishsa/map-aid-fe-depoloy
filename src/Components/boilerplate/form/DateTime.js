@@ -3,7 +3,7 @@ import { useFormContext } from "react-hook-form";
 import { formFields } from '../../../scheme/reportScheme';
 import InputLabel from "./InputLabel";
 export default function Basicinfo({ dir, type, label, id, classNameLabel, classNameInput }) {
-    return (<div className="d-flex flex-row">
+    return (<div className="d-flex flex-row ">
         <InputLabel
             type="date"
             label={formFields.reportDate.label}
@@ -18,7 +18,7 @@ export default function Basicinfo({ dir, type, label, id, classNameLabel, classN
             id={formFields.reportTime.name}
             classNameLabel='required-astrix'
             classNameInput="d-flex flex-row "
-            className = "col-6"
+            className = "col-5"
         />
         
 

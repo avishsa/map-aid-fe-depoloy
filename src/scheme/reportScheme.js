@@ -7,7 +7,14 @@ const digitsOnly = (value) => /^\d*$/.test(value)
 export const getcolorsOptions = colorIndex => {
     return colorsOptions[colorIndex - 1].value;
 }
-
+export const colorsValues = [
+    "#FFFF00","#00FF00",
+    "#00eeff",
+    "#2a00ff",
+    "#ff00cc",
+    "#ff0000",
+    "#000000"
+]
 export const colorsOptions = [
     {
         value: "#FFFF00",

@@ -1,28 +1,61 @@
 import React from "react";
-import {  useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import RadioInput from "../../boilerplate/form/RadioInput";
-export default function InputColorImage({ imgSrc, name,colors }) {
-    
+export default function InputColorImage({ labelText, imgSrc, name, colors }) {
+
     const { register, watch } = useFormContext(); // retrieve all hook methods
-    const colorImg = Number(watch(name)) !== -1 ? colors[Number(watch(name)) - 1].value : "black";
-    
+    console.log(watch(name));
+    let text ;
+        
+
     return (
 
-        <div className="d-flex mt-3 flex-row " style={{ marginBottom: "20pt" }}>
+        <div className="d-flex mt-3 flex-row align-items-center " style={{ marginBottom: "20pt" }}>
 
 
-            <div className="d-flex mt-1 px-2 flex-row col-4">
+            <div className="d-flex mt-1  flex-row col-3 ">
                 {
-                    watch(name) === "-1" ?
+                    watch(name) === "" ?
                         (<div className="">
-                            טרם נבחר צבע</div>) :
+                            {labelText}
+                            </div>) :
                         imgSrc && <i
                             className="fas fa-tshirt  fa-3x "
-                            style={{ color: colorImg }} ></i>
+                            style={{ color: watch(name) }} ></i>
                 }
 
             </div>
-            <div className="d-flex flex-column ">
+            
+            <div className="d-flex flex-row">
+                {
+
+                    colors.map((value, index) => (<div className="mx-1" key={`${name}_${index}`}>
+                        <input
+                            {...register(name)}
+                            type="radio"
+                            className="colorSelect btn-check"
+                            id={value}  
+                            value={value}
+                            name={name}                          
+                            autoComplete="off"
+                        />
+                        <label
+                            className={`divColor btn btn-secondary `}
+                            style={{                                
+                                height: "17pt",
+                                width: "17pt", backgroundColor: value
+                            }}
+                            htmlFor={value}
+                        >
+
+                        </label>
+
+
+                    </div>))
+                }
+
+            </div>
+            {/* <div className="d-flex flex-column ">
 
                 <div className="d-flex flex-row ">
                     <input type='range'
@@ -32,19 +65,17 @@ export default function InputColorImage({ imgSrc, name,colors }) {
                 </div>
                 <div className="d-flex flex-row justify-content-center">
                     {
-                        colors.map(({ value, className }, index) =>
-
-
+                        colors.map(( value, index) =>
                             <label
                                 key={`${index}_${name}`}
-                                style={{ marginLeft: "2pt", height: "10pt", width: "15pt", backgroundColor: value }}
+                                style={{  backgroundColor: value }}
                                 className='d-flex flex-row'
                             >
                             </label>
                         )
                     }
                 </div>
-            </div>
+            </div> */}
         </div>
 
     );

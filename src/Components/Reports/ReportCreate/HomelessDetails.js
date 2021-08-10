@@ -1,6 +1,6 @@
 import React from "react";
 import {  useFormContext } from "react-hook-form";
-import {  formFields ,colorsOptions} from '../../../scheme/reportScheme';
+import {  formFields ,colorsOptions,colorsValues} from '../../../scheme/reportScheme';
 import RadioInput from "../../boilerplate/form/RadioInput";
 import InputColorImage from "../../boilerplate/form/InputColorImage";
 import InputLabel from "../../boilerplate/form/InputLabel";
@@ -15,8 +15,8 @@ export default function HomelessDetails() {
             name={formFields.genderText.name}
             label={formFields.genderText.label}
             listOptions={formFields.genderText.options} />
-        <InputColorImage colors={colorsOptions} imgSrc={formFields.tshirtColor.imgSrc} name={formFields.tshirtColor.name} />
-        <InputColorImage colors={colorsOptions} imgSrc={formFields.trousersColor.imgSrc} name={formFields.trousersColor.name} />
+        <InputColorImage labelText ="טרם נבחר צבע לחולצה" colors={colorsValues} imgSrc={formFields.tshirtColor.imgSrc} name={formFields.tshirtColor.name} />
+        <InputColorImage labelText ="טרם נבחר צבע למכנסיים" colors={colorsValues} imgSrc={formFields.trousersColor.imgSrc} name={formFields.trousersColor.name} />
         <InputLabel type="text" label={formFields.descriptionText.label} id={formFields.descriptionText.name} className="" />
     </div>);
 }
