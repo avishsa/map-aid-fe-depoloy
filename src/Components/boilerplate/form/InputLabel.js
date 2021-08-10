@@ -14,7 +14,8 @@ export default function InputLabel({ dir,type, label, id, classNameLabel, classN
             {...register(id)}
             className={`form-control ${classNameInput}`}
             type={type}
-            dir={dir? dir:"rtl"} />
+            id={id}
+            />
         <div className="d-flex flex-row  invalid-feedback">
             {errors[id] && errors[id].message}
         </div>
