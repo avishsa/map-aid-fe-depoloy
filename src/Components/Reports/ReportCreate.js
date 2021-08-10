@@ -49,8 +49,11 @@ export default function ReportCreate(props) {
         <h1 className="text-end"> מילוי טופס דיווח</h1>
         <FormProvider {...methods}>
             <form id="createReport" className="form-inline needs-validation" noValidate onSubmit={methods.handleSubmit(onSubmit)}>
+                <input type="time"/>
+                <input type="date"/>
+                <input type="datetime-local"/>
                 <DatePickerHE/>
-                <TimePicker/>                
+                <div dir="ltr"><TimePicker/> </div>                
                 <DistressedGroup />              
                 <InputLabel
                     type="datetime-local"
