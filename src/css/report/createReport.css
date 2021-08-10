@@ -27,23 +27,8 @@ input{
     margin-top: 5pt;
     
 }
-#datetime-local-label:before {
-    content:" *";
-    width: 3pt;
-    height: 3pt;
-    margin-left: 6pt;
-    color: rgb(255, 146, 0);
-}
-#datetime-local-label{
-    font-family: 'VarelaRound';    
-    color: black;
-    font-size: 16pt;
-    font-weight: 500;
-    
-}
-.MuiPopover-root{
-    direction: ltr;
-}
+
+
 
 ::-webkit-calendar-picker-indicator::after {
     background-image: url('/src/images/calendar.png');
@@ -55,34 +40,14 @@ input{
     margin-left:5px;
     direction: rtl;
   }
-  ::-webkit-datetime-edit{
-      padding:0pt;
-  }
-  ::-webkit-datetime-edit-fields-wrapper {
-    
-    padding:0pt;
-  }
-  ::-webkit-datetime-edit { padding: 0; }
 
-::-webkit-datetime-edit-text { padding: 0 }
-::-webkit-datetime-edit-month-field { padding: 0 }
-::-webkit-datetime-edit-day-field { padding: 0 }
-::-webkit-datetime-edit-year-field { padding: 0 }
-::-webkit-inner-spin-button { padding: 0; }
-::-webkit-date-and-time-container{
-    padding: 0;
-}
-::-webkit-datetime-edit{
-    padding: 0;
-}
+
 /* //HEEEEEEEEERRRRRREEE date */
 ::-webkit-date-and-time-value{ 
     padding: 0;
     margin: 0;
 }
-.padding-date{
-    padding :0 10 ;
-}
+
 
 .requiredFieldMsg{
     margin-top: 25pt;    
