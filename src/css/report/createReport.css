@@ -56,6 +56,10 @@ input{
   input::-webkit-datetime-edit{
       padding:0pt;
   }
+  input::-webkit-datetime-edit-fields-wrapper {
+    
+    padding:0pt;
+  }
 .padding-date{
     padding :0 10 ;
 }
