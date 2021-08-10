@@ -39,9 +39,10 @@ input{
     font-weight: 500;
     
 }
-.MuiPaper-root{
+.MuiPopover-root{
     direction: ltr;
 }
+
 ::-webkit-calendar-picker-indicator::after {
     background-image: url('/src/images/calendar.png');
     color:Cornsilk;
@@ -50,6 +51,7 @@ input{
     transition:all ease 400ms;
     transform:scale(1);
     margin-left:5px;
+    direction: rtl;
   }
 .padding-date{
     padding :0 10 ;

@@ -53,7 +53,7 @@ export default function ReportCreate(props) {
                 <input type="date" value="2018-06-12"/>
                 <input type="datetime-local" value="2018-06-12T19:30"/>
                 <DatePickerHE/>
-                <div dir="ltr"><TimePicker/> </div>                
+                <TimePicker/> 
                 <DistressedGroup />              
                 <InputLabel
                     type="datetime-local"

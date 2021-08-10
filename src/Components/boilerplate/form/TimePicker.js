@@ -11,6 +11,7 @@ import {
 } from '@material-ui/pickers';
 
 const theme = createTheme({
+  direction: 'lrt',
     typography: {
         fontFamily: 'VarelaRound',
         fontWeightRegular: 500,
@@ -22,7 +23,7 @@ const theme = createTheme({
     },
     overrides: {
         MuiPaper:{
-
+          direction:"ltr"
         },
         MuiPickersTimerHeader: {
           switchHeader: {
@@ -86,7 +87,7 @@ export default function DateAndTimePickers({ value }) {
     const classes = useStyles();
     const [selectedTime, handleTImeChange] = useState(new Date());
     return (
-        <div dir="ltr">
+        
             <MuiThemeProvider theme={theme}>
 
                 <MuiPickersUtilsProvider utils={DateFnsUtils} locale={heIL} >
@@ -109,6 +110,6 @@ export default function DateAndTimePickers({ value }) {
                 </MuiPickersUtilsProvider>
 
             </MuiThemeProvider>
-        </div>
+        
     );
 }
