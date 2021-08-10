@@ -1,13 +1,9 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
 import RadioInput from "../../boilerplate/form/RadioInput";
-export default function InputColorImage({ labelText, imgSrc, name, colors }) {
+export default function InputColorImage({icon, labelText, imgSrc, name, colors }) {
 
-    const { register, watch } = useFormContext(); // retrieve all hook methods
-    console.log(watch(name));
-    let text ;
-        
-
+    const { register, watch } = useFormContext(); // retrieve all hook methods     
     return (
 
         <div className="d-flex mt-3 flex-row align-items-center " style={{ marginBottom: "20pt" }}>
@@ -20,7 +16,7 @@ export default function InputColorImage({ labelText, imgSrc, name, colors }) {
                             {labelText}
                             </div>) :
                         imgSrc && <i
-                            className="fas fa-tshirt  fa-3x "
+                            className={`fas ${icon}  fa-3x `}
                             style={{ color: watch(name) }} ></i>
                 }
 
@@ -34,7 +30,7 @@ export default function InputColorImage({ labelText, imgSrc, name, colors }) {
                             {...register(name)}
                             type="radio"
                             className="colorSelect btn-check"
-                            id={value}  
+                            id={`${name}_${index}`}  
                             value={value}
                             name={name}                          
                             autoComplete="off"
@@ -45,7 +41,7 @@ export default function InputColorImage({ labelText, imgSrc, name, colors }) {
                                 height: "17pt",
                                 width: "17pt", backgroundColor: value
                             }}
-                            htmlFor={value}
+                            htmlFor={`${name}_${index}`}
                         >
 
                         </label>

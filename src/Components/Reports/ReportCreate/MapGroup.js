@@ -9,7 +9,7 @@ export default function MapGroup({ location }) {
             <div id="" className=" d-flex  flex-row justify-content-between">
                 <input id="locationTextInput" value={location}
                     className="form-control text-end" disabled />
-                <button id="locationChangeBtn" className=" btn-sm form-control btn mx-1" onClick={() => { console.log("redirect to map") }}>שינוי</button>
+                <button id="locationChangeBtn" className=" btn-sm form-control btn mx-1" onClick={() => { ("redirect to map") }}>שינוי</button>
             </div>
         </div>
     );
