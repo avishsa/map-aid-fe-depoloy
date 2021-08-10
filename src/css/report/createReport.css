@@ -11,6 +11,7 @@ h1 {
 }
 input{
     padding-right: 5pt;
+    margin-right: 5pt;
     height:32pt;
     font-size: 12pt;
     border-radius: 4pt;
@@ -82,12 +83,7 @@ input{
 .padding-date{
     padding :0 10 ;
 }
-.form-control{
-    padding-left: 0 ;
-    padding-right: 0 ;
-    margin-left: 0;
-    margin-right: 0;
-}
+
 .requiredFieldMsg{
     margin-top: 25pt;    
     margin-bottom: 30pt;

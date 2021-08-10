@@ -6,7 +6,7 @@ import InputColorImage from "../../boilerplate/form/InputColorImage";
 import InputLabel from "../../boilerplate/form/InputLabel";
 
 export default function HomelessDetails() {
-    console.log(colorsOptions);
+    
     
     return (<div id="homelessIdDiv" className="containerForm d-flex flex-column bd-highlight">
         <h4 className="text-end">זיהוי</h4>

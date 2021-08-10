@@ -3,7 +3,7 @@ import { useForm, FormProvider, useFormContext } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { reportFormSchema, formFields, colorsOptions } from '../../scheme/reportScheme';
-import { getDateTime } from "../../Utilities/TimeFormatter";
+import { getDateTime,getHHMM, getYYYYMMDD,getDateFromString } from "../../Utilities/TimeFormatter";
 import { createReport } from "../../api/reports";
 import '../../css/report/createReport.css';
 import DatePickerHE from "../boilerplate/form/DatePickerHE";
@@ -12,8 +12,7 @@ import DistressedGroup from "./ReportCreate/DistressedGroup";
 import MapGroup from "./ReportCreate/MapGroup";
 import HomelessDetails from "./ReportCreate/HomelessDetails";
 import ReporterDetails from "./ReportCreate/ReporterDetails";
-import InputLabel from "../boilerplate/form/InputLabel";
-
+import DateTime from "../boilerplate/form/DateTime";
 
 const location = { location_text: "בורלא 29, תל אביב", location_json: { lon: 32.1616, lat: 32.1514 } };
 
@@ -25,6 +24,8 @@ export default function ReportCreate(props) {
     const defaultValues = {
         "notify_me": false,
         "report_datetime": getDateTime(new Date()),
+        "report_date": getYYYYMMDD(new Date()),
+        "report_time": getHHMM(new Date()),
         "person_shirt_color": "-1",
         "person_pants_color": "-1",
 
@@ -35,11 +36,13 @@ export default function ReportCreate(props) {
         resolver: yupResolver(reportFormSchema)
     });
     const onSubmit = data => {
-        console.log(data);
+        console.log(data,data[formFields.reportDate]);
+        
         data[formFields.tshirtColor.name] = data[formFields.tshirtColor.name] !== "-1" ?
             colorsOptions[Number(data[formFields.tshirtColor])] : "";
         data[formFields.trousersColor.name] = data[formFields.trousersColor.name] !== "-1" ?
             colorsOptions[Number(data[formFields.trousersColor.name])] : "";
+        data["report_datetime"] = getDateFromString(getYYYYMMDD(data["report_date"]),data["report_time"]);
         createReport({ ...data, ...location })
         console.log(data);
     };
@@ -49,19 +52,8 @@ export default function ReportCreate(props) {
         <h1 className="text-end"> מילוי טופס דיווח</h1>
         <FormProvider {...methods}>
             <form id="createReport" className="form-inline needs-validation" noValidate onSubmit={methods.handleSubmit(onSubmit)}>
-                <input type="time" value="18:00"/>
-                <input type="date" value="2018-06-12"/>
-                <input type="datetime-local" value="2018-06-12T19:30"/>
-                <DatePickerHE/>
-                <TimePicker/> 
                 <DistressedGroup />              
-                <InputLabel
-                    type="datetime-local"
-                    label={formFields.reportDateTime.label}
-                    id={formFields.reportDateTime.name}                    
-                    classNameLabel='required-astrix'
-                    classNameInput="d-flex flex-row date-input"
-                />
+                <DateTime/>
                 <MapGroup location={location.location_text} />
                 <HomelessDetails />
                 <ReporterDetails />

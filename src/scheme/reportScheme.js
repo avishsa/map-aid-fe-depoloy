@@ -4,8 +4,8 @@ import { getHHMM, getYYYYMMDD } from '../Utilities/TimeFormatter';
 
 
 const digitsOnly = (value) => /^\d*$/.test(value)
-export const getcolorsOptions = colorIndex=>{
-    return colorsOptions[colorIndex-1].value;
+export const getcolorsOptions = colorIndex => {
+    return colorsOptions[colorIndex - 1].value;
 }
 
 export const colorsOptions = [
@@ -98,6 +98,10 @@ export const formFields = {
         name: "report_date",
         label: "תאריך"
     },
+    reportTime: {
+        name: "report_time",
+        label: "שעה"
+    },
     reportDateTime: {
         name: "report_datetime",
         label: "תאריך ושעה"
@@ -106,7 +110,7 @@ export const formFields = {
 
 export const reportFormSchema = yup.object().shape({
 
-    distressed: yup.boolean().required(),
+    distressed: yup.boolean().required("שדה נדרש"),
     distressed_info: yup.string(),
     person_gender: yup.string('שדה מסוג טקסט')
         .typeError('בחר מגדר')
@@ -120,9 +124,17 @@ export const reportFormSchema = yup.object().shape({
     ,
 
     notify_me: yup.boolean(),
-
+    report_date: yup.date()
+        .required("שדה נדרש")
+        .typeError('תאריך ו/או שעה לא תקינים, חסר אחד מהערכים או יותר (יום, חודש, שנה)')
+        .max(new Date(), `  זמן דיווח לא מאוחר יותר מעכשיו, תאריך: ${getYYYYMMDD(new Date())} `),
+    report_time: yup.string()
+        .required("שדה נדרש")
+        
+        ,
+        
     report_datetime: yup.date()
-        .required()
+        .required("שדה נדרש")
         .typeError('תאריך ו/או שעה לא תקינים, חסר אחד מהערכים או יותר (יום, חודש, שנה, שעה, דקה)')
         .max(new Date(), `  זמן דיווח לא מאוחר יותר מעכשיו, תאריך: ${getYYYYMMDD(new Date())} שעה: ${getHHMM(new Date())} `)
     // .test("max date",,value => value.getTime()<new Date().getTime())
