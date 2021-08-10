@@ -10,6 +10,7 @@ h1 {
     top: 150pt; */
 }
 input{
+    padding-right: 5pt;
     height:32pt;
     font-size: 12pt;
     border-radius: 4pt;
@@ -53,13 +54,31 @@ input{
     margin-left:5px;
     direction: rtl;
   }
-  input::-webkit-datetime-edit{
+  ::-webkit-datetime-edit{
       padding:0pt;
   }
-  input::-webkit-datetime-edit-fields-wrapper {
+  ::-webkit-datetime-edit-fields-wrapper {
     
     padding:0pt;
   }
+  ::-webkit-datetime-edit { padding: 0; }
+
+::-webkit-datetime-edit-text { padding: 0 }
+::-webkit-datetime-edit-month-field { padding: 0 }
+::-webkit-datetime-edit-day-field { padding: 0 }
+::-webkit-datetime-edit-year-field { padding: 0 }
+::-webkit-inner-spin-button { padding: 0; }
+::-webkit-date-and-time-container{
+    padding: 0;
+}
+::-webkit-datetime-edit{
+    padding: 0;
+}
+/* //HEEEEEEEEERRRRRREEE date */
+::-webkit-date-and-time-value{ 
+    padding: 0;
+    margin: 0;
+}
 .padding-date{
     padding :0 10 ;
 }
