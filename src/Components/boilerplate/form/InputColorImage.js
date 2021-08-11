@@ -1,11 +1,12 @@
 import React from "react";
 import { GiTrousers,GiTShirt } from "react-icons/gi";
+import {ImCross} from "react-icons/im"
 import { useFormContext } from "react-hook-form";
 const getIcon = (name,color)=>{
     console.log(color);
     switch(name){
-        case "person_shirt_color": return <GiTShirt style={{ height:"50pt",width: "50pt",color: color }}/>;
-        case "person_pants_color": return <GiTrousers style={{ height:"50pt",width: "50pt",color: color }}/>;
+        case "person_shirt_color": return <GiTShirt style={{ height:"50pt",width: "50pt",color: color,zIndex:9 }}/>;
+        case "person_pants_color": return <GiTrousers style={{ height:"50pt",width: "50pt",color: color,zIndex:9 }}/>;
         default: return <div></div>;
     }
 }
@@ -20,9 +21,11 @@ export default function InputColorImage({icon, labelText, imgSrc, name, colors }
             <div className="d-flex mt-1  flex-row justify-content-center col-3 ">
                 {
                     watch(name) === "" ?
-                        (<div className="">
-                            {labelText}
-                            </div>) :
+                        (<div style={{display:"inline",position:"relative"}}>
+                            <ImCross style={{ height:"30pt",width: "30pt",color: "red",position:"absolute",left:"10pt",bottom:"10pt" }}/>
+                            {getIcon(name,watch(name))}
+                            </div>)
+                        :
                           getIcon(name,watch(name))  
                         
                 }
@@ -58,27 +61,7 @@ export default function InputColorImage({icon, labelText, imgSrc, name, colors }
                 }
 
             </div>
-            {/* <div className="d-flex flex-column ">
-
-                <div className="d-flex flex-row ">
-                    <input type='range'
-                        {...register(name)}
-                        min="1" max={colors.length}
-                        className="text-end mx-2 d-flex flex-row form-range" />
-                </div>
-                <div className="d-flex flex-row justify-content-center">
-                    {
-                        colors.map(( value, index) =>
-                            <label
-                                key={`${index}_${name}`}
-                                style={{  backgroundColor: value }}
-                                className='d-flex flex-row'
-                            >
-                            </label>
-                        )
-                    }
-                </div>
-            </div> */}
+            
         </div>
 
     );
