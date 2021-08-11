@@ -6,13 +6,14 @@ import { reportFormSchema, formFields, colorsOptions } from '../../scheme/report
 import { getDateTime,getHHMM, getYYYYMMDD,getDateFromString } from "../../Utilities/TimeFormatter";
 import { createReport } from "../../api/reports";
 import '../../css/report/createReport.css';
-import DatePickerHE from "../boilerplate/form/DatePickerHE";
-import  TimePicker from "../boilerplate/form/TimePicker";
+
+import  TimePickerHE from "../boilerplate/form/TimePickerHE";
+import  DateTimePickerHE from "../boilerplate/form/DateTimePickerHE";
 import DistressedGroup from "./ReportCreate/DistressedGroup";
 import MapGroup from "./ReportCreate/MapGroup";
 import HomelessDetails from "./ReportCreate/HomelessDetails";
 import ReporterDetails from "./ReportCreate/ReporterDetails";
-import DateTime from "../boilerplate/form/DateTime";
+
 
 const location = { location_text: "בורלא 29, תל אביב", location_json: { lon: 32.1616, lat: 32.1514 } };
 
@@ -50,7 +51,8 @@ export default function ReportCreate(props) {
         <FormProvider {...methods}>
             <form id="createReport" className="form-inline needs-validation" noValidate onSubmit={methods.handleSubmit(onSubmit)}>
                 <DistressedGroup />              
-                <DateTime/>
+                <DateTimePickerHE/>
+                
                 <MapGroup location={location.location_text} />
                 <HomelessDetails />
                 <ReporterDetails />
