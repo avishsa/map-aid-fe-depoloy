@@ -1,6 +1,14 @@
 import React from "react";
+import { GiTrousers,GiTShirt } from "react-icons/gi";
 import { useFormContext } from "react-hook-form";
-import RadioInput from "../../boilerplate/form/RadioInput";
+const getIcon = (name,color)=>{
+    console.log(color);
+    switch(name){
+        case "person_shirt_color": return <GiTShirt style={{ height:"50pt",width: "50pt",color: color }}/>;
+        case "person_pants_color": return <GiTrousers style={{ height:"50pt",width: "50pt",color: color }}/>;
+        default: return <div></div>;
+    }
+}
 export default function InputColorImage({icon, labelText, imgSrc, name, colors }) {
 
     const { register, watch } = useFormContext(); // retrieve all hook methods     
@@ -9,15 +17,15 @@ export default function InputColorImage({icon, labelText, imgSrc, name, colors }
         <div className="d-flex mt-3 flex-row align-items-center " style={{ marginBottom: "20pt" }}>
 
 
-            <div className="d-flex mt-1  flex-row col-3 ">
+            <div className="d-flex mt-1  flex-row justify-content-center col-3 ">
                 {
                     watch(name) === "" ?
                         (<div className="">
                             {labelText}
                             </div>) :
-                        imgSrc && <i
-                            className={`fas ${icon}  fa-3x `}
-                            style={{ color: watch(name) }} ></i>
+                          getIcon(name,watch(name))  
+                        // imgSrc && <GiTrousers style={{ height:"50pt",width: "50pt",color: watch(name) }}/>
+                        // imgSrc && <GiTShirt style={{ height:"50pt",width: "50pt",color: watch(name) }}/>
                 }
 
             </div>

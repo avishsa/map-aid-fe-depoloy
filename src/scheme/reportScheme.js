@@ -15,6 +15,7 @@ export const colorsValues = [
     "#ff0000",
     "#000000"
 ]
+
 export const colorsOptions = [
     {
         value: "#FFFF00",
@@ -79,11 +80,13 @@ export const formFields = {
     },
     tshirtColor: {
         name: "person_shirt_color",
-        imgSrc: "woman-shirt.svg"//'fas fa-tshirt fa-lg'
+        imgSrc: "woman-shirt.svg",//'fas fa-tshirt fa-lg'
+        
     },
     trousersColor: {
         name: "person_pants_color",
-        imgSrc: './jeans-pants.svg'
+        imgSrc: './jeans-pants.svg',
+        
     },
     descriptionText: {
         name: "person_general_description",
