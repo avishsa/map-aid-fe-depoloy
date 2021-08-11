@@ -24,8 +24,7 @@ export default function InputColorImage({icon, labelText, imgSrc, name, colors }
                             {labelText}
                             </div>) :
                           getIcon(name,watch(name))  
-                        // imgSrc && <GiTrousers style={{ height:"50pt",width: "50pt",color: watch(name) }}/>
-                        // imgSrc && <GiTShirt style={{ height:"50pt",width: "50pt",color: watch(name) }}/>
+                        
                 }
 
             </div>

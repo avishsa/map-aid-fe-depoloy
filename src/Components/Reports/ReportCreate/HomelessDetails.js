@@ -17,6 +17,6 @@ export default function HomelessDetails() {
             listOptions={formFields.genderText.options} />
         <InputColorImage icon="fa-tshirt" labelText ="טרם נבחר צבע לחולצה" colors={colorsValues} imgSrc={formFields.tshirtColor.imgSrc} name={formFields.tshirtColor.name} />
         <InputColorImage icon="fa-socks" labelText ="טרם נבחר צבע למכנסיים" colors={colorsValues} imgSrc={formFields.trousersColor.imgSrc} name={formFields.trousersColor.name} />
-        <InputLabel type="text" label={formFields.descriptionText.label} id={formFields.descriptionText.name} className="" />
+        <InputLabel  type="text" label={formFields.descriptionText.label} id={formFields.descriptionText.name} className="" />
     </div>);
 }
