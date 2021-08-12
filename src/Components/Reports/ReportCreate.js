@@ -51,8 +51,8 @@ export default function ReportCreate(props) {
         <FormProvider {...methods}>
             <form id="createReport" className="form-inline needs-validation" noValidate onSubmit={methods.handleSubmit(onSubmit)}>
                 <DistressedGroup />              
-                <DateTime/>
                 
+                <DateTimePickerHE/>
                 <MapGroup location={location.location_text} />
                 <HomelessDetails />
                 <ReporterDetails />

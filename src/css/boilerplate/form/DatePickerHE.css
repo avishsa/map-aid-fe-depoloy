@@ -3,6 +3,6 @@
     direction: rtl;
   }
   div[class^="MuiPickersBasePicker"]{
-    direction: rtl;
+    /* direction: rtl; */
   }
   
