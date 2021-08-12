@@ -7,7 +7,7 @@ import { getDateTime,getHHMM, getYYYYMMDD,getDateFromString } from "../../Utilit
 import { createReport } from "../../api/reports";
 import '../../css/report/createReport.css';
 
-import  TimePickerHE from "../boilerplate/form/TimePickerHE";
+import DateTime from "../boilerplate/form/DateTime";
 import  DateTimePickerHE from "../boilerplate/form/DateTimePickerHE";
 import DistressedGroup from "./ReportCreate/DistressedGroup";
 import MapGroup from "./ReportCreate/MapGroup";
@@ -51,7 +51,7 @@ export default function ReportCreate(props) {
         <FormProvider {...methods}>
             <form id="createReport" className="form-inline needs-validation" noValidate onSubmit={methods.handleSubmit(onSubmit)}>
                 <DistressedGroup />              
-                <DateTimePickerHE/>
+                <DateTime/>
                 
                 <MapGroup location={location.location_text} />
                 <HomelessDetails />

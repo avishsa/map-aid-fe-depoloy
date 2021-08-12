@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { makeStyles, createTheme } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core'
+
 import DateFnsUtils from "@date-io/date-fns";
 import heIL from "date-fns/locale/he";
 import "../../../css/boilerplate/form/DatePickerHE.css";
@@ -29,7 +30,6 @@ const theme = createTheme({
 );
 
 const useStyles = makeStyles((theme) => ({
-
     root: {
         backgroundColor: "white",
         fontFamily: "VarelaRound",
@@ -44,6 +44,9 @@ const useStyles = makeStyles((theme) => ({
     datePicker:{
         direction:"rtl"
     },
+    timePicker:{
+        direction:"ltr"
+    },
     underline: {
         "&&&:before": {
             borderBottom: "none"
@@ -53,13 +56,13 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     toolbar: {
-        direction: "rtl",
+        direction: "ltr",
         display: "flex",
         flexDirection: "row",
 
     },
     paper: {
-        direction: "rtl",
+        direction: "ltr",
     }
 
 

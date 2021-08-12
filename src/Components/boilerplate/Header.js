@@ -4,7 +4,7 @@ import '../../css/boilerplate/Header.css';
 import AppLogo from "../../images/logo-app.png";
 class Header extends Component {
     render() {
-        return (<header className=" container d-flex  flex-row p-0 m-0">
+        return (<header className=" container d-flex  flex-row p-0 m-0 mb-3">
             <div className="d-flex flex-column-reverse justify-content-start col-12 ">
                 <div className="d-flex flex-row-reverse ">
                     <img src={AppLogo} alt="logo elem" /> 
