@@ -15,15 +15,16 @@ export default function InputColorImage({icon, labelText, imgSrc, name, colors }
     const { register, watch } = useFormContext(); // retrieve all hook methods     
     return (
 
-        <div className="d-flex mt-3 flex-row align-items-center " style={{ marginBottom: "20pt" }}>
+        <div className="d-flex mt-3 flex-row  justify-content-between align-items-center " style={{ marginBottom: "20pt" }}>
 
 
-            <div className="d-flex mt-1  flex-row justify-content-center col-3 ">
+            <div className="d-flex mt-1  flex-row justify-content-center "
+            style={{height:"60pt",width: "60pt",border:"5pt solid #3043EF"}}
+            >
                 {
                     watch(name) === "" ?
-                        (<div style={{display:"inline",position:"relative"}}>
-                            <ImCross style={{ height:"30pt",width: "30pt",color: "red",position:"absolute",left:"10pt",bottom:"10pt" }}/>
-                            {getIcon(name,watch(name))}
+                        (<div >
+                            
                             </div>)
                         :
                           getIcon(name,watch(name))  
@@ -32,7 +33,7 @@ export default function InputColorImage({icon, labelText, imgSrc, name, colors }
 
             </div>
             
-            <div className="d-flex flex-row">
+            <div className="d-flex flex-row mr-4">
                 {
 
                     colors.map((value, index) => (<div className="mx-1" key={`${name}_${index}`}>

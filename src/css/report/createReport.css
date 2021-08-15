@@ -23,7 +23,7 @@ input[type="radio"].colorSelect:checked+label{
 ::-webkit-calendar-picker-indicator::after {
     background-image: url('/src/images/calendar.png');
     color:Cornsilk;
-    opacity:1;
+    
     font-size:14pt;
     transition:all ease 400ms;
     transform:scale(1);
@@ -89,10 +89,7 @@ h4 {
     height: 53pt;
     border-radius: 32pt;
 }
-#person_general_description{
-    opacity: 83%;
-    
-}
+
 #locationTextContainer{
     margin-top: 15.5pt;
     
