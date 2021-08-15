@@ -5,7 +5,7 @@ export default function DistressedGroup() {
     const { register, watch, formState:{touchedFields} } = useFormContext(); // retrieve all hook methods
     
     let isTouchedDistressGroup = touchedFields[formFields.distressedText.name]!==undefined;
-    console.log("isTouchedDistressGroup",isTouchedDistressGroup);
+    
     return (<div className="d-flex flex-column bd-highlight">
         <div id="DistressedCBContainer" className="d-flex flex-row lign-items-start bd-highlight">
             <input
@@ -21,7 +21,7 @@ export default function DistressedGroup() {
             id="distressText"
             className="long-text-input form-control d-flex  flex-column float-end bd-highlight"
             {...register(formFields.distressedText.name)}
-            value={watch("person_general_description")}
+            defaultValue = {watch("person_general_description")}
             placeholder={formFields.distressedText.label}
         />)}
         {watch(formFields.isDistressed.name) && isTouchedDistressGroup && (<input

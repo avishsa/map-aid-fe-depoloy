@@ -3,7 +3,7 @@ import { GiTrousers,GiTShirt } from "react-icons/gi";
 import {ImCross} from "react-icons/im"
 import { useFormContext } from "react-hook-form";
 const getIcon = (name,color)=>{
-    console.log(color);
+    
     switch(name){
         case "person_shirt_color": return <GiTShirt style={{ height:"50pt",width: "50pt",color: color,zIndex:9 }}/>;
         case "person_pants_color": return <GiTrousers style={{ height:"50pt",width: "50pt",color: color,zIndex:9 }}/>;

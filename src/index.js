@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { create } from "jss";
-import rtl from "jss-rtl";
+
+
 
 
 
@@ -20,7 +20,7 @@ const theme = createTheme({
   },  
 },heIL);
 
-const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
+
 
 
 
@@ -29,9 +29,9 @@ const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 
 ReactDOM.render(
     <ThemeProvider theme={theme}>
-    <StylesProvider jss={jss}>      
+    
         <App />    
-      </StylesProvider>
+    
     </ThemeProvider>
   ,
 

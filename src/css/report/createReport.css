@@ -9,6 +9,7 @@ input{
     height:32pt;
     font-size: 12pt;
     border-radius: 4pt;
+    /* border-color: white !important; */
     background-color: white ;
 
 }
@@ -37,7 +38,13 @@ input[type="radio"].colorSelect:checked+label{
     margin: 0;
 }
 
-
+.MuiFormControl-root{
+    border:none;
+    position: inherit;
+}
+.MuiOutlinedInput-root{
+    border:none;
+}
 .requiredFieldMsg{
     margin-top: 25pt;    
     margin-bottom: 30pt;
