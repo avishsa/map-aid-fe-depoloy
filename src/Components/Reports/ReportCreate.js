@@ -4,7 +4,7 @@ import { createTheme } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/styles';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ThemeProvider } from '@material-ui/core/styles';
-import DatePicker from '@material-ui/lab/DatePicker';
+
 
 
 import DateFnsUtils from "@date-io/date-fns";
@@ -16,8 +16,8 @@ import '../../css/report/createReport.css';
 
 
 import TextField from '@material-ui/core/TextField';
-import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
-import LocalizationProvider from '@material-ui/lab/LocalizationProvider';
+
+
 
 
 
@@ -128,81 +128,14 @@ export default function ReportCreate(props) {
         createReport({ ...data, ...location })
         console.log(data);
     };
-
-    const [value, setValue] = React.useState(new Date());
-
     return (<div id="formContainer" className="d-flex flex-column justify-content-center">
         <h1 className="text-end"> מילוי טופס דיווח</h1>
         <FormProvider {...methods}>
             <form id="createReport" className="form-inline needs-validation" noValidate onSubmit={methods.handleSubmit(onSubmit)}>
-                <DistressedGroup />
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <DatePicker
-                        views={['year', 'month', 'day']}
-                        InputProps={{ classes }}
-                        inputFormat="dd/MM/yyyy"
-                        value={value}
-                        onChange={(newValue) => {
-                            setValue(newValue);
-                        }}
 
-                        renderInput={(params) => <TextField {...params} />}
-                    />
-                </LocalizationProvider>
-                {/* <ThemeProvider theme={theme}>
-                    <MuiPickersUtilsProvider utils={DateFnsUtils} >
-                        <div className="d-flex flex-row ">
-                            <div className="d-flex flex-column  mx-1">
-                                <label className="form-label required-astrix d-flex flex-row">תאריך</label>
-                                <Controller
-                                    control={methods.control}
-                                    name='report_date'
-                                    render={({ field }) => (
-                                        <DatePicker
-                                            className={`${classes.root} form-control d-flex row-reverse`}
-                                            InputProps={{ classes }}
-                                            autoOk
-                                            variant="dialog"
-                                            format="dd/MM/yyyy"
-                                            maxDate={new Date()}
-                                            maxDateMessage="זמן דיווח לא יאוחר מהיום"
-                                            cancelLabel="בטל"
-                                            okLabel="אשר"
-                                            views={["year", "month", "date"]}
-                                            DialogProps={{ style: { direction: 'rtl' } }}
-                                            onChange={(date) => { field.onChange(date) }}
-                                            onBlur={(date) => { field.onBlur(date) }}
-                                            value={field.value}
-                                            selected={field.value}
-                                        />
-                                    )}
-                                />
-
-                            </div>
-                            <div className="d-flex flex-column mx-1">
-                                <label className="form-label required-astrix d-flex flex-row">שעה</label>
-                                <Controller
-                                    control={methods.control}
-                                    name='report_time'
-                                    render={({ field }) => (
-                                        <TimePicker
-                                            autoOk
-                                            className={`${classes.root} form-control d-flex row-reverse`}
-                                            format="HH:mm"
-                                            variant="dialog"
-                                            cancelLabel="בטל"
-                                            okLabel="אשר"
-                                            InputProps={{ classes }}
-                                            onChange={(date) => { field.onChange(date) }}
-                                            onBlur={(date) => { field.onBlur(date) }}
-                                            value={field.value}
-                                            selected={field.value}
-                                        />)}
-                                />
-                            </div>
-                        </div>
-                    </MuiPickersUtilsProvider>
-                </ThemeProvider> */}
+                <DistressedGroup />              
+                <DateTimePickerHE/>
+                
 
                 <MapGroup location={location.location_text} />
                 <HomelessDetails />

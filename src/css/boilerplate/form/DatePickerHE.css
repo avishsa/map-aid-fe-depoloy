@@ -2,7 +2,7 @@
     background-color: #eaea87;
     direction: rtl;
   }
-  div[class^="MuiPickersBasePicker"]{
-    /* direction: rtl; */
+  div[class^="MuiDialogActions-root"]{
+    direction: rtl;
   }
   

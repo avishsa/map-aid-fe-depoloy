@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import { Controller, useForm } from 'react-hook-form'
-import {  createTheme } from '@material-ui/core/styles';
+import { Controller, useFormContext } from 'react-hook-form'
 import { makeStyles } from '@material-ui/styles';
-import { ThemeProvider } from '@material-ui/core/styles';
-import DatePicker from '@material-ui/lab/DatePicker';
-import TimePicker from '@material-ui/lab/DatePicker';
+
+
 
 
 import DateFnsUtils from "@date-io/date-fns";
@@ -12,9 +10,16 @@ import heIL from "date-fns/locale/he";
 import "../../../css/boilerplate/form/DatePickerHE.css";
 
 
+import {
+
+    MuiPickersUtilsProvider,
+    DatePicker,
+    TimePicker
+} from '@material-ui/pickers';
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
 
 
-const theme = createTheme({
+const theme = createMuiTheme({
     typography: {
         fontFamily: 'VarelaRound',
         fontWeightRegular: 500,
@@ -42,6 +47,11 @@ const useStyles = makeStyles((theme) => ({
         '& MuiPaper-root ': {
             direction: "rtl"
         }
+
+
+    },
+    dialog: {
+        direction: "ltr"
     },
     underline: {
         "&&&:before": {
@@ -51,6 +61,7 @@ const useStyles = makeStyles((theme) => ({
             borderBottom: "none"
         }
     },
+
 }));
 const props = {
 
@@ -58,22 +69,21 @@ const props = {
 //{{PaperProps:{DialogActions:{style:{color:"red",direction:"ltr"}}}}}
 export default function DatePickerHE({ value }) {
     const classes = useStyles();
-    const { control } = useForm();
-
+    const [selectedDate, handleDateChange] = useState(new Date());
+    const { control } = useFormContext(); // retrieve all hook methods
     return (
-        <ThemeProvider theme={theme}>
-
+        <MuiThemeProvider theme={theme}>
+            <MuiPickersUtilsProvider utils={DateFnsUtils} locale={heIL} >
                 <div className="d-flex flex-row ">
                     <div className="d-flex flex-column  mx-1">
                         <label className="form-label required-astrix d-flex flex-row">תאריך</label>
                         <Controller
                             control={control}
                             name='report_date'
-                            render={({field}) => (
+                            render={({ field }) => (
                                 <DatePicker
-                                    className={`${classes.root}  d-flex row-reverse`}
+                                    className={`${classes.root} form-control d-flex row-reverse`}
                                     InputProps={{ classes }}
-                                    maxDate={new Date()}
                                     autoOk
                                     variant="dialog"
                                     format="dd/MM/yyyy"
@@ -82,12 +92,11 @@ export default function DatePickerHE({ value }) {
                                     cancelLabel="בטל"
                                     okLabel="אשר"
                                     views={["year", "month", "date"]}
-                                    DialogProps={{ style: { direction: 'rtl' } }}
-                                    onChange={(date) => {field.onChange(date)}}                                    
-                                    onBlur={(date) => {field.onBlur(date)}}                                    
-                                    // value={field.value}
+                                    DialogProps={{ style: { color:"red",direction: 'rtl' } }}
+                                    onChange={(date) => { field.onChange(date) }}
+                                    onBlur={(date) => { field.onBlur(date) }}
+                                    value={field.value}
                                     selected={field.value}
-
                                 />
                             )}
                         />
@@ -95,10 +104,10 @@ export default function DatePickerHE({ value }) {
                     </div>
                     <div className="d-flex flex-column mx-1">
                         <label className="form-label required-astrix d-flex flex-row">שעה</label>
-                         <Controller
+                        <Controller
                             control={control}
                             name='report_time'
-                            render={({field}) => (
+                            render={({ field }) => (
                                 <TimePicker
                                     autoOk
                                     className={`${classes.root} form-control d-flex row-reverse`}
@@ -107,19 +116,16 @@ export default function DatePickerHE({ value }) {
                                     cancelLabel="בטל"
                                     okLabel="אשר"
                                     InputProps={{ classes }}
-
-
-                                    {...field}
-
-
-
-
+                                    onChange={(date) => { field.onChange(date) }}
+                                    onBlur={(date) => { field.onBlur(date) }}
+                                    value={field.value}
+                                    selected={field.value}
+                                    DialogProps={{ style: { color:"red",direction: 'ltr' } }}
                                 />)}
                         />
                     </div>
                 </div>
-
-
-        </ThemeProvider>
+            </MuiPickersUtilsProvider>
+        </MuiThemeProvider>
     );
 }
