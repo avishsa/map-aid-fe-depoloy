@@ -6,8 +6,7 @@ const mockApi = (formValues)=>new Promise(function(resolve, reject) {
       reject({error:"promise failed"})
     },300);
   });
-export const createReport = (formValues)=>{
-  mockApi(formValues)
-  .then(data=>("api redirect to ThankYou / report RoadMap page using react router",data))
-  .catch(error=>console.error(error));
+export const createReportAPI = async (formValues)=>{
+  return mockApi(formValues);
+  
 }

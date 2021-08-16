@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Controller, useFormContext } from 'react-hook-form'
 import { makeStyles } from '@material-ui/styles';
-
+import { createTheme } from '@material-ui/core/styles'
 
 
 
@@ -19,7 +19,7 @@ import {
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
 
 
-const theme = createMuiTheme({
+const theme = createTheme({
     typography: {
         fontFamily: 'VarelaRound',
         fontWeightRegular: 500,
@@ -50,9 +50,7 @@ const useStyles = makeStyles((theme) => ({
 
 
     },
-    dialog: {
-        direction: "ltr"
-    },
+
     underline: {
         "&&&:before": {
             borderBottom: "none"
@@ -70,7 +68,7 @@ const props = {
 export default function DatePickerHE({ value }) {
     const classes = useStyles();
     const [selectedDate, handleDateChange] = useState(new Date());
-    const { control } = useFormContext(); // retrieve all hook methods
+    const { control, formState: { errors } } = useFormContext(); // retrieve all hook methods
     return (
         <MuiThemeProvider theme={theme}>
             <MuiPickersUtilsProvider utils={DateFnsUtils} locale={heIL} >
@@ -82,6 +80,7 @@ export default function DatePickerHE({ value }) {
                             name='report_date'
                             render={({ field }) => (
                                 <DatePicker
+
                                     className={`${classes.root} form-control d-flex row-reverse`}
                                     InputProps={{ classes }}
                                     autoOk
@@ -92,7 +91,7 @@ export default function DatePickerHE({ value }) {
                                     cancelLabel="בטל"
                                     okLabel="אשר"
                                     views={["year", "month", "date"]}
-                                    DialogProps={{ style: { color:"red",direction: 'rtl' } }}
+                                    DialogProps={{ style: { color: "red", direction: 'rtl' } }}
                                     onChange={(date) => { field.onChange(date) }}
                                     onBlur={(date) => { field.onBlur(date) }}
                                     value={field.value}
@@ -100,16 +99,26 @@ export default function DatePickerHE({ value }) {
                                 />
                             )}
                         />
-
+                        <div className=" mr-1 pr-2  d-flex flex-row  invalid-feedback">
+                            {errors["report_date"] &&
+                                errors["report_date"].message
+                                
+                            }
+                        </div>
                     </div>
                     <div className="d-flex flex-column mx-1">
-                        <label className="form-label required-astrix d-flex flex-row">שעה</label>
+                        <label className="form-label required-astrix d-flex flex-row"
+                            autoFocus={errors &&
+                                errors[""] &&
+                                errors[""].type === "maxDate"}
+                        >שעה</label>
                         <Controller
                             control={control}
                             name='report_time'
                             render={({ field }) => (
                                 <TimePicker
                                     autoOk
+
                                     className={`${classes.root} form-control d-flex row-reverse`}
                                     format="HH:mm"
                                     variant="dialog"
@@ -120,9 +129,18 @@ export default function DatePickerHE({ value }) {
                                     onBlur={(date) => { field.onBlur(date) }}
                                     value={field.value}
                                     selected={field.value}
-                                    DialogProps={{ style: { color:"red",direction: 'ltr' } }}
+                                    DialogProps={{ style: { color: "red", direction: 'ltr' } }}
                                 />)}
                         />
+                        <div className="mr-1 pr-2 d-flex flex-row  invalid-feedback">
+                            {/*errors &&
+                                errors[""] &&
+                                errors[""].type === "maxDate" &&
+                                errors[""].message*/
+                                errors["report_time"] &&
+                                errors["report_time"].message
+                            }
+                        </div>
                     </div>
                 </div>
             </MuiPickersUtilsProvider>
