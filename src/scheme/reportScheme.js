@@ -56,7 +56,7 @@ export const colorsOptions = [
 ];
 export const formFields = {
     isDistressed: {
-        name: "distressed",
+        name: "isDistressed",
         label: "זיהוי מצוקה"
     },
     distressedText: {
@@ -101,7 +101,7 @@ export const formFields = {
         label: "מספר טלפון"
     },
     isNotify: {
-        name: "notify_me",
+        name: "isNotify",
         label: "הודיעו לי כשהפנייה שלי נענית"
     },
     reportDate: {
@@ -120,7 +120,7 @@ export const formFields = {
 
 export const reportFormSchema = yup.object().shape({
 
-    distressed: yup.boolean().required("שדה נדרש"),
+    isDistressed: yup.boolean().required("שדה נדרש"),
     distressed_info: yup.string(),
     person_gender: yup.string('שדה מסוג טקסט')
         .typeError('בחר מגדר')
@@ -133,7 +133,7 @@ export const reportFormSchema = yup.object().shape({
         .test('length', 'מספר טלפון צריך להיות באורך של 10 ספרות', (value) => value.length === 0 || value.length === 10)
     ,
 
-    notify_me: yup.boolean(),
+    isNotify : yup.boolean(),
     report_date: yup.date()
         .required("שדה נדרש")
         .typeError('תאריך לא תקין, חסר אחד מהערכים או יותר (יום, חודש, שנה)')

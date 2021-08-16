@@ -9,22 +9,24 @@ import { getDateTime, getHHMM, getYYYYMMDD, getDateFromString } from "../../Util
 import '../../css/report/createReport.css';
 
 import { createReportAPI } from "../../mock_apis/reports";
-
+import {createReport} from "../../api/reports";
 
 import DateTimePickerHE from "../boilerplate/form/DateTimePickerHE";
 import DistressedGroup from "./ReportCreate/DistressedGroup";
 import MapGroup from "./ReportCreate/MapGroup";
 import HomelessDetails from "./ReportCreate/HomelessDetails";
 import ReporterDetails from "./ReportCreate/ReporterDetails";
+import { getDateTimeFromDateNTime } from "../../Utilities/TimeFormatter";
 
-
-const location = { location_text: "בורלא 29, תל אביב", location_json: { lon: 32.1616, lat: 32.1514 } };
-
+// const location = { location_text: "בורלא 29, תל אביב", location_json: { lon: 32.1616, lat: 32.1514 } };
+const location = "בורלא 29, תל אביב";
 function ReportCreate(props) {
+    
+    
     const history = useHistory();
     const [submitting,setSubmitting] = useState(false);
     const defaultValues = {
-        "notify_me": false,
+        "isNotify": false,
         "report_datetime": getDateTime(new Date()),
         "report_time": new Date(),
         "report_date": new Date(),
@@ -38,13 +40,18 @@ function ReportCreate(props) {
     });
 
     const onSubmit = (data, e) => {
-        debugger;
+        
         if(submitting) return;
         setSubmitting(true);
-        
-        createReportAPI({ ...data })
-        .then(res=> {setSubmitting(false); history.push("/report/success");})
-        .catch(res=> {setSubmitting(false); history.push("/report/failure");})
+        data = { ...data,
+            person_location:location,
+            report_datetime:getDateTimeFromDateNTime(data["report_date"],data["report_time"]) 
+        };
+        delete data["report_date"];
+        delete data["report_time"];
+        createReport(data)
+        .then(res=> {console.log(res);setSubmitting(false); history.push("/report/success");})
+        .catch(res=> {console.log(res);setSubmitting(false); history.push("/report/failure");})
         
         
     };
@@ -55,14 +62,12 @@ function ReportCreate(props) {
     console.log("OnERr", methods.formState.errors);
     return (<div id="formContainer" className="d-flex flex-column justify-content-center">
         <h1 className="text-end"> מילוי טופס דיווח</h1>
+    
         <FormProvider {...methods}>
             <form id="createReport" className="form-inline needs-validation" noValidate onSubmit={methods.handleSubmit(onSubmit, onError)}>
-
                 <DistressedGroup />
                 <DateTimePickerHE />
-
-
-                <MapGroup location={location.location_text} />
+                <MapGroup location={location} />
                 <HomelessDetails />
                 <ReporterDetails />
                 <div className="wrapperRequiredFieldMsg d-flex flex-row mx-1">

@@ -1,12 +1,11 @@
 import axios from "axios";
-const serverUrl ="http://localhost:5000/api/report/"; 
+const serverUrl ="https://elem-homeless-mapping.herokuapp.com/api"; 
 const basicAxios = axios.create({
     baseURL:serverUrl
 })
 export const createReport = report =>{
-    return basicAxios.post('create',report,{})
-    .then(result=>console.log(result))
-    .catch(error=>error);
+    console.log("create report axios",report);
+    return basicAxios.post('create',report,{});
     
 }; 
 export const deleteReport = report =>{
@@ -24,8 +23,7 @@ export const getReport = id =>{
     .then(result => result.data)
     .catch(error=> error.message);
 }
-export const getReports = id =>{
-    basicAxios.get('',{})
-    .then(result => result.data)
-    .catch(error=> error.message);
+export const getReports = () =>{
+    debugger;
+    basicAxios.get('/reports',{});
 }
