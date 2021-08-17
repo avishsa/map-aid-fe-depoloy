@@ -1,9 +1,16 @@
 import React from "react";
-
+import { useHistory } from "react-router-dom";
 
 const ReportFailure = props => {
-  
+  const history = useHistory();
 
-  return <div>Failure submit report</div>;
+  return (<div className="d-flex flex-column align-items-center">
+    <img />
+    <p>לא הצלחנו לטעון את הדיווח נשמח אם תנסה/י שוב</p>
+    <input 
+    value="לדיווח"
+    className=" redirectBtn btn text-center rounded-pill"
+    onClick={()=>{history.push("/report/create");}} />
+  </div>);
 };
 export default ReportFailure;

@@ -82,7 +82,7 @@ h4 {
 #distressText{
     margin-top: 10pt;
 }
-#submitBtn {
+.redirectBtn  {
     color: white;
     background-color: rgb(48 ,67 ,239);
     width: 184pt;

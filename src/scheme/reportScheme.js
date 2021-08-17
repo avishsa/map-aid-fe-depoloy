@@ -68,12 +68,12 @@ export const formFields = {
         label: "מין",
         options: [
             {
-                value: "male",
+                value: "זכר",
                 label: "גבר",
                 className: 'btn-outline-secondary'
             },
             {
-                value: "female",
+                value: "נקבה",
                 label: "אישה",
                 className: 'btn-outline-primary'
             }]

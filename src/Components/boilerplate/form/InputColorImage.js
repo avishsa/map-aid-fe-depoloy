@@ -18,9 +18,8 @@ export default function InputColorImage({icon, labelText, imgSrc, name, colors }
         <div className="d-flex mt-3 flex-row  justify-content-between align-items-center " style={{ marginBottom: "20pt" }}>
 
 
-            <div className="d-flex mt-1  flex-row justify-content-center "
-            style={{height:"60pt",width: "60pt",border:"5pt solid #3043EF"}}
-            >
+            <div className="d-flex mt-1  flex-row justify-content-center ">
+            
                 {
                     watch(name) === "" ?
                         (<div >

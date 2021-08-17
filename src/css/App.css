@@ -1,3 +1,9 @@
+@media (min-width:1025px) { 
+  .container { 
+    width: 30% !important;
+    min-height: 100%;
+  } 
+}
 @font-face{
     font-family: 'VarelaRound';
     src: url('fonts/VarelaRound-Regular.ttf');
@@ -5,10 +11,12 @@
 *{
   font-family: 'VarelaRound';    
 }
-#root{
+html,#root{
   font-family: 'VarelaRound';    
   background-color: rgb(233, 236, 241); 
+  min-height: 100%;
 }
+
 .container {
   font-family: 'VarelaRound';    
     background-color: rgb(233, 236, 241); 

@@ -15,6 +15,14 @@ export const getHHMM = date => {
     date.getMinutes() < 10 ? strDate += '0' + (date.getMinutes()) : strDate += date.getMinutes();
     return strDate;
 }
+const getHHMMSS = date => {
+    var strDate = '';
+    date.getHours() < 10 ? strDate += '0' + (date.getHours()) : strDate += date.getHours();
+    strDate += ':';
+    date.getMinutes() < 10 ? strDate += '0' + (date.getMinutes()) : strDate += date.getMinutes();
+    strDate += '00';
+    return strDate;
+}
 //2018-06-12T19:30
 export const getDateTime = date => {
     return `${getYYYYMMDD(date)}T${getHHMM(date)}`;
@@ -29,6 +37,11 @@ export const getDateTimeText = date => {
 export const getDateTimeFromDateNTime = (date, time) => {
     return getDateFromString(getYYYYMMDD(date), getHHMM(time));
 }
+
+export const getDateTimeFormattedString = (date,time) =>{
+    return `${getYYYYMMDD(date)} ${getHHMMSS(time)}`;
+}
+
 export const isLaterThanNow = (date,time) =>{
     return getDateTimeFromDateNTime(date,time).getTime()> new Date().getTime();
 }

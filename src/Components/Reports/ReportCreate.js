@@ -1,14 +1,13 @@
 import React,{useState} from "react";
 import { withRouter,useHistory } from "react-router-dom";
 
-import { useForm, Controller, FormProvider, useFormContext } from "react-hook-form";
+import { useForm,  FormProvider, useFormContext } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { reportFormSchema, formFields, colorsOptions } from '../../scheme/reportScheme';
-import { getDateTime, getHHMM, getYYYYMMDD, getDateFromString } from "../../Utilities/TimeFormatter";
+import { reportFormSchema } from '../../scheme/reportScheme';
+import { getDateTime, getDateTimeFormattedString } from "../../Utilities/TimeFormatter";
 import '../../css/report/createReport.css';
 
-import { createReportAPI } from "../../mock_apis/reports";
 import {createReport} from "../../api/reports";
 
 import DateTimePickerHE from "../boilerplate/form/DateTimePickerHE";
@@ -16,22 +15,21 @@ import DistressedGroup from "./ReportCreate/DistressedGroup";
 import MapGroup from "./ReportCreate/MapGroup";
 import HomelessDetails from "./ReportCreate/HomelessDetails";
 import ReporterDetails from "./ReportCreate/ReporterDetails";
-import { getDateTimeFromDateNTime } from "../../Utilities/TimeFormatter";
+
 
 // const location = { location_text: "בורלא 29, תל אביב", location_json: { lon: 32.1616, lat: 32.1514 } };
-const location = "בורלא 29, תל אביב";
-function ReportCreate(props) {
-    
-    
+// const location = "בורלא 29, תל אביב";
+function ReportCreate(props) {  
     const history = useHistory();
+    const location = localStorage.getItem('location');
     const [submitting,setSubmitting] = useState(false);
     const defaultValues = {
         "isNotify": false,
         "report_datetime": getDateTime(new Date()),
         "report_time": new Date(),
         "report_date": new Date(),
-        "person_shirt_color": "",
-        "person_pants_color": "",
+        "person_shirt_color": "#000000",
+        "person_pants_color": "#000000",
     }
     const methods = useForm({
         mode: 'onBlur',
@@ -45,7 +43,7 @@ function ReportCreate(props) {
         setSubmitting(true);
         data = { ...data,
             person_location:location,
-            report_datetime:getDateTimeFromDateNTime(data["report_date"],data["report_time"]) 
+            report_datetime:getDateTimeFormattedString(data["report_date"],data["report_time"]) 
         };
         delete data["report_date"];
         delete data["report_time"];
@@ -85,7 +83,11 @@ function ReportCreate(props) {
                     </div>
                 </div>
                 <div id="buttonDiv" className="d-flex justify-content-center bd-highlight">
-                    <input disabled={submitting} id="submitBtn" value="אישור ושליחה" type="submit" className=" btn text-center rounded-pill" />
+                    <input disabled={submitting} 
+                    id="submitBtn" 
+                    value="אישור ושליחה" 
+                    type="submit" 
+                    className=" redirectBtn btn text-center rounded-pill" />
                 </div>
 
             </form>
