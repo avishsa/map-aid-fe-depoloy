@@ -16,7 +16,6 @@
     "@material-ui/pickers": "^3.3.10",
     "@popperjs/core": "^2.9.2",
     "@testing-library/dom": "^8.1.0",
-    
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.1",
     "babel": "^6.23.0",
@@ -24,7 +23,6 @@
     "date-fns": "^2.23.0",
     "framework7": "^6.1.1",
     "framework7-react": "^6.1.1",
-    
     "little-state-machine": "^4.1.2",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
@@ -54,7 +52,6 @@
   "eslintConfig": {
     "extends": [
       "react-app"
-      
     ]
   },
   "browserslist": {
@@ -73,8 +70,6 @@
     "@babel/cli": "^7.14.8",
     "@babel/core": "^7.14.8",
     "@babel/preset-env": "^7.14.8",
-    "@testing-library/react": "^12.0.0",
-    
-    "react-test-render": "^1.1.2"
+    "@testing-library/react": "^12.0.0"
   }
 }

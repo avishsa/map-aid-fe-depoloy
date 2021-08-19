@@ -1,6 +1,6 @@
 import React from "react";
-import {  useFormContext } from "react-hook-form";
-import {  formFields ,colorsOptions,colorsValues} from '../../../scheme/reportScheme';
+
+import {  formFields ,colorsValues} from '../../../scheme/reportScheme';
 import RadioInput from "../../boilerplate/form/RadioInput";
 import InputColorImage from "../../boilerplate/form/InputColorImage";
 import InputLabel from "../../boilerplate/form/InputLabel";

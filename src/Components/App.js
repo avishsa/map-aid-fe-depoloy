@@ -1,11 +1,10 @@
 
-import ReportCreate from './Reports/ReportCreate';
 import Header from './boilerplate/Header';
 import Footer from './boilerplate/Footer';
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 
 import '../css/App.css';
-import Home from "./Home";
+// import Home from "./Home";
 import ReportRouter from './Reports/ReportRouter';
 
 

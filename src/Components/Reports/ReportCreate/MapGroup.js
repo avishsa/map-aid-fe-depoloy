@@ -1,7 +1,7 @@
 import React from "react";
 import {useHistory } from "react-router-dom";
 
-import {  formFields } from '../../../scheme/reportScheme';
+
 export default function MapGroup({ location }) {
     const history = useHistory();
     return (

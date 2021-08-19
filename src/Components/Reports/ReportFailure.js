@@ -5,7 +5,7 @@ const ReportFailure = props => {
   const history = useHistory();
 
   return (<div className="d-flex flex-column align-items-center">
-    <img />
+    <img alt="report-failure"/>
     <p>לא הצלחנו לטעון את הדיווח נשמח אם תנסה/י שוב</p>
     <input 
     value="לדיווח"
