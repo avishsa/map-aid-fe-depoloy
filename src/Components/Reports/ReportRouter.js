@@ -9,6 +9,7 @@ function ReportRouter(){
     <Route exact path="/report/create" component={ReportCreate} />
     <Route exact path="/report/success" component={ReportSuccess} />
     <Route exact path="/report/failure" component={ReportFailure} />
+    <Route exact path="/report/map" component={ReportFailure} />
     
   </Switch>)
 }
