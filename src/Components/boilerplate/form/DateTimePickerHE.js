@@ -16,7 +16,7 @@ import {
     DatePicker,
     TimePicker
 } from '@material-ui/pickers';
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
+import { MuiThemeProvider } from "@material-ui/core";
 
 
 const theme = createTheme({
@@ -61,13 +61,11 @@ const useStyles = makeStyles((theme) => ({
     },
 
 }));
-const props = {
 
-};
 //{{PaperProps:{DialogActions:{style:{color:"red",direction:"ltr"}}}}}
 export default function DatePickerHE({ value }) {
     const classes = useStyles();
-    const [selectedDate, handleDateChange] = useState(new Date());
+    
     const { control, formState: { errors } } = useFormContext(); // retrieve all hook methods
     return (
         <MuiThemeProvider theme={theme}>

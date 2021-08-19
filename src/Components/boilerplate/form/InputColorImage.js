@@ -1,6 +1,6 @@
 import React from "react";
 import { GiTrousers,GiTShirt } from "react-icons/gi";
-import {ImCross} from "react-icons/im"
+
 import { useFormContext } from "react-hook-form";
 const getIcon = (name,color)=>{
     

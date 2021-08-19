@@ -9,7 +9,7 @@ import './index.css';
 import App from './Components/App';
 
 
-import { createTheme,  jssPreset,ThemeProvider,StylesProvider} from '@material-ui/core/styles';
+import { createTheme,ThemeProvider} from '@material-ui/core/styles';
 import { heIL } from '@material-ui/core/locale';
 
 

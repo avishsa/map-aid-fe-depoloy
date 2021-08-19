@@ -1,6 +1,6 @@
 import React from "react";
 import {  useFormContext } from "react-hook-form";
-import {  formFields } from '../../../scheme/reportScheme';
+
 export default function RadioInput({ name, label, className,classLabel,styleLabel, listOptions }) {
     const { register, formState: { errors } } = useFormContext();
 
