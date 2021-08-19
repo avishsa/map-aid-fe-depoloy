@@ -1,6 +1,6 @@
 import React,{useState} from "react";
 import { withRouter,useHistory } from "react-router-dom";
-
+import { Redirect } from "react-router";
 import { useForm,  FormProvider, useFormContext } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -58,9 +58,9 @@ function ReportCreate(props) {
     }
     const getErrorMsg = errorList => errorList[""]?.message;
     console.log("OnERr", methods.formState.errors);
-    if (!localStorage.getItem('location')){
+    /*if (!localStorage.getItem('location')){
         return <Redirect  to="/report/map" />
-    }
+    }*/
     return (<div id="formContainer" className="d-flex flex-column justify-content-center">
         <h1 className="text-end"> מילוי טופס דיווח</h1>
     
