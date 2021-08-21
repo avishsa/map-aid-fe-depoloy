@@ -21,6 +21,9 @@
     "date-fns": "^2.23.0",
     "framework7": "^6.1.1",
     "framework7-react": "^6.1.1",
+    "leaflet": "^1.6.0",
+    "leaflet-control-geocoder": "^2.3.0",
+    "leaflet-geosearch": "^3.5.0",
     "little-state-machine": "^4.1.2",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
@@ -29,6 +32,8 @@
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.12.1",
     "react-icons": "^4.2.0",
+    "react-leaflet": ">=3.1.0 <3.2.0 || ^3.2.1",
+    "@react-leaflet/core": ">=1.0.0 <1.1.0 || ^1.1.1",
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
@@ -41,34 +46,27 @@
     "yup": "^0.32.9"
   },
   "scripts": {
-    "start": "node --max_old_space_size=2560 node_modules/.bin/react-scripts start",
-    "build": "node --max_old_space_size=2560 node_modules/.bin/react-scripts build",
-    "test": "react-scripts test",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "test:watch": "npm test -- --watch",
     "eject": "react-scripts eject"
-
   },
   "eslintConfig": {
     "extends": [
       "react-app"
     ]
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not op_mini all"
+  ],
   "devDependencies": {
     "@babel/cli": "^7.14.8",
     "@babel/core": "^7.14.8",
-    "@babel/preset-env": "^7.14.8",
-    "@testing-library/react": "^12.0.0"
+    "@babel/preset-env": "^7.15.0",
+    "@babel/preset-react": "^7.14.5",
+    "@testing-library/react": "^12.0.0",
+    "react-test-renderer": "^17.0.2"
   }
 }
