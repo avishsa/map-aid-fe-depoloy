@@ -5,7 +5,7 @@ import { useForm,  FormProvider } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { reportFormSchema } from '../../scheme/reportScheme';
-import { getDateTime, getDateTimeFormattedString } from "../../Utilities/TimeFormatter";
+    import { getDateTime, getDateTimeFormattedString } from "../../Utilities/TimeFormatter";
 import '../../css/report/createReport.css';
 
 import {createReport} from "../../api/reports";
@@ -100,4 +100,4 @@ function ReportCreate(props) {
 }
 
 
-export default withRouter(ReportCreate);
+export default ReportCreate;

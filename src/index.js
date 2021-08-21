@@ -1,14 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-
-
-
-
+import { BrowserRouter as Router } from "react-router-dom";
 import './index.css';
 import App from './Components/App';
-
-
 import { createTheme,ThemeProvider} from '@material-ui/core/styles';
 import { heIL } from '@material-ui/core/locale';
 
@@ -20,18 +14,11 @@ const theme = createTheme({
   },  
 },heIL);
 
-
-
-
-
-
-
-
 ReactDOM.render(
     <ThemeProvider theme={theme}>
-    
-        <App />    
-    
+      <Router>
+        <App />
+        </Router>        
     </ThemeProvider>
   ,
 
