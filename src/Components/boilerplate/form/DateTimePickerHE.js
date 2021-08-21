@@ -81,7 +81,7 @@ export default function DatePickerHE({ value }) {
                                 <DatePicker
 
                                     className={`${classes.root} form-control d-flex row-reverse`}
-                                    InputProps={{ classes }}
+                                    InputProps={{classes, "data-testid": "report-date"  }}
                                     autoOk
                                     variant="dialog"
                                     format="dd/MM/yyyy"
@@ -123,7 +123,7 @@ export default function DatePickerHE({ value }) {
                                     variant="dialog"
                                     cancelLabel="בטל"
                                     okLabel="אשר"
-                                    InputProps={{ classes }}
+                                    InputProps={{ classes , "data-testid": "report-time" }}
                                     onChange={(date) => { field.onChange(date) }}
                                     onBlur={(date) => { field.onBlur(date) }}
                                     value={field.value}

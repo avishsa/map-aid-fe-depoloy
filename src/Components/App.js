@@ -3,10 +3,11 @@ import Header from './boilerplate/Header';
 import Footer from './boilerplate/Footer';
 import React from 'react';
 import { BrowserRouter as Router } from "react-router-dom";
-import './index.css';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import { heIL } from '@material-ui/core/locale';
-
+import '../css/App.css';
+import Home from "./Home";
+import ReportRouter from './Reports/ReportRouter';
 
 const theme = createTheme({
   typography: {
@@ -15,9 +16,7 @@ const theme = createTheme({
   },
 }, heIL);
 
-import '../css/App.css';
-import Home from "./Home";
-import ReportRouter from './Reports/ReportRouter';
+
 
 
 function App() {
