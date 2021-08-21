@@ -18,10 +18,10 @@ import ReporterDetails from "./ReportCreate/ReporterDetails";
 
 
 // const location = { location_text: "בורלא 29, תל אביב", location_json: { lon: 32.1616, lat: 32.1514 } };
-// const location = "בורלא 29, תל אביב";
+const LOCATION = "בורלא 29, תל אביב";
 function ReportCreate(props) {  
     const history = useHistory();
-    const location = localStorage.getItem('location');
+    const location = localStorage.getItem('location') ;
     const [submitting,setSubmitting] = useState(false);
     const defaultValues = {
         "isNotify": false,
@@ -58,9 +58,9 @@ function ReportCreate(props) {
     }
     const getErrorMsg = errorList => errorList[""]?.message;
     console.log("OnERr", methods.formState.errors);
-    /*if (!localStorage.getItem('location')){
+    if (!localStorage.getItem('location')){
         return <Redirect  to="/report/map" />
-    }*/
+    }
     return (<div id="formContainer" className="d-flex flex-column justify-content-center">
         <h1 className="text-end"> מילוי טופס דיווח</h1>
     

@@ -1,7 +1,7 @@
-import {Component, useEffect, useState, useRef} from 'react';
+import { Component, useEffect, useState, useRef } from 'react';
 import '../../css/report/SimpleMap.css';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
-
+import { useHistory } from "react-router-dom";
 import LCG from 'leaflet-control-geocoder';
 import L from 'leaflet';
 
@@ -24,19 +24,19 @@ function LocationMarker() {
       console.log(geocoder);
       geocoder.reverse(e.latlng, map.options.crs.scale(300), results => {
         console.log(results[0].name);
-    })
+      })
 
     }
   })
 
-  
+
   useEffect(() => {
     map.locate();
     const search = new GeoSearch.GeoSearchControl({
       provider: new GeoSearch.OpenStreetMapProvider(),
     });
     map.addControl(search);
-    
+
   }, [])
 
   console.log(map.getPanes());
@@ -48,25 +48,30 @@ function LocationMarker() {
   )
 }
 
+function ReportMap ({props}) {
+  const history = useHistory();
+  const onClick = () => {
+    //todo set the value of chosen address
+    localStorage.setItem('location','להכניס כתובת');
+    history.push("/report/create");
+  }
+  return (   
+      <div>
+        <MapContainer id="mapid" center={[32.0576485, 34.7652664]} zoom={15} scrollWheelZoom={false}>
+          <LocationMarker />
+          <TileLayer
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+        </MapContainer>
+        <input
+          type="button"
+          value="אישור ומילוי טופס"
+          className=" redirectBtn btn text-center rounded-pill"
+          onClick={onClick} />
+      </div>
 
-class ReportMap extends Component {
-
-    render()
-    {   
-        return (
-            <div>
-            <MapContainer id="mapid" center={[32.0576485,34.7652664]} zoom={15} scrollWheelZoom={false}>
-                <LocationMarker />
-                <TileLayer
-                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-            </MapContainer>
-            
-            </div>           
-            
-        ) 
-    }
+    )
 }
 
 export default ReportMap

@@ -9,6 +9,7 @@ const ReportFailure = props => {
     <p>לא הצלחנו לטעון את הדיווח נשמח אם תנסה/י שוב</p>
     <input 
     value="לדיווח"
+    type="button"
     className=" redirectBtn btn text-center rounded-pill"
     onClick={()=>{history.push("/report/create");}} />
   </div>);
