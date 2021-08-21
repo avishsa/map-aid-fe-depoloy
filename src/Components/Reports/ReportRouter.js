@@ -3,13 +3,13 @@ import { Switch, Route } from "react-router-dom";
 import ReportCreate from './ReportCreate';
 import ReportSuccess from './ReportSuccess';
 import ReportFailure from './ReportFailure';
-import ReportMap from './ReportMap';
+
 function ReportRouter(){
     return (<Switch>      
     <Route exact path="/report/create" component={ReportCreate} />
     <Route exact path="/report/success" component={ReportSuccess} />
     <Route exact path="/report/failure" component={ReportFailure} />
-    <Route exact path="/report/map" component={ReportMap} />    
+    
   </Switch>)
 }
 export default  ReportRouter;

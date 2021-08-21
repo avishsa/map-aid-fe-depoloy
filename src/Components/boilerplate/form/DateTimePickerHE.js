@@ -74,6 +74,7 @@ export default function DatePickerHE({ value }) {
                     <div className="d-flex flex-column  mx-1">
                         <label className="form-label required-astrix d-flex flex-row">תאריך</label>
                         <Controller
+                            id="report_date"
                             control={control}
                             name='report_date'
                             render={({ field }) => (
