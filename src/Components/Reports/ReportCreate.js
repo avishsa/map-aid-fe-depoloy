@@ -41,23 +41,26 @@ function ReportCreate(props) {
         
         if(submitting) return;
         setSubmitting(true);
+        
         data = { ...data,
             person_location:location,
             report_datetime:getDateTimeFormattedString(data["report_date"],data["report_time"]) 
         };
         delete data["report_date"];
         delete data["report_time"];
-        createReport(data)
+        const cr = createReport(data);
+        console.log('submitting',data,cr);
+        cr
         .then(res=> {console.log(res);setSubmitting(false); history.push("/report/success");})
         .catch(res=> {console.log(res);setSubmitting(false); history.push("/report/failure");})
         
         
     };
     const onError = (errors, e) => {
-        console.log("OnERr", errors, e);       
+        console.log("OnERr", errors);       
     }
     const getErrorMsg = errorList => errorList[""]?.message;
-    console.log("OnERr", methods.formState.errors);
+    console.log("render", methods.formState.errors);
     if (!localStorage.getItem('location')){
         
         return <Redirect  to="/report/map" />

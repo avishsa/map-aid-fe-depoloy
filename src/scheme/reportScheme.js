@@ -123,7 +123,7 @@ export const reportFormSchema = yup.object().shape({
     isDistressed: yup.boolean().required("שדה נדרש"),
     distressed_info: yup.string(),
     person_gender: yup.string('שדה מסוג טקסט')
-        .typeError('בחר מגדר')
+        .typeError('שגיאה: בחר מגדר')
         .required('בחר מגדר'),
     person_shirt_color: yup.string(),
     person_pants_color: yup.string(),

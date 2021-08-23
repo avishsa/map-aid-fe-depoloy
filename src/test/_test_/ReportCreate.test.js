@@ -4,12 +4,12 @@ import React from "react";
 import ReportCreate from "../../Components/Reports/ReportCreate";
 import App from "../../Components/App";
 import { render, act, fireEvent, screen,cleanup } from "@testing-library/react";
-import reports from "../../API/reports";
+
 import { LocalStorageMock,getLocalStorage,setLocalStorage } from '@react-mock/localstorage';
 import {getDDMMYYYY} from "../../Utilities/TimeFormatter";
 import renderWithRouter from '../setupTests';
 import mockAxios from '../mocks/mockAxios';
-jest.mock("../../src/api/reports");
+// jest.mock("../../src/api/reports");
 const mockPostData = {
   report_date: new Date(),
   person_gender: 'נקבה'
@@ -38,13 +38,11 @@ test.skip("render with location value מנחם בגין", () => {
 //minial change valid submittion
 test("should watch input correctly", async () => {
   console.log("fef",mockAxios);
-  const { container ,getByTestId} = render(<LocalStorageMock items={{ location:"בורלא 25, תל אביב" }}><ReportCreate/></LocalStorageMock>);
+  const { container ,getByTestId,getByLabelText,history} =  renderWithRouter(<LocalStorageMock items={{ location:"בורלא 25, תל אביב" }}><ReportCreate/></LocalStorageMock>);
   const report_date = getByTestId("report-date").querySelector('input'); ;
-  const person_gender = container.querySelector(
-    "label[for='נקבה']"
-  );
-  //אישה
-  // const person_gender = getByLabelText('אישה')
+  
+  const person_gender =getByLabelText('אישה');
+  
   const submitButton = container.querySelector(
         "input[type='submit']"
       );
@@ -55,16 +53,21 @@ test("should watch input correctly", async () => {
     }
   });
   
-  fireEvent.change(person_gender, {
-    target: {
-      value: mockPostData.person_gender
-    }
-  });
-  expect(person_gender.value).toBe(mockPostData.person_gender)
+  
+  expect(person_gender.checked).toEqual(false);
+  fireEvent.click(person_gender);
+  expect(person_gender.checked).toEqual(true);
+  
   await act(async () => {
     fireEvent.submit(submitButton);
-  });  
-  // expect(reports).toHaveBeenCalledWith(mockPostData); 
+  });
+  
+  const heading = container.querySelector(
+    "h1"
+  );
+  expect(heading.innerHTML).toBe(' מילוי טופס דיווח');
+  
+  expect(history.location.pathname).toEqual('/report/failure' ||'/report/success');
   
 })
 //testing valid submission

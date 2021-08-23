@@ -60,16 +60,7 @@
 //       ">0.2%",
 //       "not dead",
 //       "not op_mini all"
-//     ],
-//     "devDependencies": {
-//       "@babel/cli": "^7.14.8",
-//       "@babel/core": "^7.14.8",
-//       "@babel/preset-env": "^7.15.0",
-//       "@babel/preset-react": "^7.14.5",
-//       "@testing-library/react": "^12.0.0",
-      
-      
-//       "react-test-renderer": "^17.0.2"
-//     }
+//     ]
+    
 //   }
   

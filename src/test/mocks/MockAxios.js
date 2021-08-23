@@ -8,7 +8,7 @@ class MockAxios {
       return ma; 
     };
     req = (method,path,data)=>{return new Promise(function(resolve, reject) {
-      console.log('mock req');
+      console.log('mock req',{data,method,path});
         window.setTimeout(() =>{      
           resolve({data,method,path}) 
         },300);
