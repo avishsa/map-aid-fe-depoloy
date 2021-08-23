@@ -5,7 +5,7 @@ import { useForm,  FormProvider } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { reportFormSchema } from '../../scheme/reportScheme';
-    import { getDateTime, getDateTimeFormattedString } from "../../Utilities/TimeFormatter";
+import { getDateTime, getDateTimeFormattedString } from "../../Utilities/TimeFormatter";
 import '../../css/report/createReport.css';
 
 import {createReport} from "../../api/reports";
@@ -59,8 +59,8 @@ function ReportCreate(props) {
     const getErrorMsg = errorList => errorList[""]?.message;
     console.log("OnERr", methods.formState.errors);
     if (!localStorage.getItem('location')){
-        localStorage.setItem('location',"בורלא")
-        // return <Redirect  to="/report/map" />
+        
+        return <Redirect  to="/report/map" />
     }
     return (<div id="formContainer" className="d-flex flex-column justify-content-center">
         <h1 className="text-end"> מילוי טופס דיווח</h1>

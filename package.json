@@ -44,10 +44,22 @@
       "web-vitals": "^1.1.2",
       "yup": "^0.32.9"
     },
-    
+    "jest": {
+      "moduleNameMapper": {
+        "\\.(jpg|ico|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/config/fileMock.js",
+        "^.+\\.(css|less)$": "<rootDir>/config/CSSStub.js"
+      },
+      "resetMocks": false,
+      "setupFiles": [
+        "jest-localstorage-mock"
+      ],
+      "testEnvironment": "jsdom",
+      "globals": {}
+    },
     "scripts": {
       "start": "react-scripts start",
       "build": "react-scripts build",
+      "test": "jest",
       "test:watch": "npm test -- --watch",
       "eject": "react-scripts eject"
     },
@@ -68,8 +80,9 @@
       "@babel/preset-react": "^7.14.5",
       "@testing-library/react": "^12.0.0",
       
-      
+      "jest": "^27.0.6",
+      "jest-localstorage-mock": "^2.4.16",
       "react-test-renderer": "^17.0.2"
     }
   }
-  
+   

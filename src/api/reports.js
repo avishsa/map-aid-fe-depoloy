@@ -5,7 +5,7 @@ const basicAxios = axios.create({
 })
 export const createReport = report =>{
     console.log("create report axios",report);
-    return basicAxios.post('create',report,{});
+    return basicAxios.post('/report/create',report,{});
     
 }; 
 export const deleteReport = report =>{
@@ -13,10 +13,9 @@ export const deleteReport = report =>{
     .then(result => result.data)
     .catch(error=> error.message);
 }; 
-export const updateReport = report =>{
-    basicAxios.patch('',report,{})
-    .then(result => result.data)
-    .catch(error=> error.message);
+export const updateReport = (path,report) =>{
+    return basicAxios.patch(path,report,{});
+    
 }; 
 export const getReport = id =>{
     basicAxios.get('',id,{})
@@ -24,6 +23,6 @@ export const getReport = id =>{
     .catch(error=> error.message);
 }
 export const getReports = () =>{
-    debugger;
-    basicAxios.get('/reports',{});
+    
+    return basicAxios.get('/reports',{});
 }
