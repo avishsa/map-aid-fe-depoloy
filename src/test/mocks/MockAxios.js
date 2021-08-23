@@ -13,10 +13,10 @@ class MockAxios {
           resolve({data,method,path}) 
         },300);
       })};
-    post= (path,data)=>req('POST',`${this.baseURL}${path}`,data);
-    get=(path,data)=>req('GET',`${this.baseURL}${path}`,data);
-    patch=(path,data)=>req('PATCH',`${this.baseURL}${path}`,data);
-    delete=(path,data)=>req('DELETE',`${this.baseURL}${path}`,data);
+    post= (path,data)=>this.req('POST',`${this.baseURL}${path}`,data);
+    get=(path,data)=>this.req('GET',`${this.baseURL}${path}`,data);
+    patch=(path,data)=>this.req('PATCH',`${this.baseURL}${path}`,data);
+    delete=(path,data)=>this.req('DELETE',`${this.baseURL}${path}`,data);
 
 }
 

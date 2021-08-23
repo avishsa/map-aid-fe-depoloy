@@ -1,5 +1,5 @@
 import axios from "axios";
-import MockAxios from "../../test/mocks/mockAxios";
+import MockAxios from "../test/mocks/MockAxios";
 
 
 import "regenerator-runtime/runtime.js";

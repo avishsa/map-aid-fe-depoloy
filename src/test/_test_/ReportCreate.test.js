@@ -1,12 +1,12 @@
 
 import React from "react";
 // import "@testing-library/jest-dom/extend-expect"
-import ReportCreate from "../../src/Components/Reports/ReportCreate";
-import App from "../../src/Components/App";
+import ReportCreate from "../../Components/Reports/ReportCreate";
+import App from "../../Components/App";
 import { render, act, fireEvent, screen,cleanup } from "@testing-library/react";
-import reports from "../../src/API/reports";
+import reports from "../../API/reports";
 import { LocalStorageMock,getLocalStorage,setLocalStorage } from '@react-mock/localstorage';
-import {getDDMMYYYY} from "../../src/Utilities/TimeFormatter";
+import {getDDMMYYYY} from "../../Utilities/TimeFormatter";
 import renderWithRouter from '../setupTests';
 import mockAxios from '../mocks/mockAxios';
 jest.mock("../../src/api/reports");
@@ -41,8 +41,10 @@ test("should watch input correctly", async () => {
   const { container ,getByTestId} = render(<LocalStorageMock items={{ location:"בורלא 25, תל אביב" }}><ReportCreate/></LocalStorageMock>);
   const report_date = getByTestId("report-date").querySelector('input'); ;
   const person_gender = container.querySelector(
-    "input[name='person_gender']"
+    "label[for='נקבה']"
   );
+  //אישה
+  // const person_gender = getByLabelText('אישה')
   const submitButton = container.querySelector(
         "input[type='submit']"
       );
@@ -53,12 +55,12 @@ test("should watch input correctly", async () => {
     }
   });
   
-  fireEvent.input(person_gender, {
+  fireEvent.change(person_gender, {
     target: {
       value: mockPostData.person_gender
     }
   });
-  
+  expect(person_gender.value).toBe(mockPostData.person_gender)
   await act(async () => {
     fireEvent.submit(submitButton);
   });  

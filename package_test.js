@@ -22,6 +22,7 @@
 //       "date-fns": "^2.23.0",
 //       "framework7": "^6.1.1",
 //       "framework7-react": "^6.1.1",
+//       "jest": "^27.0.6",
 //       "leaflet": "^1.7.1",
 //       "leaflet-control-geocoder": "^2.3.0",
 //       "little-state-machine": "^4.1.2",
@@ -39,6 +40,7 @@
 //       "react-time-picker": "^4.3.0",
 //       "redux": "^4.1.0",
 //       "redux-thunk": "^2.3.0",
+//       "regenerator-runtime": "^0.13.9",
 //       "slider-color-picker": "^0.1.0",
 //       "typescript": "^4.3.5",
 //       "web-vitals": "^1.1.2",
@@ -60,6 +62,7 @@
 //       "start": "react-scripts start",
 //       "build": "react-scripts build",
 //       "test": "jest",
+//       "test:debug": "react-scripts --inspect-brk test --runInBand --no-cache",
 //       "test:watch": "npm test -- --watch",
 //       "eject": "react-scripts eject"
 //     },
@@ -79,10 +82,8 @@
 //       "@babel/preset-env": "^7.15.0",
 //       "@babel/preset-react": "^7.14.5",
 //       "@testing-library/react": "^12.0.0",
-      
-//       "jest": "^27.0.6",
 //       "jest-localstorage-mock": "^2.4.16",
 //       "react-test-renderer": "^17.0.2"
 //     }
 //   }
-//    
+  
