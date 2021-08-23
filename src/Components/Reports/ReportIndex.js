@@ -1,8 +1,7 @@
 import React,{Component} from 'react';
-import {getReports} from "../../api/reports";
+import {getReports} from "../../API/reports";
 class ReportIndex extends Component{
-    getReports =()=>{
-        
+    getReports =()=>{       
         console.log("getting reports");
         getReports()
         .then(res=> {console.log(res.data);})
