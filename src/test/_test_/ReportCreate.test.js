@@ -61,13 +61,16 @@ test("should watch input correctly", async () => {
   await act(async () => {
     fireEvent.submit(submitButton);
   });
-  
+  jest.useFakeTimers();
+  setTimeout(() => {
+    expect(history.location.pathname).toEqual('/report/failure' ||'/report/success');
+  }, 400);
   const heading = container.querySelector(
     "h1"
   );
   expect(heading.innerHTML).toBe(' מילוי טופס דיווח');
   
-  expect(history.location.pathname).toEqual('/report/failure' ||'/report/success');
+  // expect(history.location.pathname).toEqual('/report/failure' ||'/report/success');
   
 })
 //testing valid submission
