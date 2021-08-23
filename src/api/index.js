@@ -1,11 +1,15 @@
 import axios from "axios";
-import "regenerator-runtime/runtime.js";
-const serverUrl ="https://elem-homeless-mapping.herokuapp.com/api"; 
-const basicAxios = axios.create({
-    baseURL:serverUrl
-})
+import MockAxios from "../../test/mocks/mockAxios";
 
-export const API = async (method, path ,data)=>{
+
+import "regenerator-runtime/runtime.js";
+console.log(MockAxios);
+const serverUrl ="https://elem-homeless-mapping.herokuapp.com/api"; 
+const basicAxios = process.env.JEST_WORKER_ID===undefined ? axios.create({
+    baseURL:serverUrl
+}): MockAxios.create(serverUrl);;
+
+const deploy = async (method, path ,data)=>{
     switch(method){
         case 'POST':return data ? basicAxios.post(path,data) :basicAxios.post(path);
         case 'DELETE':return data ? basicAxios.delete(path,data) :basicAxios.delete(path);
@@ -14,3 +18,5 @@ export const API = async (method, path ,data)=>{
         default: throw new Error('invalid method');
     }    
   };
+
+export const API = deploy;

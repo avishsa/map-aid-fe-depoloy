@@ -8,7 +8,7 @@ import reports from "../../src/API/reports";
 import { LocalStorageMock,getLocalStorage,setLocalStorage } from '@react-mock/localstorage';
 import {getDDMMYYYY} from "../../src/Utilities/TimeFormatter";
 import renderWithRouter from '../setupTests';
-
+import mockAxios from '../mocks/mockAxios';
 jest.mock("../../src/api/reports");
 const mockPostData = {
   report_date: new Date(),
@@ -37,6 +37,7 @@ test.skip("render with location value מנחם בגין", () => {
 })
 //minial change valid submittion
 test("should watch input correctly", async () => {
+  console.log("fef",mockAxios);
   const { container ,getByTestId} = render(<LocalStorageMock items={{ location:"בורלא 25, תל אביב" }}><ReportCreate/></LocalStorageMock>);
   const report_date = getByTestId("report-date").querySelector('input'); ;
   const person_gender = container.querySelector(
@@ -45,6 +46,7 @@ test("should watch input correctly", async () => {
   const submitButton = container.querySelector(
         "input[type='submit']"
       );
+      
   fireEvent.change(report_date, {
     target: {
       value: mockPostData.report_date
@@ -59,10 +61,9 @@ test("should watch input correctly", async () => {
   
   await act(async () => {
     fireEvent.submit(submitButton);
-  });
+  });  
+  // expect(reports).toHaveBeenCalledWith(mockPostData); 
   
-  expect(reports).toHaveBeenCalledWith(mockPostData); 
-  // expect(history.location.pathname).toEqual('/report/success' ||'/report/failure' );
 })
 //testing valid submission
 test.skip("should watch input correctly", () => {
