@@ -14,7 +14,7 @@ const mockPostData = {
   report_date: new Date(),
   person_gender: 'נקבה'
 };
-
+jest.useFakeTimers();
 afterEach(cleanup);
 
 /**
@@ -36,8 +36,7 @@ test.skip("render with location value מנחם בגין", () => {
   expect(localStorage.getItem("location")).toBe("מנחם בגין 25, תל אביב");
 })
 //minial change valid submittion
-test("should watch input correctly", async () => {
-  console.log("fef",mockAxios);
+test.skip("valid submission", async () => {
   const { container ,getByTestId,getByLabelText,history} =  renderWithRouter(<LocalStorageMock items={{ location:"בורלא 25, תל אביב" }}><ReportCreate/></LocalStorageMock>);
   const report_date = getByTestId("report-date").querySelector('input'); ;
   
@@ -61,9 +60,9 @@ test("should watch input correctly", async () => {
   await act(async () => {
     fireEvent.submit(submitButton);
   });
-  jest.useFakeTimers();
+  
   setTimeout(() => {
-    expect(history.location.pathname).toEqual('/report/failure' ||'/report/success');
+    expect(history.location.pathname).toBe('/report/success');
   }, 400);
   const heading = container.querySelector(
     "h1"
@@ -73,8 +72,38 @@ test("should watch input correctly", async () => {
   // expect(history.location.pathname).toEqual('/report/failure' ||'/report/success');
   
 })
+test("missing required field", async () => {
+  const { container ,getByTestId,getByLabelText,history} =  renderWithRouter(<LocalStorageMock items={{ location:"בורלא 25, תל אביב" }}><ReportCreate/></LocalStorageMock>);
+  const report_date = getByTestId("report-date").querySelector('input'); ;
+  
+  const submitButton = container.querySelector(
+        "input[type='submit']"
+      );
+       
+  await act(async () => {
+    fireEvent.submit(submitButton);
+  });
+  
+  setTimeout(() => {
+    expect(history.location.pathname).toBe('/');
+    const errorLabel = container.querySelector(
+      `#errMsg${person_gender}`
+    );
+    excpect(errorLabel).innerHTML.toBe('בחר מגדר');
+  }, 400);
+  
+})
+//#2 testing invalid submission - missing date
+//#3 testing invalid submission - missing time
+//#4 testing invalid submission - missing gender
+//#5 testing invalid field - phone number
+//#6 testing invalid field - date later than today
+//#7 testing invalid field - datetime later than today
+//#8 testing autocomplete - distress from general description box
+//#9 testing distress inputText visiable only with isDistressed ischecked
+//#10 test navbar href 
 //testing valid submission
-test.skip("should watch input correctly", () => {
+test.skip("missing required field ", () => {
   const { container ,getByTestId} = render(<LocalStorageMock items={{ location:"בורלא 25, תל אביב" }}><ReportCreate/></LocalStorageMock>);
   const report_date = getByTestId("report-date").querySelector('input'); ;
   const person_gender = container.querySelector(
@@ -100,73 +129,3 @@ test.skip('submit with default values (date,cloths colors) missing gender',()=>{
   
 
 })
-//#2 testing invalid submission - missing date
-//#3 testing invalid submission - missing time
-//#4 testing invalid submission - missing gender
-//#5 testing invalid field - phone number
-//#6 testing invalid field - date later than today
-//#7 testing invalid field - datetime later than today
-//#8 testing autocomplete - distress from general description box
-//#9 testing distress inputText visiable only with isDistressed ischecked
-//#10 test navbar href 
-
-
-
-
-
-
-// test("should display correct error message for password miss match", async () => {
-//   const { container } = render(<ResetPassword />);
-//   const newPassword = container.querySelector(
-//     "input[name='newPassword']"
-//   );
-//   const confirmNewPassword = container.querySelector(
-//     "input[name='confirmNewPassword']"
-//   );
-//   const submitButton = container.querySelector(
-//     "input[type='submit']"
-//   );
-//   fireEvent.input(newPassword, {
-//     target: {
-//       value: mockValue
-//     }
-//   });
-//   fireEvent.input(confirmNewPassword, {
-//     target: {
-//       value: `${mockValue}4`
-//     }
-//   });
-//   await act(async () => {
-//     fireEvent.submit(submitButton);
-//   });
-//   expect(container.textContent).toMatch(
-//     /New password and confirm new password does not match/
-//   );
-// });
-// test("Should submit form successfully", async () => {
-//   apiCall.mockImplementationOnce(() => Promise.resolve(true));
-//   const { container } = render(<ResetPassword />);
-//   const newPassword = container.querySelector(
-//     "input[name='newPassword']"
-//   );
-//   const confirmNewPassword = container.querySelector(
-//     "input[name='confirmNewPassword']"
-//   );
-//   const submitButton = container.querySelector(
-//     "input[type='submit']"
-//   );
-//   fireEvent.input(newPassword, {
-//     target: {
-//       value: mockValue
-//     }
-//   });
-//   fireEvent.input(confirmNewPassword, {
-//     target: {
-//       value: mockValue
-//     }
-//   });
-//   await act(async () => {
-//     fireEvent.submit(submitButton);
-//   });
-//   expect(apiCall).toHaveBeenCalledWith(mockPostData);
-// });

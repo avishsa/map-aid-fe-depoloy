@@ -34,7 +34,7 @@ export default function RadioInput({ name, label, className,classLabel,styleLabe
                 }
 
             </div>
-            <div className="d-flex flex-row invalid-feedback">
+            <div className="d-flex flex-row invalid-feedback" id={`errMsg${name}`}>
 
                 {errors[name] && errors[name].message}
 
