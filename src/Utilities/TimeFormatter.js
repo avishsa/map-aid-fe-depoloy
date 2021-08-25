@@ -1,5 +1,5 @@
 export const getYYYYMMDD = date => {
-
+    
     var strDate = `${date.getFullYear()}-`;
     date.getMonth() + 1 < 10 ? strDate += '0' + (date.getMonth() + 1) : strDate += date.getMonth() + 1;
     strDate += `-`;
@@ -50,5 +50,6 @@ export const getDateTimeFormattedString = (date,time) =>{
 }
 
 export const isLaterThanNow = (date,time) =>{
+ 
     return getDateTimeFromDateNTime(date,time).getTime()> new Date().getTime();
 }

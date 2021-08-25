@@ -23,7 +23,16 @@ function ReportCreate(props) {
     const history = useHistory();
     const location = localStorage.getItem('location') ;
     const [submitting,setSubmitting] = useState(false);
-    const defaultValues = {
+    let localStorageData; 
+    try {
+        localStorageData = JSON.parse(localStorage.getItem("reportDate"));
+    }
+    catch {
+        localStorageData = {};
+    }
+    const currData = localStorageData;
+    
+    const defaultValues = currData["report_time"] !== undefined ? currData: {
         "isNotify": false,
         "report_datetime": getDateTime(new Date()),
         "report_time": new Date(),
@@ -31,6 +40,7 @@ function ReportCreate(props) {
         "person_shirt_color": "#000000",
         "person_pants_color": "#000000",
     }
+    console.dir(defaultValues);
     const methods = useForm({
         mode: 'onBlur',
         defaultValues,
@@ -41,13 +51,14 @@ function ReportCreate(props) {
         
         if(submitting) return;
         setSubmitting(true);
-        
+        localStorage.setItem('reportDate',JSON.stringify(data));
         data = { ...data,
             person_location:location,
             report_datetime:getDateTimeFormattedString(data["report_date"],data["report_time"]) 
         };
         delete data["report_date"];
         delete data["report_time"];
+        
         const cr = createReport(data);
         console.log('submitting',data,cr);
         cr
@@ -65,6 +76,7 @@ function ReportCreate(props) {
         
         return <Redirect  to="/report/map" />
     }
+    
     return (<div id="formContainer" className="d-flex flex-column justify-content-center">
         <h1 className="text-end"> מילוי טופס דיווח</h1>
     

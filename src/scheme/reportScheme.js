@@ -125,9 +125,9 @@ export const reportFormSchema = yup.object().shape({
     person_gender: yup.string('שדה מסוג טקסט')
         .typeError('שגיאה: בחר מגדר')
         .required('בחר מגדר'),
-    person_shirt_color: yup.string(),
-    person_pants_color: yup.string(),
-    person_general_description: yup.string(),
+    person_shirt_color: yup.string().typeError('שגיאת סוג'),
+    person_pants_color: yup.string().typeError('שגיאת סוג'),
+    person_general_description: yup.string().typeError('שגיאת סוג'),
     reporter_full_name: yup.string(),
     reporter_phone_number: yup.string().test('Digits only', 'השדה צריך להכיל ספרות בלבד', digitsOnly)
         .test('length', 'מספר טלפון צריך להיות באורך של 10 ספרות', (value) => value.length === 0 || value.length === 10)
@@ -145,7 +145,7 @@ export const reportFormSchema = yup.object().shape({
         .required("שדה נדרש")
         .typeError('שעה לא תקינה, חסר אחד מהערכים או יותר (יום, חודש, שנה)')
     .test("","השעה לא יכולה להיות מאוחרת יותר מהשעה הנוכחית, עבור היום",function (value){
-
+        console.log()
         return !isLaterThanNow(this.parent.report_date,this.parent.report_time);
     })
     
@@ -158,7 +158,7 @@ export const reportFormSchema = yup.object().shape({
     .test({
         name: "maxDate",
         message: "בדוק את התאריך והשעה שהזנת",
-        test: values => !isLaterThanNow(values.report_date, values.report_time),
+        test: values => { console.log(values); return !isLaterThanNow(values.report_date, values.report_time)},
         
     })
 
