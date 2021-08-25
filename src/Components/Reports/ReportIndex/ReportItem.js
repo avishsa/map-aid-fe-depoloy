@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component,useState } from 'react';
 import { getDDMMYYYY, getHHMM } from "../../../Utilities/TimeFormatter";
 import { GiTrousers, GiTShirt } from "react-icons/gi";
 import WomanLogo from "../../../images/woman.png";
@@ -8,6 +8,7 @@ import BtnWaze from "../../../images/waze.png"
 //color according to : HandledByMe = red NotHandled - green  handledBySomeOne else - blank
 export default function ReportItem({ report }) {
     console.log(report);
+    const [description,setDescription] = useState(false);
     return (<div className={`d-flex flex-column bd-highlight `}>
 
         <div className="d-flex  flex-row bd-highlight">
@@ -31,14 +32,23 @@ export default function ReportItem({ report }) {
 
             </div>
         </div>
-        <div className="d-flex  flex-row bd-highlight">
-            <div className="">
+        <div className="d-flex flex-row bd-highlight">
+        {description? (<div className="col-1" style={{cursor: 'pointer'}} onClick={()=>{setDescription(false);}}>
+                -
+            </div>) : (<div className="col-1" style={{cursor: 'pointer'}} onClick={()=>{setDescription(true);}}>
                 +
-            </div>
-            <div className="">
-                <label htmlFor="BtnWaze"> נווט עם</label>
-                <img id="BtnWaze" src={BtnWaze} style={{ height: "50pt", width: "50pt" }}/>
+            </div>)}
+            <div style={{cursor: 'pointer'}} className="d-flex flex-row align-items-center ">
+                <label style={{cursor: 'pointer'}} htmlFor="BtnWaze" className=""> נווט עם</label>
+                <img id="BtnWaze" className="mx-2 float-none " src={BtnWaze} style={{ height: "10pt", width: "35pt" }}/>
             </div>
         </div>
+        {
+         description && (<div className="d-flex flex-row bd-highlight">
+             <div>{report.person_general_description}</div>
+
+         </div>)
+            
+        }
     </div>);
 }

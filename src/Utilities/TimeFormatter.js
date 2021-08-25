@@ -27,7 +27,7 @@ const getHHMMSS = date => {
     date.getHours() < 10 ? strDate += '0' + (date.getHours()) : strDate += date.getHours();
     strDate += ':';
     date.getMinutes() < 10 ? strDate += '0' + (date.getMinutes()) : strDate += date.getMinutes();
-    strDate += '00';
+    strDate += ':00';
     return strDate;
 }
 //2018-06-12T19:30

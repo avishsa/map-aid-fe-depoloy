@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getReports, updateReport } from "../../API/reports";
+import { editReport,getReports, updateReport } from "../../API/reports";
 import NavReports from '../Reports/ReportIndex/NavReports'
 import FormReports from './ReportIndex/FormReports';
 import ReportItem from './ReportIndex/ReportItem';
@@ -17,6 +17,7 @@ class ReportIndex extends Component {
     }
     render() {
         // this.getReports();
+        editReport('61251545b0c7144d3f058108');
         return (<div>
             <NavReports />
             <FormReports/>

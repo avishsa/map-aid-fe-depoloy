@@ -15,6 +15,7 @@ const deploy = async (method, path ,data)=>{
         case 'DELETE':return data ? basicAxios.delete(path,data) :basicAxios.delete(path);
         case 'PATCH':return data ? basicAxios.patch(path,data) :basicAxios.patch(path);
         case 'GET':return data ? basicAxios.get(path,data) :basicAxios.get(path);
+        case 'PUT':return data ? basicAxios.put(path,{...data,user_id:"1234"}) :basicAxios.put(path);
         default: throw new Error('invalid method');
     }    
   };
