@@ -19,7 +19,8 @@ import ReporterDetails from "./ReportCreate/ReporterDetails";
 
 
 // const location = { location_text: "בורלא 29, תל אביב", location_json: { lon: 32.1616, lat: 32.1514 } };
-function ReportCreate(props) {  
+function ReportCreate() {  
+    debugger;
     const history = useHistory();
     const location = localStorage.getItem('location') ;
     const [submitting,setSubmitting] = useState(false);
@@ -39,8 +40,7 @@ function ReportCreate(props) {
         "report_date": new Date(),
         "person_shirt_color": "#000000",
         "person_pants_color": "#000000",
-    }
-    console.dir(defaultValues);
+    }    
     const methods = useForm({
         mode: 'onBlur',
         defaultValues,
@@ -68,10 +68,10 @@ function ReportCreate(props) {
         
     };
     const onError = (errors, e) => {
-        console.log("OnERr", errors);       
+        
     }
     const getErrorMsg = errorList => errorList[""]?.message;
-    console.log("render", methods.formState.errors);
+    
     if (!localStorage.getItem('location')){
         
         return <Redirect  to="/report/map" />
