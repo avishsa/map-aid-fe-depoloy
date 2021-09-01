@@ -32,7 +32,7 @@ function ReportCreate(props) {
     }
     const currData = localStorageData;
     
-    const defaultValues = currData["report_time"] !== undefined ? currData: {
+    const defaultValues = (currData===null || currData["report_time"] !== undefined) ? currData: {
         "isNotify": false,
         "report_datetime": getDateTime(new Date()),
         "report_time": new Date(),
