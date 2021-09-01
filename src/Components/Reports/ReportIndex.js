@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-import { editReport, getReports, updateReport } from "../../API/reports";
+// import { editReport, getReports, updateReport } from "../../API/reports";
 import NavReports from '../Reports/ReportIndex/NavReports'
 import FormReports from './ReportIndex/FormReports';
 import ReportItem from './ReportIndex/ReportItem';
