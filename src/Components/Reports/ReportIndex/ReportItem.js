@@ -1,4 +1,4 @@
-import React, { Component,useState } from 'react';
+import React, {useState } from 'react';
 import { getDDMMYYYY, getHHMM } from "../../../Utilities/TimeFormatter";
 import { GiTrousers, GiTShirt } from "react-icons/gi";
 import WomanLogo from "../../../images/woman.png";
@@ -25,8 +25,8 @@ export default function ReportItem({ report }) {
                     <GiTrousers style={{ height: "50pt", width: "50pt", color: report.person_pants_color || "#000000", zIndex: 9 }} />
                 </div>
                 <div>
-                    {report.person_gender === 'זכר' && <img src={ManLogo} style={{ height: "50pt", width: "50pt" }} />}
-                    {report.person_gender === 'נקבה' && <img src={WomanLogo} style={{ height: "50pt", width: "50pt" }} />}
+                    {report.person_gender === 'זכר' && <img alt='man' src={ManLogo} style={{ height: "50pt", width: "50pt" }} />}
+                    {report.person_gender === 'נקבה' && <img alt='woman' src={WomanLogo} style={{ height: "50pt", width: "50pt" }} />}
 
                 </div>
 
@@ -40,7 +40,7 @@ export default function ReportItem({ report }) {
             </div>)}
             <div style={{cursor: 'pointer'}} className="d-flex flex-row align-items-center ">
                 <label style={{cursor: 'pointer'}} htmlFor="BtnWaze" className=""> נווט עם</label>
-                <img id="BtnWaze" className="mx-2 float-none " src={BtnWaze} style={{ height: "10pt", width: "35pt" }}/>
+                <img alt="go2waze" id="BtnWaze" className="mx-2 float-none " src={BtnWaze} style={{ height: "10pt", width: "35pt" }}/>
             </div>
         </div>
         {

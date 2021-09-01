@@ -6,7 +6,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import { heIL } from '@material-ui/core/locale';
 import '../css/App.css';
-import Home from "./Home";
+
 import ReportRouter from './Reports/ReportRouter';
 
 const theme = createTheme({

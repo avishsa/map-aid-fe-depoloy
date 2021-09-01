@@ -1,5 +1,5 @@
-import React, { Component,useEffect }  from 'react';
-import { useForm } from 'react-hook-form';
+import React  from 'react';
+
 import FilterReports from './FilterReports';
 import SortReports from './SortReports';
 export default function FormReports({filterResults,sortResults}) {

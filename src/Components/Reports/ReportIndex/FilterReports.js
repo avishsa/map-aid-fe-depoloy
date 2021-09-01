@@ -1,9 +1,6 @@
 import React, { Component, useState } from 'react';
-import { useFormContext } from 'react-hook-form';
-import Select from '../../boilerplate/form/Select';
-const onChange = (value) => {
 
-}
+
 const valueToLabel = { 'distress': 'מצוקה', 'male': 'גברים', 'female': 'נשים', '': '' }
 
 export default function FilterReports({ onChange }) {

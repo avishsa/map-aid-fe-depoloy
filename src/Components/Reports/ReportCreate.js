@@ -1,5 +1,5 @@
 import React,{useState} from "react";
-import { withRouter,useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { Redirect } from "react-router";
 import { useForm,  FormProvider } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -8,7 +8,7 @@ import { reportFormSchema } from '../../scheme/reportScheme';
 import { getDateTime, getDateTimeFormattedString } from "../../Utilities/TimeFormatter";
 import '../../css/report/createReport.css';
 
-import {createReport} from "../../API/reports";
+import {createReport} from "../../API/reports"; 
 
 import DateTimePickerHE from "../boilerplate/form/DateTimePickerHE";
 import DistressedGroup from "./ReportCreate/DistressedGroup";
@@ -18,7 +18,6 @@ import ReporterDetails from "./ReportCreate/ReporterDetails";
 
 
 // const location = { location_text: "בורלא 29, תל אביב", location_json: { lon: 32.1616, lat: 32.1514 } };
-const LOCATION = "בורלא 29, תל אביב";
 function ReportCreate(props) {  
     const history = useHistory();
     const location = localStorage.getItem('location') ;
