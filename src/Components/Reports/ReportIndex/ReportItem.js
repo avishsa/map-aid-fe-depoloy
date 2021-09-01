@@ -13,11 +13,11 @@ export default function ReportItem({ report }) {
 
         <div className="d-flex  flex-row bd-highlight">
             <div className="d-flex col-8 flex-row bd-highlight">
-                <div className="d-flex  flex-column col-4">
+                <div className="d-flex  flex-column col-6">
                     <div>{getDDMMYYYY(report.report_datetime)}</div>
                     <div>{getHHMM(report.report_datetime)}</div>
                 </div>
-                <div className="col-4"> {report.person_location}</div>
+                <div className="col-2"> {report.person_location}</div>
             </div>
             <div className="col-4 d-flex flex-row">
                 <div >

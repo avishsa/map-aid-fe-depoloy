@@ -6,7 +6,6 @@ import Select from '../../boilerplate/form/Select';
 const valueToLabel = {'incDate':'מהחדש לישן', 'decDate':'מהישן לחדש','':''}
 export default function SortReports({ onChange }) {   
     const changeOrder = (orderName) => {
-        debugger;
         setSortParam(orderName); 
         onChange(orderName);   
       }
