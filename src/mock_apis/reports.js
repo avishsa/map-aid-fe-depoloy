@@ -3,6 +3,7 @@ export const MockReports = [
       'isDistressed': false,
       'person_location': 'ben-gurion',
       'person_gender': 'נקבה',
+      'person_general_description':'stam stam',
       'isNotify': false,
       'isHandled': true,
       'report_datetime': new Date('2021-08-17T03:24:00'),
