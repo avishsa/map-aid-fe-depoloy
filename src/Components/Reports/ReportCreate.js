@@ -8,7 +8,7 @@ import { reportFormSchema } from '../../scheme/reportScheme';
 import { getDateTime, getDateTimeFormattedString } from "../../Utilities/TimeFormatter";
 import '../../css/report/createReport.css';
 
-import {createReport} from "../../API/reports"; 
+import {createReport} from "../../api/reports"; 
 //
 
 import DateTimePickerHE from "../boilerplate/form/DateTimePickerHE";
