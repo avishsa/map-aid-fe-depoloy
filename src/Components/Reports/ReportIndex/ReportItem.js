@@ -4,13 +4,14 @@ import { GiTrousers, GiTShirt } from "react-icons/gi";
 import WomanLogo from "../../../images/woman.png";
 import ManLogo from "../../../images/man.png";
 import BtnWaze from "../../../images/waze.png"
-
+import {editReport} from "../../../api/reports";
+const assignReportToMe = (reportId,userId)=>{
+    editReport(reportId,userId);
+}
 //color according to : HandledByMe = red NotHandled - green  handledBySomeOne else - blank
 export default function ReportItem({ report }) {
-    console.log(report);
     const [description,setDescription] = useState(false);
-    return (<div className={`d-flex flex-column bd-highlight `}>
-
+    return (<div className={`d-flex flex-column bd-highlight `} onClick={()=>{assignReportToMe()}}>
         <div className="d-flex  flex-row bd-highlight">
             <div className="d-flex col-8 flex-row bd-highlight">
                 <div className="d-flex  flex-column col-6">
@@ -27,7 +28,6 @@ export default function ReportItem({ report }) {
                 <div>
                     {report.person_gender === 'זכר' && <img alt='man' src={ManLogo} style={{ height: "50pt", width: "50pt" }} />}
                     {report.person_gender === 'נקבה' && <img alt='woman' src={WomanLogo} style={{ height: "50pt", width: "50pt" }} />}
-
                 </div>
 
             </div>

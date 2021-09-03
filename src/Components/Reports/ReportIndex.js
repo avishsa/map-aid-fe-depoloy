@@ -4,7 +4,8 @@ import NavReports from '../Reports/ReportIndex/NavReports'
 import FormReports from './ReportIndex/FormReports';
 import ReportItem from './ReportIndex/ReportItem';
 import { MockReports } from "../../mock_apis/reports";
-
+import {filterParams} from "./ReportIndex/indexConst";
+const USERID="1234";
 export default function ReportIndex() {
     /*getReports = () => {
         console.log("getting reports");
@@ -28,10 +29,20 @@ export default function ReportIndex() {
     const [filteredRepo, setFilteredRepo] = useState(reports);
     const filterResults = (filterParam) => {
         switch (filterParam) {
-            case 'isDistress': setFilteredRepo(reports.filter(el => el.isDistressed)); break;
-            case 'male': setFilteredRepo(reports.filter(el => el.person_gender === 'זכר')); break;
-            case 'female': setFilteredRepo(reports.filter(el => el.person_gender === 'נקבה')); break;
+            case filterParams.isDistress: setFilteredRepo(reports.filter(el => el.isDistressed)); break;
+            case filterParams.male: setFilteredRepo(reports.filter(el => el.person_gender === 'זכר')); break;
+            case filterParams.female: setFilteredRepo(reports.filter(el => el.person_gender === 'נקבה')); break;
+            default: throw new Error('filter parameter is invalid');
         }
+    }
+    const changeReportOwner = (ownerId) =>{
+        
+        switch (ownerId) {
+            case filterParams.anybody: setFilteredRepo(reports); break;
+            case filterParams.nobody: setFilteredRepo(reports.filter(el=>!el.user_id_handler)); break;
+            case filterParams.me: setFilteredRepo(reports.filter(el=>el.user_id_handler===USERID)); break;
+            default: throw new Error('filter parameter is invalid');
+        }        
     }
     const sortResults = orderParam => {
         let sortArr = [...filteredRepo];
@@ -45,7 +56,7 @@ export default function ReportIndex() {
         console.log(sortArr,filteredRepo);
     }
     return (<div>
-        <NavReports />
+        <NavReports onChange={changeReportOwner}/>
         <FormReports filterResults={filterResults} sortResults={sortResults} />
         <ul className="list-group">
             {filteredRepo.map((report, index) => <li className="list-group-item" key={index}><ReportItem report={report}></ReportItem></li>)}
