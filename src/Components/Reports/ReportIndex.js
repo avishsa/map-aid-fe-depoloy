@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-// import { editReport, getReports, updateReport } from "../../API/reports";
+import { editReport, getReports, updateReport } from "../../api/reports";
 import NavReports from '../Reports/ReportIndex/NavReports'
 import FormReports from './ReportIndex/FormReports';
 import ReportItem from './ReportIndex/ReportItem';
@@ -25,7 +25,13 @@ export default function ReportIndex() {
     }*/
 
     //  this.getReports();
-    const reports = MockReports;
+    const reports = {};
+    let errorMsg = null;
+    const reportsHandler = () => {
+        getReports()
+            .then(res => reports = res)
+            .catch(err => errorMsg="error message");
+    } //getReports()
     const [filteredRepo, setFilteredRepo] = useState(reports);
     const filterResults = (filterParam) => {
         switch (filterParam) {
@@ -55,27 +61,31 @@ export default function ReportIndex() {
         setFilteredRepo(sortArr);
         console.log(sortArr, filteredRepo);
     }
-    const getBorderColor = (userId,LOGGEDUSER)=>{
-        
-        switch(userId){
-            case undefined : return 'green';
-            case null : return 'green';
+    const getBorderColor = (userId, LOGGEDUSER) => {
+
+        switch (userId) {
+            case undefined: return 'green';
+            case null: return 'green';
             case LOGGEDUSER: return 'red';
             default: return 'rgb(136 ,137, 138)';
         }
     }
+    reportsHandler();
     return (<div>
         <NavReports onChange={changeReportOwner} />
         <FormReports filterResults={filterResults} sortResults={sortResults} />
-        <ul className="list-group">
+        {!errorMsg &&(<ul className="list-group">
             {filteredRepo.map((report, index) => (
                 <li className="list-group-item"
-                    style={{'borderTop': `solid ${getBorderColor(report.user_id_handler,USERID)}`}}
+                    style={{ 'borderTop': `solid ${getBorderColor(report.user_id_handler, USERID)}` }}
                     key={index}>
-                    <ReportItem LOGGEDUSER={USERID} report={report} />
+                    <ReportItem LOGGEDUSER={USERID} report={report} getReports={reportsHandler} />
                 </li>
             ))}
-        </ul>
+        </ul>)}
+        {
+            errorMsg && <div> errorMsg </div>
+        }
     </div>);
 
 }

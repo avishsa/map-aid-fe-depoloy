@@ -5,17 +5,21 @@ import WomanLogo from "../../../images/woman.png";
 import ManLogo from "../../../images/man.png";
 import BtnWaze from "../../../images/waze.png"
 import { assignReport } from "../../../api/reports";
-const assignReportToMe = (reportId, userId) => {
-    debugger;
-    console.log('assignReport');
-    assignReport(reportId, userId)
-    .then(res=> {console.log("success",res);})
-    .catch(res=> {console.log("failure",res);});
-}
+
 
 //color according to : HandledByMe = red NotHandled - green  handledBySomeOne else - blank
-export default function ReportItem({ report ,LOGGEDUSER }) {
+export default function ReportItem({ report ,LOGGEDUSER,getReports }) {
     const [description, setDescription] = useState(false);
+    const assignReportToMe = (reportId, userId) => {
+        debugger;
+        console.log('assignReport');
+        assignReport(reportId, userId)
+        .then(res=> {
+            console.log("success",res);
+            getReports();
+        })
+        .catch(res=> {console.log("failure",res);});
+    }
     return (<div 
     className={`d-flex flex-column bd-highlight`} onClick={() => { assignReportToMe(report.id,LOGGEDUSER) }}>
         <div className="d-flex  flex-row bd-highlight">
