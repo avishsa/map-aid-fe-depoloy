@@ -25,11 +25,11 @@ export default function ReportIndex() {
     }*/
 
     //  this.getReports();
-    const reports = {};
+    const reports = [];
     let errorMsg = null;
     const reportsHandler = () => {
         getReports()
-            .then(res => reports = res)
+            .then(res => {debugger; reports = res.data;})
             .catch(err => errorMsg="error message");
     } //getReports()
     const [filteredRepo, setFilteredRepo] = useState(reports);
