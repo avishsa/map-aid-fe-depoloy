@@ -4,8 +4,8 @@ import NavReports from '../Reports/ReportIndex/NavReports'
 import FormReports from './ReportIndex/FormReports';
 import ReportItem from './ReportIndex/ReportItem';
 import { MockReports } from "../../mock_apis/reports";
-import {filterParams} from "./ReportIndex/indexConst";
-const USERID="1234";
+import { filterParams } from "./ReportIndex/indexConst";
+const USERID = "1234";
 export default function ReportIndex() {
     /*getReports = () => {
         console.log("getting reports");
@@ -35,31 +35,46 @@ export default function ReportIndex() {
             default: throw new Error('filter parameter is invalid');
         }
     }
-    const changeReportOwner = (ownerId) =>{
-        
+    const changeReportOwner = (ownerId) => {
+
         switch (ownerId) {
             case filterParams.anybody: setFilteredRepo(reports); break;
-            case filterParams.nobody: setFilteredRepo(reports.filter(el=>!el.user_id_handler)); break;
-            case filterParams.me: setFilteredRepo(reports.filter(el=>el.user_id_handler===USERID)); break;
+            case filterParams.nobody: setFilteredRepo(reports.filter(el => !el.user_id_handler)); break;
+            case filterParams.me: setFilteredRepo(reports.filter(el => el.user_id_handler === USERID)); break;
             default: throw new Error('filter parameter is invalid');
-        }        
+        }
     }
     const sortResults = orderParam => {
         let sortArr = [...filteredRepo];
         switch (orderParam) {
-            case 'incDate': sortArr.sort((el1,el2)=>{return new Date(el2.report_datetime) - new Date(el1.report_datetime)}); break;
-            case 'decDate': sortArr.sort((el1,el2)=>{return new Date(el1.report_datetime) - new Date(el2.report_datetime)}); break;
-            
+            case 'incDate': sortArr.sort((el1, el2) => { return new Date(el2.report_datetime) - new Date(el1.report_datetime) }); break;
+            case 'decDate': sortArr.sort((el1, el2) => { return new Date(el1.report_datetime) - new Date(el2.report_datetime) }); break;
+
         }
-        console.log(sortArr,filteredRepo);
+        console.log(sortArr, filteredRepo);
         setFilteredRepo(sortArr);
-        console.log(sortArr,filteredRepo);
+        console.log(sortArr, filteredRepo);
+    }
+    const getBorderColor = (userId,LOGGEDUSER)=>{
+        
+        switch(userId){
+            case undefined : return 'green';
+            case null : return 'green';
+            case LOGGEDUSER: return 'red';
+            default: return 'rgb(136 ,137, 138)';
+        }
     }
     return (<div>
-        <NavReports onChange={changeReportOwner}/>
+        <NavReports onChange={changeReportOwner} />
         <FormReports filterResults={filterResults} sortResults={sortResults} />
         <ul className="list-group">
-            {filteredRepo.map((report, index) => <li className="list-group-item" key={index}><ReportItem report={report}></ReportItem></li>)}
+            {filteredRepo.map((report, index) => (
+                <li className="list-group-item"
+                    style={{'borderTop': `solid ${getBorderColor(report.user_id_handler,USERID)}`}}
+                    key={index}>
+                    <ReportItem LOGGEDUSER={USERID} report={report} />
+                </li>
+            ))}
         </ul>
     </div>);
 
