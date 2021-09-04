@@ -5,6 +5,8 @@ import FormReports from './ReportIndex/FormReports';
 import ReportItem from './ReportIndex/ReportItem';
 import { MockReports } from "../../mock_apis/reports";
 import { filterParams } from "./ReportIndex/indexConst";
+import "../../css/report/reportIndex.css"
+
 const USERID = "1234";
 export default function ReportIndex() {
     /*getReports = () => {
