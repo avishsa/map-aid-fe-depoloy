@@ -8,7 +8,7 @@ import { assignReport } from "../../../api/reports";
 
 
 //color according to : HandledByMe = red NotHandled - green  handledBySomeOne else - blank
-export default function ReportItem({ report ,LOGGEDUSER,getReports }) {
+export default function ReportItem({ report ,LOGGEDUSER,updateReport }) {
     const [description, setDescription] = useState(false);
     const assignReportToMe = (reportId, userId) => {
         debugger;
@@ -16,12 +16,12 @@ export default function ReportItem({ report ,LOGGEDUSER,getReports }) {
         assignReport(reportId, userId)
         .then(res=> {
             console.log("success",res);
-            getReports();
+            updateReport(reportId,userId);
         })
         .catch(res=> {console.log("failure",res);});
     }
     return (<div 
-    className={`d-flex flex-column bd-highlight`} onClick={() => { assignReportToMe(report.id,LOGGEDUSER) }}>
+    className={`d-flex flex-column bd-highlight`} onClick={() => { if(!report.user_id_handler) {assignReportToMe(report.id,LOGGEDUSER) }}}>
         <div className="d-flex  flex-row bd-highlight">
             <div className="d-flex col-8 flex-row bd-highlight">
                 <div className="d-flex  flex-column col-6">

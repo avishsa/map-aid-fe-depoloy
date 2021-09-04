@@ -70,6 +70,9 @@ export default function ReportIndex() {
             default: return 'rgb(136 ,137, 138)';
         }
     }
+    const patchReport = (reportId, userId)=>{
+        setFilteredRepo(filteredRepo.map(report=>report.id===reportId ? {...report,user_id_handler:userId}: report));
+    }
     reportsHandler();
     return (<div>
         <NavReports onChange={changeReportOwner} />
@@ -79,7 +82,7 @@ export default function ReportIndex() {
                 <li className="list-group-item"
                     style={{ 'borderTop': `solid ${getBorderColor(report.user_id_handler, USERID)}` }}
                     key={index}>
-                    <ReportItem LOGGEDUSER={USERID} report={report} getReports={reportsHandler} />
+                    <ReportItem LOGGEDUSER={USERID} report={report} assignReportHandler={patchReport} />
                 </li>
             ))}
         </ul>)}
