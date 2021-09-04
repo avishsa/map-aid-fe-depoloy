@@ -25,7 +25,7 @@ export default function ReportIndex() {
     }*/
 
     //  this.getReports();
-    const reports = [];
+    const reports = MockReports; //[]
     let errorMsg = null;
     const reportsHandler = () => {
         getReports()
@@ -73,7 +73,7 @@ export default function ReportIndex() {
     const patchReport = (reportId, userId)=>{
         setFilteredRepo(filteredRepo.map(report=>report.id===reportId ? {...report,user_id_handler:userId}: report));
     }
-    reportsHandler();
+    // reportsHandler();
     return (<div>
         <NavReports onChange={changeReportOwner} />
         <FormReports filterResults={filterResults} sortResults={sortResults} />
@@ -82,7 +82,7 @@ export default function ReportIndex() {
                 <li className="list-group-item"
                     style={{ 'borderTop': `solid ${getBorderColor(report.user_id_handler, USERID)}` }}
                     key={index}>
-                    <ReportItem LOGGEDUSER={USERID} report={report} assignReportHandler={patchReport} />
+                    <ReportItem LOGGEDUSER={USERID} report={report} patchReport={patchReport} />
                 </li>
             ))}
         </ul>)}

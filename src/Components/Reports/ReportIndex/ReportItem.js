@@ -8,7 +8,7 @@ import { assignReport } from "../../../api/reports";
 
 
 //color according to : HandledByMe = red NotHandled - green  handledBySomeOne else - blank
-export default function ReportItem({ report ,LOGGEDUSER,updateReport }) {
+export default function ReportItem({ report ,LOGGEDUSER,patchReport }) {
     const [description, setDescription] = useState(false);
     const assignReportToMe = (reportId, userId) => {
         debugger;
@@ -16,7 +16,7 @@ export default function ReportItem({ report ,LOGGEDUSER,updateReport }) {
         assignReport(reportId, userId)
         .then(res=> {
             console.log("success",res);
-            updateReport(reportId,userId);
+            patchReport(reportId,userId);
         })
         .catch(res=> {console.log("failure",res);});
     }
