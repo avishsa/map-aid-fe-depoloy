@@ -59,8 +59,17 @@ export default function ReportItem({ report, LOGGEDUSER, patchReport }) {
             {getDescripionBtn()}
 
             <div style={{ cursor: 'pointer' }} className="d-flex flex-row align-items-center ">
+                <a href={`https://waze.com/ul?ll=${45.6906304},${-120.810983}&navigate=yes`}>
                 <label style={{ cursor: 'pointer' }} htmlFor="BtnWaze" className=""> נווט עם</label>
-                <img alt="go2waze" id="BtnWaze" className="mx-2 float-none " src={BtnWaze} style={{ height: "10pt", width: "35pt" }} />
+                <img 
+                alt="go2waze" 
+                id="BtnWaze" 
+                className="mx-2 float-none " 
+                src={BtnWaze} 
+                style={{ height: "10pt", width: "35pt" }} 
+                
+                />
+                </a>
             </div>
         </div>
 
