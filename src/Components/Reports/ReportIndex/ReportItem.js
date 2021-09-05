@@ -32,13 +32,14 @@ export default function ReportItem({ report, LOGGEDUSER, patchReport }) {
             onclick={() => { setDescription(true); }} 
             text="+"/> )
     }
+    const reportDate = new Date(report.report_datetime);
     return (<div
         className={`d-flex flex-column bd-highlight`} onClick={() => { if (!report.user_id_handler) { assignReportToMe(report.id, LOGGEDUSER) } }}>
         <div className="d-flex  flex-row bd-highlight justify-content-between">
             <div className="d-flex col-10 flex-row bd-highlight">
                 <div className="d-flex  flex-column col-4">
-                    <div>{getDDMMYYYY(report.report_datetime)}</div>
-                    <div>{getHHMM(report.report_datetime)}</div>
+                    <div>{getDDMMYYYY(reportDate)}</div>
+                    <div>{getHHMM(reportDate)}</div>
                 </div>
                 <div className="col-8"> {report.person_location}</div>
             </div>
