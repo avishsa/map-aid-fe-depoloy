@@ -1,6 +1,16 @@
 *{
     font-size: 10pt;
 }
+ul {
+    padding-inline-start:0 !important;
+}
 .description{
     font-size: 20pt;
+}
+.icon {
+    height: 25pt !important;
+    width: 25pt !important;
+}
+.dropdown{
+    direction: ltr;
 }

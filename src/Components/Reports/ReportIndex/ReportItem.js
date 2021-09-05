@@ -34,22 +34,22 @@ export default function ReportItem({ report, LOGGEDUSER, patchReport }) {
     }
     return (<div
         className={`d-flex flex-column bd-highlight`} onClick={() => { if (!report.user_id_handler) { assignReportToMe(report.id, LOGGEDUSER) } }}>
-        <div className="d-flex  flex-row bd-highlight">
-            <div className="d-flex col-7 flex-row bd-highlight">
-                <div className="d-flex  flex-column col-6">
+        <div className="d-flex  flex-row bd-highlight justify-content-between">
+            <div className="d-flex col-10 flex-row bd-highlight">
+                <div className="d-flex  flex-column col-4">
                     <div>{getDDMMYYYY(report.report_datetime)}</div>
                     <div>{getHHMM(report.report_datetime)}</div>
                 </div>
-                <div className="col-7"> {report.person_location}</div>
+                <div className="col-8"> {report.person_location}</div>
             </div>
             <div className=" d-flex flex-row">
-                <div >
-                    <GiTShirt style={{ height: "50pt", width: "50pt", color: report.person_shirt_color || "#000000", zIndex: 9 }} />
-                    <GiTrousers style={{ height: "50pt", width: "50pt", color: report.person_pants_color || "#000000", zIndex: 9 }} />
+                <div className=" d-flex flex-column">
+                    <GiTShirt className="icon" style={{display:'inline',color: report.person_shirt_color || "#000000", zIndex: 9 }} />
+                    <GiTrousers className="icon" style={{ display:'inline',color: report.person_pants_color || "#000000", zIndex: 9 }} />
                 </div>
                 <div>
-                    {report.person_gender === 'זכר' && <img alt='man' src={ManLogo} style={{ height: "50pt", width: "50pt" }} />}
-                    {report.person_gender === 'נקבה' && <img alt='woman' src={WomanLogo} style={{ height: "50pt", width: "50pt" }} />}
+                    {report.person_gender === 'זכר' && <img alt='man' src={ManLogo} className="icon"  />}
+                    {report.person_gender === 'נקבה' && <img alt='woman' src={WomanLogo}  className="icon"/>}
                 </div>
 
             </div>

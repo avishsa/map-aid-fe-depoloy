@@ -76,13 +76,13 @@ export default function ReportIndex() {
         setFilteredRepo(filteredRepo.map(report=>report.id===reportId ? {...report,user_id_handler:userId}: report));
     }
     // reportsHandler();
-    return (<div>
+    return (<div className="d-flex flex-column justify-content-center">
         <NavReports onChange={changeReportOwner} />
         <FormReports filterResults={filterResults} sortResults={sortResults} />
-        {!errorMsg &&(<ul className="list-group">
+        {!errorMsg &&(<ul className="list-group" style={{paddingInlineStart:'0 !important'}}>
             {filteredRepo.map((report, index) => (
                 <li className="list-group-item"
-                    style={{ 'borderTop': `solid ${getBorderColor(report.user_id_handler, USERID)}` }}
+                    style={{ 'borderTop': `solid ${getBorderColor(report.user_id_handler, USERID)} 8pt` }}
                     key={index}>
                     <ReportItem LOGGEDUSER={USERID} report={report} patchReport={patchReport} />
                 </li>
