@@ -45,7 +45,6 @@ export default class App extends Component {
     },2000)
   }    
   render() {
-    
     return (
       this.state.view
     );

@@ -18,11 +18,12 @@ import HomelessDetails from "./ReportCreate/HomelessDetails";
 import ReporterDetails from "./ReportCreate/ReporterDetails";
 
 
-// const location = { location_text: "בורלא 29, תל אביב", location_json: { lon: 32.1616, lat: 32.1514 } };
+//const location = { location_text: "בורלא 29, תל אביב", location_json: { lon: 32.1616, lat: 32.1514 } };
+const LOCATION =  "בורלא 29, תל אביב";
 function ReportCreate() {  
-    debugger;
+    
     const history = useHistory();
-    const location = localStorage.getItem('location') ;
+    const location = localStorage.getItem('location') ? localStorage.getItem('location') :LOCATION;
     const [submitting,setSubmitting] = useState(false);
     let localStorageData; 
     try {
@@ -33,14 +34,15 @@ function ReportCreate() {
     }
     const currData = localStorageData;
     
-    const defaultValues = (currData===null || currData["report_time"] !== undefined) ? currData: {
+    const defaultValues = (currData!==null && currData["report_time"] !== undefined) ? currData: {
         "isNotify": false,
         "report_datetime": getDateTime(new Date()),
         "report_time": new Date(),
         "report_date": new Date(),
         "person_shirt_color": "#000000",
         "person_pants_color": "#000000",
-    }    
+    }   
+    console.log("defaultValues",defaultValues); 
     const methods = useForm({
         mode: 'onBlur',
         defaultValues,
@@ -48,7 +50,7 @@ function ReportCreate() {
     });
 
     const onSubmit = (data, e) => {
-        
+       
         if(submitting) return;
         setSubmitting(true);
         localStorage.setItem('reportDate',JSON.stringify(data));
@@ -72,16 +74,23 @@ function ReportCreate() {
     }
     const getErrorMsg = errorList => errorList[""]?.message;
     
-    if (!localStorage.getItem('location')){
+    // if (!localStorage.getItem('location')){
         
-        return <Redirect  to="/report/map" />
-    }
-    
+    //     return <Redirect  to="/report/map" />
+    // }
+
     return (<div id="formContainer" className="d-flex flex-column justify-content-center">
         <h1 className="text-end"> מילוי טופס דיווח</h1>
     
         <FormProvider {...methods}>
-            <form id="createReport" className="form-inline needs-validation" noValidate onSubmit={methods.handleSubmit(onSubmit, onError)}>
+            <form 
+            id="createReport" 
+            className="form-inline needs-validation" 
+            noValidate 
+            onSubmit={
+                methods.handleSubmit(onSubmit, onError)
+            }
+            >
                 <DistressedGroup />
                 <DateTimePickerHE />
                 <MapGroup location={location} />
