@@ -1,18 +1,14 @@
 import React, { useState } from 'react';
-import { getDDMMYYYY, getHHMM } from "../../../Utilities/TimeFormatter";
-import { GiTrousers, GiTShirt } from "react-icons/gi";
-import WomanLogo from "../../../images/woman.png";
-import ManLogo from "../../../images/man.png";
-import BtnWaze from "../../../images/waze.png"
 import { assignReport } from "../../../api/reports";
 import ReportDescriptionBtn from './reportItem/ReportDescriptionBtn';
-
+import ReportIcons from './reportItem/ReportIcons';
+import ReportWazeBtn from './reportItem/ReportWazeBtn';
+import ReportTimeLocation from './reportItem/ReportTimeLocation';
 //color according to : HandledByMe = red NotHandled - green  handledBySomeOne else - blank
 export default function ReportItem({ report, LOGGEDUSER, patchReport }) {
     const [description, setDescription] = useState(false);
     const assignReportToMe = (reportId, userId) => {
-        debugger;
-        console.log('assignReport');
+        if (!report.user_id_handler) return;
         assignReport(reportId, userId)
             .then(res => {
                 console.log("success", res);
@@ -21,65 +17,41 @@ export default function ReportItem({ report, LOGGEDUSER, patchReport }) {
             .catch(res => { console.log("failure", res); });
     }
     const getDescripionBtn = () => {
-        if(!report.person_general_description)
-            return <ReportDescriptionBtn/>
-        return description ? (<ReportDescriptionBtn 
-            style={{ cursor: 'pointer' }} 
-            onclick={() => { setDescription(false); }} 
-            text="-"/>) 
-        : (<ReportDescriptionBtn 
-            style={{ cursor: 'pointer' }} 
-            onclick={() => { setDescription(true); }} 
-            text="+"/> )
+        if (!report.person_general_description)
+            return <ReportDescriptionBtn />
+        return description ? (<ReportDescriptionBtn
+            style={{ cursor: 'pointer' }}
+            onclick={() => { setDescription(false); }}
+            text="-" />)
+            : (<ReportDescriptionBtn
+                style={{ cursor: 'pointer' }}
+                onclick={() => { setDescription(true); }}
+                text="+" />)
     }
     const reportDate = new Date(report.report_datetime);
     return (<div
-        className={`d-flex flex-column bd-highlight`} onClick={() => { if (!report.user_id_handler) { assignReportToMe(report.id, LOGGEDUSER) } }}>
+        className="d-flex flex-column bd-highlight" 
+        onClick={() => { assignReportToMe(report.id, LOGGEDUSER) }}>
         <div className="d-flex  flex-row bd-highlight justify-content-between">
-            <div className="d-flex col-10 flex-row bd-highlight">
-                <div className="d-flex  flex-column col-4">
-                    <div>{getDDMMYYYY(reportDate)}</div>
-                    <div>{getHHMM(reportDate)}</div>
+            <div className="d-flex flex-column  col-10 bd-highlight">
+                <ReportTimeLocation date={reportDate} location={report.person_location} />
+                <div className="d-flex  flex-row bd-highlight align-items-center">
+                {getDescripionBtn()}
+                <ReportWazeBtn />
                 </div>
-                <div className="col-8"> {report.person_location}</div>
             </div>
-            <div className=" d-flex flex-row">
-                <div className=" d-flex flex-column">
-                    <GiTShirt className="icon" style={{display:'inline',color: report.person_shirt_color || "#000000", zIndex: 9 }} />
-                    <GiTrousers className="icon" style={{ display:'inline',color: report.person_pants_color || "#000000", zIndex: 9 }} />
-                </div>
-                <div>
-                    {report.person_gender === 'זכר' && <img alt='man' src={ManLogo} className="icon"  />}
-                    {report.person_gender === 'נקבה' && <img alt='woman' src={WomanLogo}  className="icon"/>}
-                </div>
-
-            </div>
+            <ReportIcons
+                gender={report.person_gender}
+                shirtColor={report.person_shirt_color}
+                pantsColor={report.person_pants_color}
+            />
         </div>
-
-        <div className="d-flex flex-row bd-highlight">
-            {getDescripionBtn()}
-
-            <div style={{ cursor: 'pointer' }} className="d-flex flex-row align-items-center ">
-                <a href={`https://waze.com/ul?ll=${45.6906304},${-120.810983}&navigate=yes`}>
-                <label style={{ cursor: 'pointer' }} htmlFor="BtnWaze" className=""> נווט עם</label>
-                <img 
-                alt="go2waze" 
-                id="BtnWaze" 
-                className="mx-2 float-none " 
-                src={BtnWaze} 
-                style={{ height: "10pt", width: "35pt" }} 
-                
-                />
-                </a>
-            </div>
-        </div>
-
         {
             description && (<div className="d-flex flex-row bd-highlight">
                 <div>{report.person_general_description}</div>
-
             </div>)
-
         }
-    </div>);
+    </div>
+    );
 }
+//

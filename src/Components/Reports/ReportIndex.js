@@ -69,8 +69,8 @@ export default function ReportIndex() {
         <FormReports filterResults={filterResults} sortResults={sortResults} />
         {!errorMsg && (<ul className="list-group" style={{ paddingInlineStart: '0 !important' }}>
             {filteredRepo && filteredRepo.map((report, index) => (
-                <li className="list-group-item"
-                    style={{ 'borderTop': `solid ${getBorderColor(report.user_id_handler, USERID)} 8pt` }}
+                <li className="list-group-item my-2"
+                    style={{ 'borderTop': `solid ${getBorderColor(report.user_id_handler, USERID)} 3pt` }}
                     key={index}>
                     <ReportItem LOGGEDUSER={USERID} report={report} patchReport={patchReport} />
                 </li>
