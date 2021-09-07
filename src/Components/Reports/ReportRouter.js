@@ -4,6 +4,7 @@ import ReportCreate from './ReportCreate';
 import ReportIndex from './ReportIndex';
 import ReportSuccess from './ReportSuccess';
 import ReportFailure from './ReportFailure';
+import ReportMap from "./ReportMap";
 
 function ReportRouter(){
     return (<Switch>      
@@ -11,6 +12,7 @@ function ReportRouter(){
     <Route exact path="/report/Index" component={ReportIndex} />
     <Route exact path="/report/success" component={ReportSuccess} />
     <Route exact path="/report/failure" component={ReportFailure} />
+    <Route exact path="/report/map" component={ReportMap} />
     
   </Switch>)
 }

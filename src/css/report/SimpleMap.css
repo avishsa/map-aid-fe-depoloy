@@ -2,3 +2,25 @@
     height: 68vh;
     width: 100%;
 }
+
+.LeafletFooter {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.SendAddressButton {
+    pointer-events: auto;
+    color: white;
+    margin-bottom: 200px;
+
+    font: VarelaRound-Regular;
+    background-color: rgb(48, 67, 239);
+    width: 286px;
+    height: 53px;
+    border-radius: 32px;
+
+
+}

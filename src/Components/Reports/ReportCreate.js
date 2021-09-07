@@ -42,7 +42,6 @@ function ReportCreate() {
         "person_shirt_color": "#000000",
         "person_pants_color": "#000000",
     }   
-    console.log("defaultValues",defaultValues); 
     const methods = useForm({
         mode: 'onBlur',
         defaultValues,
