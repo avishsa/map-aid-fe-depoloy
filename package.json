@@ -46,8 +46,8 @@
     "yup": "^0.32.9"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-scripts  --optimize_for_size --max_old_space_size=460 start",
+    "build": "react-scripts  --optimize_for_size --max_old_space_size=460 build",
     "test:watch": "npm test -- --watch",
     "eject": "react-scripts eject"
   },
