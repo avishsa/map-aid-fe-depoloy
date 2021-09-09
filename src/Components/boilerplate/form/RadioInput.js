@@ -5,7 +5,7 @@ export default function RadioInput({ name, label, className,classLabel,styleLabe
     const { register, formState: { errors } } = useFormContext();
 
     return (
-        <div className="d-flex flex-column">
+        <div className="d-flex flex-column mb-3">
             {label &&<label htmlFor={name}
                 className={`d-flex form-label flex-row ${className}`}   >{label}</label>}
 

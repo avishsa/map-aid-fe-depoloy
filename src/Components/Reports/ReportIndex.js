@@ -63,7 +63,7 @@ export default function ReportIndex() {
     const patchReport = (reportId, userId) => {
         setFilteredRepo(filteredRepo.map(report => report.id === reportId ? { ...report, user_id_handler: userId } : report));
     }
-    // reportsHandler();
+   
     return (<div className="d-flex flex-column justify-content-center">
         <NavReports onChange={changeReportOwner} />
         <FormReports filterResults={filterResults} sortResults={sortResults} />

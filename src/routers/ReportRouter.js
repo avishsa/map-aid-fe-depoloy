@@ -1,10 +1,10 @@
 import React from 'react';
 import { Switch, Route } from "react-router-dom";
-import ReportCreate from './ReportCreate';
-import ReportIndex from './ReportIndex';
-import ReportSuccess from './ReportSuccess';
-import ReportFailure from './ReportFailure';
-import ReportMap from "./ReportMap";
+import ReportCreate from '../Components/Reports/ReportCreate';
+import ReportIndex from '../Components/Reports/ReportIndex';
+import ReportSuccess from '../Components/Reports/ReportSuccess';
+import ReportFailure from '../Components/Reports/ReportFailure';
+import ReportMap from "../Components/Reports/ReportMap";
 
 function ReportRouter(){
     return (<Switch>      

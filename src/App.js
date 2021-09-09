@@ -1,14 +1,14 @@
 
-import Header from './boilerplate/Header';
-import Footer from './boilerplate/Footer';
+import Header from './Components/boilerplate/Header';
+import Footer from './Components/boilerplate/Footer';
 import React, { Component } from 'react';
 import { BrowserRouter as Router } from "react-router-dom";
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import { heIL } from '@material-ui/core/locale';
-import '../css/App.css';
+import './css/App.css';
 
-import ReportRouter from './Reports/ReportRouter';
-import Home from "./Home";
+import ReportRouter from './routers/ReportRouter';
+import Home from "./Components/Home";
 const theme = createTheme({
   typography: {
     fontFamily: 'VarelaRound',

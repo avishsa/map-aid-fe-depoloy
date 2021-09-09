@@ -72,16 +72,8 @@ h4 {
     color: rgb(255, 146, 0);
 }
 
- .inputLabel{
-    margin-top: 14pt;
-} 
-.containerForm{
-    margin-top: 29pt;
-}
 
-#distressText{
-    margin-top: 10pt;
-}
+
 .redirectBtn  {
     color: white;
     background-color: rgb(48 ,67 ,239);
@@ -90,10 +82,7 @@ h4 {
     border-radius: 32pt;
 }
 
-#locationTextContainer{
-    margin-top: 15.5pt;
-    
-}
+
 #locationTextInput{
     
     background-color: white;

@@ -5,8 +5,8 @@ import { useFormContext } from "react-hook-form";
 const getIcon = (name,color)=>{
     
     switch(name){
-        case "person_shirt_color": return <GiTShirt style={{ height:"50pt",width: "50pt",color: color,zIndex:9 }}/>;
-        case "person_pants_color": return <GiTrousers style={{ height:"50pt",width: "50pt",color: color,zIndex:9 }}/>;
+        case "person_shirt_color": return <GiTShirt style={{ height:"37pt",width: "37pt",color: color,zIndex:9 }}/>;
+        case "person_pants_color": return <GiTrousers style={{ height:"37pt",width: "37pt",color: color,zIndex:9 }}/>;
         default: return <div></div>;
     }
 }
@@ -15,7 +15,7 @@ export default function InputColorImage({icon, labelText, imgSrc, name, colors }
     const { register, watch } = useFormContext(); // retrieve all hook methods     
     return (
 
-        <div className="d-flex mt-3 flex-row  justify-content-between align-items-center " style={{ marginBottom: "20pt" }}>
+        <div className="d-flex mb-3 flex-row  align-items-center ">
 
 
             <div className="d-flex mt-1  flex-row justify-content-center ">
@@ -32,7 +32,7 @@ export default function InputColorImage({icon, labelText, imgSrc, name, colors }
 
             </div>
             
-            <div className="d-flex flex-row mr-4">
+            <div className="d-flex flex-row mx-3 ">
                 {
 
                     colors.map((value, index) => (<div className="mx-1" key={`${name}_${index}`}>

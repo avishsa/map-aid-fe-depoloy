@@ -7,7 +7,7 @@ export default function DistressedGroup() {
     let isTouchedDistressGroup = touchedFields[formFields.distressedText.name]!==undefined;
     
     return (<div className="d-flex flex-column bd-highlight">
-        <div id="DistressedCBContainer" className="d-flex flex-row lign-items-start bd-highlight">
+        <div id="DistressedCBContainer" className="d-flex flex-row lign-items-start bd-highlight mb-3">
             <input
                 id="distressedCB"
                 type="checkbox"
@@ -19,14 +19,14 @@ export default function DistressedGroup() {
         </div>
         {watch(formFields.isDistressed.name) && !isTouchedDistressGroup && (<input
             id="distressText"
-            className="long-text-input form-control d-flex  flex-column float-end bd-highlight"
+            className="long-text-input form-control d-flex  flex-column float-end bd-highlight mb-3"
             {...register(formFields.distressedText.name)}
             defaultValue = {watch("person_general_description")}
             placeholder={formFields.distressedText.label}
         />)}
         {watch(formFields.isDistressed.name) && isTouchedDistressGroup && (<input
             id="distressText"
-            className="long-text-input form-control d-flex  flex-column float-end bd-highlight"
+            className="long-text-input form-control d-flex  flex-column float-end bd-highlight  mb-3"
             {...register(formFields.distressedText.name)}
             
             placeholder={formFields.distressedText.label}

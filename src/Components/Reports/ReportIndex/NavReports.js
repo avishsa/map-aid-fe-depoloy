@@ -7,15 +7,15 @@ export default function NavReports ({onChange}) {
         return (<nav className=" d-flex flex-row navbar  navbar-light ">
             <ul className="d-flex flex-row p-0 m-0">
                 <li className=" d-flex flex-row">
-                    <a id="emergacyLink" 
+                    <button id="emergacyLink" 
                     onClick={()=>{changeFilter(filterParams.anybody)}} 
-                    className="nav-link text-secondary" href="#">כל הדיווחים <span className="sr-only">(current)</span></a>
+                    className="nav-link btn text-secondary" >כל הדיווחים <span className="sr-only">(current)</span></button>
                 </li>
                 <li className=" d-flex flex-row">
-                    <a className="nav-link text-danger" onClick={()=>{changeFilter(filterParams.me)}}>בטיפולי <span className="sr-only">(current)</span></a>
+                    <button className="nav-link btn text-danger" onClick={()=>{changeFilter(filterParams.me)}}>בטיפולי <span className="sr-only">(current)</span></button>
                 </li>
                 <li className=" d-flex flex-row">
-                    <a className="nav-link text-success" onClick={()=>{changeFilter(filterParams.nobody)}}>חדשים <span className="sr-only">(current)</span></a>
+                    <button className="nav-link btn text-success" onClick={()=>{changeFilter(filterParams.nobody)}}>חדשים <span className="sr-only">(current)</span></button>
                 </li>                
             </ul>
         </nav>);

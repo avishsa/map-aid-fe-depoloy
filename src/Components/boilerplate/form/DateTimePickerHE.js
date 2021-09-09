@@ -70,9 +70,9 @@ export default function DatePickerHE({ value }) {
     return (
         <MuiThemeProvider theme={theme}>
             <MuiPickersUtilsProvider utils={DateFnsUtils} locale={heIL} >
-                <div className="d-flex flex-row ">
+                <div className="d-flex flex-row mb-3">
                     <div className="d-flex flex-column  mx-1">
-                        <label className="form-label required-astrix d-flex flex-row">תאריך</label>
+                        <label className="form-label required-astrix d-flex flex-row  mb-2">תאריך</label>
                         <Controller
                             id="report_date"
                             control={control}
@@ -106,7 +106,7 @@ export default function DatePickerHE({ value }) {
                         </div>
                     </div>
                     <div className="d-flex flex-column mx-1">
-                        <label className="form-label required-astrix d-flex flex-row"
+                        <label className="form-label required-astrix d-flex flex-row  mb-2"
                             autoFocus={errors &&
                                 errors[""] &&
                                 errors[""].type === "maxDate"}
