@@ -1,13 +1,13 @@
-import { Component, useEffect, useState, useRef } from 'react';
+import { useEffect, useState} from 'react';
 import { useHistory } from "react-router-dom";
 
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
 
-import LCG from 'leaflet-control-geocoder';
+
 import L from 'leaflet';
 
 import * as GeoSearch from 'leaflet-geosearch';
-import { createReport } from '../../../api/reports';
+
 import '../../../css/report/SimpleMap.css';
 function LocationMarker(props) {
   const [position, setPosition] = useState(null);

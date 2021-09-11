@@ -1,4 +1,4 @@
-import React, { Component }  from 'react';
+import React from 'react';
 import {filterParams} from "./indexConst";
 export default function NavReports ({onChange}) {
     const  changeFilter =(filtername)=>{

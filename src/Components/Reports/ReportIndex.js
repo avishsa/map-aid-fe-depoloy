@@ -1,9 +1,9 @@
-import React, { Component,useEffect, useState } from 'react';
-import { editReport, getReports, updateReport } from "../../api/reports";
+import React, {useEffect, useState } from 'react';
+import { getReports } from "../../api/reports";
 import NavReports from '../Reports/ReportIndex/NavReports'
 import FormReports from './ReportIndex/FormReports';
 import ReportItem from './ReportIndex/ReportItem';
-import { MockReports } from "../../mock_apis/reports";
+// import { MockReports } from "../../mock_apis/reports";
 import { filterParams } from "./ReportIndex/indexConst";
 import "../../css/report/reportIndex.css"
 const USERID = "1234";
@@ -21,7 +21,6 @@ export default function ReportIndex() {
             setFilteredRepo(data);
         })
         .catch(err => errorMsg = "error message");
-        console.log("useAffect",reports);
       }, []);
     const filterResults = (filterParam) => {
         switch (filterParam) {
@@ -45,7 +44,7 @@ export default function ReportIndex() {
         switch (orderParam) {
             case 'incDate': sortArr.sort((el1, el2) => { return new Date(el2.report_datetime) - new Date(el1.report_datetime) }); break;
             case 'decDate': sortArr.sort((el1, el2) => { return new Date(el1.report_datetime) - new Date(el2.report_datetime) }); break;
-
+            default: throw new Error('invalid sort');
         }
         console.log(sortArr, filteredRepo);
         setFilteredRepo(sortArr);
