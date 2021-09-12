@@ -50,12 +50,13 @@ export default function ReportIndex() {
         setFilteredRepo(sortArr);
         console.log(sortArr, filteredRepo);
     }
-    const getBorderColor = (userId, LOGGEDUSER) => {
+    const getBorderColor = (isHandled) => {
 
-        switch (userId) {
-            case undefined: return 'green';
-            case null: return 'green';
-            case LOGGEDUSER: return 'red';
+        switch (isHandled) {
+            case true: return 'red';
+            case false: return 'green';
+    
+           
             default: return 'rgb(136 ,137, 138)';
         }
     }
@@ -69,7 +70,7 @@ export default function ReportIndex() {
         {!errorMsg && (<ul className="list-group" style={{ paddingInlineStart: '0 !important' }}>
             {filteredRepo && filteredRepo.map((report, index) => (
                 <li className="list-group-item my-2"
-                    style={{ 'borderTop': `solid ${getBorderColor(report.user_id_handler, USERID)} 3pt` }}
+                    style={{ 'borderTop': `solid ${getBorderColor(report.isHandled)} 3pt` }}
                     key={index}>
                     <ReportItem LOGGEDUSER={USERID} report={report} patchReport={patchReport} />
                 </li>
