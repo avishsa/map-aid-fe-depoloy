@@ -68,7 +68,7 @@ export default function SimpleMap(){
   }
   return (
     <MapContainer className="" id="mapid" center={[32.0576485, 34.7652664]} zoom={15} scrollWheelZoom={true}>
-      <LocationMarker onLocationFound={l =>  {debugger;console.log(l); setLocationQuery(l)}} />
+      <LocationMarker onLocationFound={l =>  {setLocationQuery(l)}} />
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

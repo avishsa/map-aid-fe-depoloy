@@ -67,10 +67,10 @@ function ReportCreate() {
         delete data["report_time"];
 
         const cr = createReport(data);
-        console.log('submitting', data, cr);
+        
         cr
-            .then(res => { console.log(res); setSubmitting(false); history.push("/report/success"); })
-            .catch(res => { console.log(res); setSubmitting(false); history.push("/report/failure"); })
+            .then(res => { setSubmitting(false); history.push("/report/success"); })
+            .catch(res => { setSubmitting(false); history.push("/report/failure"); })
 
 
     };

@@ -8,12 +8,12 @@ import ReportTimeLocation from './reportItem/ReportTimeLocation';
 export default function ReportItem({ report, LOGGEDUSER, patchReport }) {
     const [description, setDescription] = useState(false);
     const assignReportToMe = (reportId, userId) => {
-        console.log("assignReportToMe");
+        
         debugger;
         if (report.user_id_handler!==null && report.user_id_handler!==undefined) return;
         assignReport(reportId, userId)
             .then(res => {
-                console.log("success", res);
+            
                 patchReport(reportId, userId);
             })
             .catch(res => { console.log("failure", res); });
@@ -31,7 +31,7 @@ export default function ReportItem({ report, LOGGEDUSER, patchReport }) {
                 text="+" />)
     }
     const reportDate = new Date(report.report_datetime);
-    console.log(report.isHandled,report.id)
+    
     return (<div
         className="d-flex flex-column bd-highlight" 
         onClick={() => { assignReportToMe(report.id, LOGGEDUSER) }}>

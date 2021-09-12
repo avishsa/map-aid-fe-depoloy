@@ -6,7 +6,7 @@ import ReportItem from './ReportIndex/ReportItem';
 // import { MockReports } from "../../mock_apis/reports";
 import { filterParams } from "./ReportIndex/indexConst";
 import "../../css/report/reportIndex.css"
-const USERID = "1234";
+const USERID = "9999";
 //   const reports = MockReports; //[]
 
 let errorMsg = null;
@@ -17,6 +17,8 @@ export default function ReportIndex() {
     useEffect(() => {
         getReports()
         .then(({data}) => {
+            data =  data.filter(el=>el.isHandled===false || el.user_id_handler===USERID);
+            
             setReports(data);
             setFilteredRepo(data);
         })
@@ -46,9 +48,9 @@ export default function ReportIndex() {
             case 'decDate': sortArr.sort((el1, el2) => { return new Date(el1.report_datetime) - new Date(el2.report_datetime) }); break;
             default: throw new Error('invalid sort');
         }
-        console.log(sortArr, filteredRepo);
+      
         setFilteredRepo(sortArr);
-        console.log(sortArr, filteredRepo);
+      
     }
     const getBorderColor = (isHandled) => {
 
