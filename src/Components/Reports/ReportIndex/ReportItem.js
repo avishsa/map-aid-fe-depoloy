@@ -9,7 +9,7 @@ export default function ReportItem({ report, LOGGEDUSER, patchReport }) {
     const [description, setDescription] = useState(false);
     const assignReportToMe = (reportId, userId) => {
         
-        debugger;
+        
         if (report.user_id_handler!==null && report.user_id_handler!==undefined) return;
         assignReport(reportId, userId)
             .then(res => {

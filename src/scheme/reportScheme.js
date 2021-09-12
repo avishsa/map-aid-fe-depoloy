@@ -145,7 +145,7 @@ export const reportFormSchema = yup.object().shape({
         .required("שדה נדרש")
         .typeError('שעה לא תקינה, חסר אחד מהערכים או יותר (יום, חודש, שנה)')
     .test("","השעה לא יכולה להיות מאוחרת יותר מהשעה הנוכחית, עבור היום",function (value){
-        console.log()
+        
         return !isLaterThanNow(this.parent.report_date,this.parent.report_time);
     })
     

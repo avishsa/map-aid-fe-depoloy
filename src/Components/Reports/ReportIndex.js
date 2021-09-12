@@ -56,14 +56,12 @@ export default function ReportIndex() {
 
         switch (isHandled) {
             case true: return 'red';
-            case false: return 'green';
-    
-           
+            case false: return 'green';  
             default: return 'rgb(136 ,137, 138)';
         }
     }
     const patchReport = (reportId, userId) => {
-        setFilteredRepo(filteredRepo.map(report => report.id === reportId ? { ...report, user_id_handler: userId } : report));
+        setFilteredRepo(filteredRepo.map(report => report.id === reportId ? { ...report, user_id_handler: userId,isHandled:true } : report));
     }
    
     return (<div className="d-flex flex-column justify-content-center">

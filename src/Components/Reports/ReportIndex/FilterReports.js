@@ -6,7 +6,7 @@ const valueToLabel = { 'distress': 'מצוקה', 'male': 'גברים', 'female':
 export default function FilterReports({ onChange }) {
   const [filterParam, setFilterParam] = useState('');
   const changeFilter = (filtername) => {
-    debugger;
+    
     setFilterParam(filtername); 
     onChange(filtername);   
   }

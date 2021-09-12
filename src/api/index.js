@@ -3,7 +3,7 @@ import MockAxios from "../test/mocks/MockAxios";
 
 
 import "regenerator-runtime/runtime.js";
-console.log(MockAxios);
+
 const serverUrl ="https://elem-homeless-mapping.herokuapp.com/api"; 
 const basicAxios = process.env.JEST_WORKER_ID===undefined ? axios.create({
     baseURL:serverUrl
