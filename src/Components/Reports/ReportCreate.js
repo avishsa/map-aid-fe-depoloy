@@ -25,7 +25,7 @@ function ReportCreate() {
 
     const history = useHistory();
     const location = localStorage.getItem('location') ? localStorage.getItem('location') : LOCATION;
-    const lon = localStorage.getItem('lon') ? localStorage.getItem('lon') : LON;
+    const lon = localStorage.getItem('lng') ? localStorage.getItem('lng') : LON;
     const lat = localStorage.getItem('lat') ? localStorage.getItem('lat') : LAT;
     const [submitting, setSubmitting] = useState(false);
     let localStorageData;

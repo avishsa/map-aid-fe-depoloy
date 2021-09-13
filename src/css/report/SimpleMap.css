@@ -15,7 +15,8 @@
     pointer-events: auto;
     color: white;
     margin-bottom: 200px;
-
+    text-align: center;
+    vertical-align: middle;
     font: VarelaRound-Regular;
     background-color: rgb(48, 67, 239);
     width: 286px;
