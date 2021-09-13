@@ -8,9 +8,11 @@ import L from 'leaflet';
 import * as GeoSearch from 'leaflet-geosearch';
 
 function LocationMarker({ onLocationFound }) {
-  const [position, setPosition] = useState(null);
+  const lat = isNaN(localStorage.getItem('lat')) ? undefined : localStorage.getItem('lat');
+  const lng = isNaN(localStorage.getItem('lng')) ? undefined : localStorage.getItem('lng');
+  const [position, setPosition] = useState(lat && lng ? { lat: lat, lng: lng } : null);
   const [locationName, setLocationName] = useState("");
-
+  console.log("position", position);
   const map = useMapEvents({
     locationfound(e) {
       setPosition(e.latlng)
