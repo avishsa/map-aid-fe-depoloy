@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router } from "react-router-dom";
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import { heIL } from '@material-ui/core/locale';
+import ScrollToTop from './Components/boilerplate/ScrollToTop';
 import './css/App.css';
 
 import ReportRouter from './routers/ReportRouter';
@@ -22,6 +23,7 @@ const AppContent = (<ThemeProvider theme={theme}>
 
       <div className="App container d-flex flex-column justify-content-end">
         <Header />
+        <ScrollToTop />
         <ReportRouter />
 
         {/* <Home/> */}
