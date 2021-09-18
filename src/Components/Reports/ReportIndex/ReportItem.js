@@ -40,7 +40,7 @@ export default function ReportItem({ report, LOGGEDUSER, patchReport }) {
                 <ReportTimeLocation date={reportDate} location={report.person_location} />
                 <div className="d-flex  flex-row bd-highlight align-items-center">
                 {getDescripionBtn()}
-                <ReportWazeBtn lon={report.lon} lat={report.lat}/>
+                <ReportWazeBtn lng={report.location_lng} lat={report.location_lat}/>
                 </div>
             </div>
             <ReportIcons

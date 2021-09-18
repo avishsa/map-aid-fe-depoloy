@@ -25,7 +25,7 @@ function ReportCreate() {
 
     const history = useHistory();
     const location = localStorage.getItem('location') ? localStorage.getItem('location') : LOCATION;
-    const lon = localStorage.getItem('lng') ? localStorage.getItem('lng') : LON;
+    const lng = localStorage.getItem('lng') ? localStorage.getItem('lng') : LON;
     const lat = localStorage.getItem('lat') ? localStorage.getItem('lat') : LAT;
     const [submitting, setSubmitting] = useState(false);
     let localStorageData;
@@ -59,8 +59,8 @@ function ReportCreate() {
         data = {
             ...data,
             person_location: location,
-            /*lon: lon,
-            lat: lat,*/
+            location_lng: lng,
+            location_lat: lat,
             report_datetime: getDateTimeFormattedString(data["report_date"], data["report_time"])
         };
         delete data["report_date"];
