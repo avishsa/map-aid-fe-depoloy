@@ -59,8 +59,8 @@ function ReportCreate() {
         data = {
             ...data,
             person_location: location,
-            lon: lon,
-            lat: lat,
+            /*lon: lon,
+            lat: lat,*/
             report_datetime: getDateTimeFormattedString(data["report_date"], data["report_time"])
         };
         delete data["report_date"];
