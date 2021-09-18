@@ -55,7 +55,7 @@ export default function ReportIndex() {
     const getBorderColor = (isHandled) => {
 
         switch (isHandled) {
-            case true: return 'red';
+            case true: return 'rgb(66, 91, 206)';
             case false: return 'green';  
             default: return 'rgb(136 ,137, 138)';
         }

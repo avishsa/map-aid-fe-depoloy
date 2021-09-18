@@ -12,7 +12,7 @@ export default function NavReports ({onChange}) {
                     className="nav-link btn text-secondary" >כל הדיווחים <span className="sr-only">(current)</span></button>
                 </li>
                 <li className=" d-flex flex-row">
-                    <button className="nav-link btn text-danger" onClick={()=>{changeFilter(filterParams.me)}}>בטיפולי <span className="sr-only">(current)</span></button>
+                    <button className="nav-link btn blue"  onClick={()=>{changeFilter(filterParams.me)}}>בטיפולי <span className="sr-only">(current)</span></button>
                 </li>
                 <li className=" d-flex flex-row">
                     <button className="nav-link btn text-success" onClick={()=>{changeFilter(filterParams.nobody)}}>חדשים <span className="sr-only">(current)</span></button>
