@@ -69,7 +69,9 @@ function ReportCreate() {
         const cr = createReport(data);
         
         cr
-            .then(res => { setSubmitting(false); history.push("/report/success"); })
+            .then(res => { setSubmitting(false); 
+                localStorage.setItem("reportDate",null);
+                 history.push("/report/success"); })
             .catch(res => { setSubmitting(false); history.push("/report/failure"); })
 
 

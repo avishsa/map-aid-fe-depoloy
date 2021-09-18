@@ -34,7 +34,8 @@ export default function ReportItem({ report, LOGGEDUSER, patchReport }) {
     
     return (<div
         className="d-flex flex-column bd-highlight" 
-        onClick={() => { assignReportToMe(report.id, LOGGEDUSER) }}>
+        onClick={() => {           
+             assignReportToMe(report.id, LOGGEDUSER) }}>
         <div className="d-flex  flex-row bd-highlight justify-content-between">
             <div className="d-flex flex-column  col-10 bd-highlight">
                 <ReportTimeLocation date={reportDate} location={report.person_location} />

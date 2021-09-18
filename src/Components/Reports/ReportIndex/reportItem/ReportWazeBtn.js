@@ -8,8 +8,9 @@ export default function ReportWazeBtn({ lng, lat }) {
 
     return (<div style={{ cursor: 'pointer' }} >
         <button className="btn d-flex flex-row align-items-center col-10"
-            onClick={() => {
+            onClick={(event) => {            
                 window.location.href = `https://waze.com/ul?ll=${wLat},${wLng}&navigate=yes`;
+                event.stopPropagation();
             }}
         >
             <label style={{ cursor: 'pointer' }} htmlFor="BtnWaze" className="col-6"> נווט עם</label>
