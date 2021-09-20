@@ -9,6 +9,7 @@ import ScrollToTop from './Components/boilerplate/ScrollToTop';
 import './css/App.css';
 
 import ReportRouter from './routers/ReportRouter';
+import UserRouter from './routers/UserRouter';
 import Home from "./Components/Home";
 const theme = createTheme({
   typography: {
@@ -25,7 +26,7 @@ const AppContent = (<ThemeProvider theme={theme}>
         <Header />
         <ScrollToTop />
         <ReportRouter />
-
+        <UserRouter/>
         {/* <Home/> */}
         <Footer />
 
