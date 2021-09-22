@@ -8,7 +8,7 @@ export default function useUser() {
     };
     const [user, setUser] = useState(getUser());
     const saveUser = userDetails => {
-        debugger;
+        
         sessionStorage.setItem('user', JSON.stringify(userDetails));
         setUser(userDetails.user);
     };

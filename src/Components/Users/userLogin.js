@@ -14,7 +14,7 @@ import {fakeLogin as loginUser} from "../../api/fakeUsers";
 import InputLabel from "../boilerplate/form/InputLabel";
 
 function UserLogin({setToken}) {
-    debugger;
+    
     console.log("userLogin");
     const history = useHistory();
     const [submitting, setSubmitting] = useState(false);
