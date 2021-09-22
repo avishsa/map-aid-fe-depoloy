@@ -19,7 +19,7 @@ const theme = createTheme({
   }, heIL);
   
 export default function  AppContent (){
-  debugger;
+  
   const initToken = JSON.parse(sessionStorage.getItem('token'));
   const [token,setToken]= useState( initToken);
     return (<ThemeProvider theme={theme}>
