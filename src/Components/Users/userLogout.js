@@ -1,17 +1,21 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router";
 import { isLogged, loggedUser } from "../../localStorage";
+import { useHistory } from "react-router-dom";
+import useToken from "../../routers/Authentication/useToken";
 
 
-
-
-function LogoutUser() {
-
-    localStorage.removeItem(isLogged);
-    localStorage.removeItem(loggedUser);
-    localStorage.setItem('isLogged',false);
-    return <Redirect to="\report\map"/>;
+function UserLogout({setToken}) {
+    
+    
+    sessionStorage.removeItem('token');
+    
+    
+    sessionStorage.removeItem('user');
+    setToken(undefined);
+    return <Redirect to="map"/>
+    
 }
 
 
-export default LogoutUser;
+export default UserLogout;

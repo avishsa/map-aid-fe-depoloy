@@ -2,18 +2,20 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useForm, FormProvider } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
-
+import PropTypes from 'prop-types';
 import { userSchema } from '../../scheme/userScheme';
 
 import '../../css/users/LoginForm.css';
+import useToken from "../../routers/Authentication/useToken";
+// import { loginUser } from "../../api/users";
+import {fakeLogin as loginUser} from "../../api/fakeUsers";
 
-import { loginUser } from "../../api/users";
 
-import { isLogged,loggedUser,userId } from "../../localStorage";
 import InputLabel from "../boilerplate/form/InputLabel";
 
-function LoginUser() {
-
+function UserLogin({setToken}) {
+    debugger;
+    console.log("userLogin");
     const history = useHistory();
     const [submitting, setSubmitting] = useState(false);
     const methods = useForm({
@@ -28,10 +30,12 @@ function LoginUser() {
         const cr = loginUser(data);        
         cr
             .then(res => { setSubmitting(false); 
-                localStorage.setItem('token',res.token)
-                localStorage.setItem(isLogged,true);
-                localStorage.setItem(loggedUser,res.user);
-                 history.push("/report/index"); })
+                
+                // sessionStorage.setItem('token', JSON.stringify(res.token));
+                sessionStorage.setItem('token', JSON.stringify(res.token));
+                sessionStorage.setItem('user', JSON.stringify(res.user));
+                setToken(JSON.stringify(res.token));
+                history.push("/report/index"); })
             .catch(res => { setSubmitting(false); history.push("/user/failure"); })
 
 
@@ -70,4 +74,5 @@ function LoginUser() {
 }
 
 
-export default LoginUser;
+
+export default UserLogin;

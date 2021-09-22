@@ -8,7 +8,7 @@ import ReportTimeLocation from './reportItem/ReportTimeLocation';
 export default function ReportItem({ report, LOGGEDUSER, patchReport }) {
     const [description, setDescription] = useState(false);
     const assignReportToMe = (reportId, userId) => {
-        console.log(`assing ${userId} to ${reportId}` )
+        
         
         if (report.user_id_handler!==null && report.user_id_handler!==undefined) return;
         assignReport(reportId, userId)

@@ -158,7 +158,7 @@ export const reportFormSchema = yup.object().shape({
     .test({
         name: "maxDate",
         message: "בדוק את התאריך והשעה שהזנת",
-        test: values => { console.log(values); return !isLaterThanNow(values.report_date, values.report_time)},
+        test: values =>  !isLaterThanNow(values.report_date, values.report_time),
         
     })
 

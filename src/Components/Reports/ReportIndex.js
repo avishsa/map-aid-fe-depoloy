@@ -7,22 +7,22 @@ import ReportItem from './ReportIndex/ReportItem';
 import { filterParams } from "./ReportIndex/indexConst";
 import "../../css/report/reportIndex.css"
 import { Redirect } from 'react-router';
-import { authToken } from '../../api/users';
-import { isLogged, loggedUser as localUser } from "../../localStorage";
+import useToken from "../../routers/Authentication/useToken";
+
 
 let errorMsg = null;
 
 export default function ReportIndex() {
-    debugger;
+    
+    const  user = JSON.parse(sessionStorage.getItem('user'));
     const [reports, setReports] = useState(null);
-    const [user, setuser] = useState(localStorage.getItem(localUser));
-    const [logged, setLogged] = useState(localStorage.getItem(isLogged));
+    
 
     const [filteredRepo, setFilteredRepo] = useState(null);
     useEffect(() => {
         getReports()
             .then(({ data }) => {
-                data = data.filter(el => el.isHandled === false || el.user_id_handler === JSON.parse(user).id);
+                data = data.filter(el => el.isHandled === false || el.user_id_handler === user.id);
 
                 setReports(data);
                 setFilteredRepo(data);
@@ -32,7 +32,7 @@ export default function ReportIndex() {
     useEffect(() => {
         getReports()
             .then(({ data }) => {
-                data = data.filter(el => el.isHandled === false || el.user_id_handler === JSON.parse(user).id);
+                data = data.filter(el => el.isHandled === false || el.user_id_handler === user.id);
 
                 setReports(data);
                 setFilteredRepo(data);
@@ -78,11 +78,8 @@ export default function ReportIndex() {
     const patchReport = (reportId, userId) => {
         setFilteredRepo(filteredRepo.map(report => report.id === reportId ? { ...report, user_id_handler: userId, isHandled: true } : report));
     }
-    debugger;
-    const jsonuser = JSON.parse(user);
-    
     return (<div className="d-flex flex-column justify-content-center">
-        <h1 className="text-end">{`היי ${jsonuser.name}`}</h1>
+        <h1 className="text-end">{`היי ${user.name}`}</h1>
         <NavReports onChange={changeReportOwner} />
         <FormReports filterResults={filterResults} sortResults={sortResults} />
         {!errorMsg && (<ul className="list-group" style={{ paddingInlineStart: '0 !important' }}>
@@ -90,7 +87,7 @@ export default function ReportIndex() {
                 <li className="list-group-item my-2"
                     style={{ 'borderTop': `solid ${getBorderColor(report.isHandled)} 3pt` }}
                     key={index}>
-                    <ReportItem LOGGEDUSER={jsonuser.id} report={report} patchReport={patchReport} />
+                    <ReportItem LOGGEDUSER={user.id} report={report} patchReport={patchReport} />
                 </li>
             ))}
         </ul>)}

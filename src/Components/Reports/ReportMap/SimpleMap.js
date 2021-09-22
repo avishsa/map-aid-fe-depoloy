@@ -12,7 +12,7 @@ function LocationMarker({ onLocationFound }) {
   const lng = isNaN(localStorage.getItem('lng')) ? undefined : localStorage.getItem('lng');
   const [position, setPosition] = useState(lat && lng ? { lat: lat, lng: lng } : null);
   const [locationName, setLocationName] = useState("");
-  console.log("position", position);
+
   const map = useMapEvents({
     locationfound(e) {
       setPosition(e.latlng)
@@ -43,7 +43,13 @@ function LocationMarker({ onLocationFound }) {
     map.locate();
     const search = new GeoSearch.GeoSearchControl({
       provider: new GeoSearch.OpenStreetMapProvider(),
+      showMarker: false,
+      searchLabel: "הכנס כתובת",
+      notFoundMessage: "לא נמצאו תוצאות",
+      autoClose: true,
+      classNames: {resetButton: "ResetButton"}
     });
+
     map.addControl(search);
 
   }, [])
@@ -72,7 +78,7 @@ export default class SimpleMap extends Component {
     localStorage.setItem('location', this.state.location);
     localStorage.setItem('lat', this.state.lat);
     localStorage.setItem('lng', this.state.lng);
-    console.log(localStorage);
+    
     this.props.history.push("/report/create");
 
   }
@@ -80,7 +86,12 @@ export default class SimpleMap extends Component {
     return (
 
       <MapContainer id="mapid" center={[32.0576485, 34.7652664]} zoom={15} scrollWheelZoom={true}>
-        <LocationMarker onLocationFound={({ name, latlng }) => { this.setState({ location: name, lat: latlng.lat, lng: latlng.lng }) }} />
+        <LocationMarker onLocationFound={({ name, latlng }) => { 
+          // const nameParts = name.split(',');
+          // name = `${nameParts[1]} ${nameParts[0]}, ${nameParts[2]}`;
+          this.props.onAddressChanged(name);
+          this.setState({ location: name, lat: latlng.lat, lng: latlng.lng }) 
+          }} />
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
