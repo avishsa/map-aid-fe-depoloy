@@ -1,0 +1,12 @@
+.custom-control-input:focus {
+    box-shadow:none !important;
+    border:1px solid rgba(0,0,0,.25);
+}
+.custom-control-input:focus-visible {
+    outline-offset:inherit !important;
+    border:1px solid rgba(0,0,0,.25) !important;
+}
+.custom-control-input:active {
+    filter: inherit;
+    border:1px solid rgba(0,0,0,.25);
+}
