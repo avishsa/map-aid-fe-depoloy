@@ -16,6 +16,4 @@ function UserLogout({setToken}) {
     return <Redirect to="map"/>
     
 }
-
-
 export default UserLogout;
