@@ -26,7 +26,7 @@ export default function ReportIndex() {
     useEffect(() => {
         getReports()
             .then(({ data }) => {
-                debugger;
+                
                 data = data.filter(el => el.isHandled === false || el.user_id_handler === user.id);
 
                 setReports(data);
