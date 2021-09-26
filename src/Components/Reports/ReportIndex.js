@@ -20,7 +20,7 @@ export default function ReportIndex() {
     
     
     const [filteredRepo, setFilteredRepo] = useState(null);
-    debugger;
+    
    
    
     useEffect(() => {
@@ -72,6 +72,7 @@ export default function ReportIndex() {
         }
     }
     const patchReport = (reportId, userId) => {
+        setReports(reports.map(report => report.id === reportId ? { ...report, user_id_handler: userId, isHandled: true } : report));
         setFilteredRepo(filteredRepo.map(report => report.id === reportId ? { ...report, user_id_handler: userId, isHandled: true } : report));
     }
     return (<div className="d-flex flex-column justify-content-center">
