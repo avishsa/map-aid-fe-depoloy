@@ -13,7 +13,7 @@ function UserLogout({setToken}) {
     
     sessionStorage.removeItem('user');
     setToken(undefined);
-    return <Redirect to="map"/>
+    return <Redirect to="/report/map"/>
     
 }
 export default UserLogout;

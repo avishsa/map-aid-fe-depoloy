@@ -8,6 +8,7 @@ import { filterParams } from "./ReportIndex/indexConst";
 import "../../css/report/reportIndex.css"
 import { Redirect } from 'react-router';
 import useToken from "../../routers/Authentication/useToken";
+import { GiConsoleController } from 'react-icons/gi';
 
 
 let errorMsg = null;
@@ -17,28 +18,23 @@ export default function ReportIndex() {
     const  user = JSON.parse(sessionStorage.getItem('user'));
     const [reports, setReports] = useState(null);
     
-
+    
     const [filteredRepo, setFilteredRepo] = useState(null);
+    debugger;
+   
+   
     useEffect(() => {
         getReports()
             .then(({ data }) => {
+                debugger;
                 data = data.filter(el => el.isHandled === false || el.user_id_handler === user.id);
 
                 setReports(data);
                 setFilteredRepo(data);
             })
-            .catch(err => errorMsg = "error message");
+            .catch(err => {errorMsg = "error message";console.log(err,errorMsg);});
     },[]);
-    useEffect(() => {
-        getReports()
-            .then(({ data }) => {
-                data = data.filter(el => el.isHandled === false || el.user_id_handler === user.id);
-
-                setReports(data);
-                setFilteredRepo(data);
-            })
-            .catch(err => errorMsg = "error message");
-    },[]);
+   
     const filterResults = (filterParam) => {
         switch (filterParam) {
             case filterParams.isDistress: setFilteredRepo(reports.filter(el => el.isDistressed)); break;
