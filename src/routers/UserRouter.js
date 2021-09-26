@@ -18,7 +18,8 @@ function UserRouter({setToken}){
       token ? <UserLogout setToken={setToken}/>:   <Redirect to="/report/map"/>
      
     }/>
-    <Route exact path="/user/map" render={props=><Redirect to="/report/map"/>}/>
+    <Route exact path="/user/report/map" render={props=><Redirect to="/report/map"/>}/>
+    
   </Switch>)
 }
 export default  UserRouter;
