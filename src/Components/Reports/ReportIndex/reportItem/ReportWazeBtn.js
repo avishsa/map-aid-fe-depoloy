@@ -6,7 +6,7 @@ export default function ReportWazeBtn({ lng, lat }) {
     const wLng = lng ? lng : 34.789898;
     const wLat = lat ? lat : 32.10854;
 
-    return (<div style={{ cursor: 'pointer' }} >
+    return (<div className="col-4" style={{ cursor: 'pointer' }} >
         <button className="btn d-flex flex-row align-items-center col-10"
             onClick={(event) => {            
                 window.location.href = `https://waze.com/ul?ll=${wLat},${wLng}&navigate=yes`;

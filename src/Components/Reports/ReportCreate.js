@@ -20,11 +20,12 @@ import ReporterDetails from "./ReportCreate/ReporterDetails";
 
 //const location = { location_text: "בורלא 29, תל אביב", location_json: { lon: 32.1616, lat: 32.1514 } };
 const LOCATION = "בורלא 29, תל אביב";
-const LON =34.789898,LAT=32.10854;
+const LON = 34.789898, LAT = 32.10854;
 function ReportCreate() {
 
     const history = useHistory();
     const location = localStorage.getItem('location') ? localStorage.getItem('location') : LOCATION;
+    
     const lng = localStorage.getItem('lng') ? localStorage.getItem('lng') : LON;
     const lat = localStorage.getItem('lat') ? localStorage.getItem('lat') : LAT;
     const [submitting, setSubmitting] = useState(false);
@@ -65,13 +66,17 @@ function ReportCreate() {
         };
         delete data["report_date"];
         delete data["report_time"];
-
+       
         const cr = createReport(data);
-        
+
         cr
-            .then(res => { setSubmitting(false); 
-                localStorage.setItem("reportDate",null);
-                 history.push("/report/success"); })
+            .then(res => {
+                setSubmitting(false);
+                localStorage.removeItem("reportDate");
+                localStorage.removeItem("lat");
+                localStorage.removeItem("lng");
+                history.push("/report/success");
+            })
             .catch(res => { setSubmitting(false); history.push("/report/failure"); })
 
 
