@@ -11,8 +11,8 @@ const ReportSuccess = props => {
     <ul className="d-flex flex-column  report-road-map-list">
       <li className=" d-flex flex-column ">
         <div className="t">
-          <input className="form-check-input custom-control-input" type="checkbox" value="" id="flexCheckDefault" checked onClick={preventDefault} />
-          <label className="form-check-label" for="flexCheckDefault" onClick={preventDefault}>
+          <input className="form-check-input custom-control-input" type="checkbox" value="" id="flexCheckDefault" checked onChange={()=>{}} onClick={preventDefault} />
+          <label className="form-check-label" htmlFor="flexCheckDefault" onClick={preventDefault}>
             הדיווח התקבל
           </label>
         </div>
@@ -22,7 +22,7 @@ const ReportSuccess = props => {
       <li className=" d-flex flex-column">
         <div >
           <input className="form-check-input custom-control-input" type="checkbox" value="" id="flexCheckDefault" onClick={preventDefault} />
-          <label className="form-check-label" for="flexCheckDefault" onClick={preventDefault}>
+          <label className="form-check-label" htmlFor="flexCheckDefault" onClick={preventDefault}>
             פעיל מהעמותה יבדוק את הדיווח
           </label>
 
@@ -32,7 +32,7 @@ const ReportSuccess = props => {
       <li className=" d-flex flex-column">
         <div >
           <input className="form-check-input custom-control-input" type="checkbox" value="" id="flexCheckDefault" onClick={preventDefault} />
-          <label className="form-check-label" for="flexCheckDefault" onClick={preventDefault}>
+          <label className="form-check-label" htmlFor="flexCheckDefault" onClick={preventDefault}>
             סייר יגיע עם הציוד הנדרש
           </label>
 
@@ -42,7 +42,7 @@ const ReportSuccess = props => {
       <li className=" d-flex flex-column">
         <div >
           <input className="form-check-input custom-control-input" type="checkbox" value="" id="flexCheckDefault" onClick={preventDefault} />
-          <label className="form-check-label" for="flexCheckDefault" onClick={preventDefault}>
+          <label className="form-check-label" htmlFor="flexCheckDefault" onClick={preventDefault}>
             במידה וסימנת ישלח לך מסרון בסיום הטיפול
           </label>
 
