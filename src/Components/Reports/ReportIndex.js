@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { getReports } from "../../api/reports";
 import NavReports from '../Reports/ReportIndex/NavReports'
 import FormReports from './ReportIndex/FormReports';
@@ -15,10 +16,11 @@ let errorMsg = null;
 
 export default function ReportIndex() {
     
-    const user = JSON.parse(sessionStorage.getItem('user'));
+    const user = useSelector(state => { return state.authentication.user});
+    
     const [reports, setReports] = useState(null);
     const [filteredRepo, setFilteredRepo] = useState(null);
-
+    
 
 
     
@@ -76,7 +78,7 @@ export default function ReportIndex() {
     }
     initReports();
     return (<div className="d-flex flex-column justify-content-center">
-        <h1 className="text-end">{`היי ${user.name}`}</h1>
+        {user.name && <h1 className="text-end">{`היי ${user.name}`}</h1>}
         <NavReports onChange={changeReportOwner} />
         <FormReports filterResults={filterResults} sortResults={sortResults} />
         {!errorMsg && (<ul className="list-group" style={{ paddingInlineStart: '0 !important' }}>

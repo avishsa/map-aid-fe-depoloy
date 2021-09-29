@@ -1,20 +1,16 @@
 import React from 'react';
 import { Redirect } from 'react-router';
 import { Route } from 'react-router';
-
+import {useSelector } from 'react-redux';
 
 export default function ProtectedRoute({component: Component, roles, ...rest }) {
     
+    const loggedIn = useSelector(state => state.authentication.loggedIn);
     
     return (
         <Route {...rest} render={props => {
-            if (!sessionStorage.getItem('token')) {
-                // not logged in so redirect to login page with the return url
-                return <Redirect to={{ pathname: '/user/login', state: { from: '/' } }} />
-            }
-
-            // logged in so return component
-            return <Component {...props} />
+            return loggedIn ?                
+             <Component {...props} />:  <Redirect to={{ pathname: '/user/login', state: { from: '/' } }} />
         }} />
     )
 

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Switch, Route } from "react-router-dom";
 import { Redirect } from 'react-router';
-import { useDispatch, useSelector } from 'react-redux';
+import {  useSelector } from 'react-redux';
 import UserLogin from '../Components/Users/UserLogin';
 
-import useToken from './Authentication/useToken';
+
 function UserRouter(){
   
   const loggedIn = useSelector(state => state.authentication.loggedIn);

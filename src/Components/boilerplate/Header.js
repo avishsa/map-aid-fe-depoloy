@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import NavApp from "./NavApp.js";
 import '../../css/boilerplate/Header.css';
 import AppLogo from "../../images/logo-app.png";

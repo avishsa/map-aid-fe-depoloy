@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
-import useToken from "../../routers/Authentication/useToken";
+import React from 'react';
 import { userActions} from "../../actions/userActions";
-import { useSelector } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 export default function NavApp(/*{ token }*/) {
-    
+    const dispatch = useDispatch();    
     const loggedIn = useSelector(state => { return state.authentication.loggedIn});
     return (<nav className=" d-flex flex-row   navbar  navbar-light ">
         <ul className="d-flex flex-row p-0 m-0">
 
             <li className=" d-flex flex-row">
                 {loggedIn ?
-                    <a className="btn text-primary nav-link" onClick={()=>{userActions.logout()}} >יציאת משתמש <span className="sr-only">(current)</span></a>
+                    <a className="btn text-primary nav-link" onClick={()=>{dispatch(userActions.logout());}} >יציאת משתמש <span className="sr-only">(current)</span></a>
                     :
                     <a className="btn text-primary nav-link" href="\user\login" >כניסת משתמש <span className="sr-only">(current)</span></a>
                 }
@@ -21,7 +20,7 @@ export default function NavApp(/*{ token }*/) {
             </li>
             }
             <li className=" d-flex flex-row">
-                <a id="emergacyLink" className="nav-link" href="report\map"> דיווח חדש <span className="sr-only">(current)</span></a>
+                <a id="emergacyLink" className="nav-link" href="\report\map"> דיווח חדש <span className="sr-only">(current)</span></a>
             </li>
         </ul>
     </nav>);

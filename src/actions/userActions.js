@@ -1,6 +1,6 @@
 import { userConstants } from '../constants/user.constants';
 import { _login,_logout ,_islogged} from '../services/user.services';
-import { history } from '../helps/history';
+//import { history } from '../helps/history';
 
 export const userActions = {
     login,
@@ -15,7 +15,8 @@ function login(data, from) {
         _login(data)
             .then(
                 res => { 
-                    dispatch(success(res.data));                    
+                    
+                    dispatch(success(res));                    
                   
                 },
                 error => {
@@ -30,6 +31,7 @@ function login(data, from) {
 }
 
 function logout() {
+    
     _logout();
     return { type: userConstants.LOGOUT };
 }
