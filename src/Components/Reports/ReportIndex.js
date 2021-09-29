@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useState } from 'react';
 import { useSelector } from 'react-redux';
 import { getReports } from "../../api/reports";
 import NavReports from '../Reports/ReportIndex/NavReports'
@@ -7,9 +7,7 @@ import ReportItem from './ReportIndex/ReportItem';
 // import { MockReports } from "../../mock_apis/reports";
 import { filterParams } from "./ReportIndex/indexConst";
 import "../../css/report/reportIndex.css"
-import { Redirect } from 'react-router';
-import useToken from "../../routers/Authentication/useToken";
-import { GiConsoleController } from 'react-icons/gi';
+
 
 
 let errorMsg = null;

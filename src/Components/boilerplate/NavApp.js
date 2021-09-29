@@ -9,7 +9,7 @@ export default function NavApp(/*{ token }*/) {
 
             <li className=" d-flex flex-row">
                 {loggedIn ?
-                    <a className="btn text-primary nav-link" onClick={()=>{dispatch(userActions.logout());}} >יציאת משתמש <span className="sr-only">(current)</span></a>
+                    <button className="btn text-primary nav-link" href='#' onClick={()=>{dispatch(userActions.logout());}} >יציאת משתמש <span className="sr-only">(current)</span></button>
                     :
                     <a className="btn text-primary nav-link" href="\user\login" >כניסת משתמש <span className="sr-only">(current)</span></a>
                 }

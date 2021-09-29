@@ -1,5 +1,5 @@
 import {API} from './index';
-const serverUrl = "https://elem-homeless-mapping.herokuapp.com/api";
+//const serverUrl = "https://elem-homeless-mapping.herokuapp.com/api";
 
 export const createReport = report => API('POST','/report/create',report); 
 export const deleteReport = report => API('DELETE','/report/delete',report); 

@@ -5,7 +5,7 @@ import MockAxios from "../test/mocks/MockAxios";
 import "regenerator-runtime/runtime.js";
 
 const serverUrl = "https://elem-homeless-mapping.herokuapp.com/api";
-const authUrl = "https://elem-homeless-mapping-auth.herokuapp.com/api";
+//const authUrl = "https://elem-homeless-mapping-auth.herokuapp.com/api";
 const basicAxios = process.env.JEST_WORKER_ID === undefined ? axios.create({
     baseURL: serverUrl
 }) : MockAxios.create(serverUrl);;
