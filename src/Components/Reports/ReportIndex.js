@@ -1,5 +1,6 @@
-import React, {useState } from 'react';
+import React, {useState ,useEffect} from 'react';
 import { useSelector } from 'react-redux';
+
 import { getReports } from "../../api/reports";
 import NavReports from '../Reports/ReportIndex/NavReports'
 import FormReports from './ReportIndex/FormReports';
@@ -11,7 +12,7 @@ import "../../css/report/reportIndex.css"
 
 
 let errorMsg = null;
-
+let isReports = true;
 export default function ReportIndex() {
     
     const user = useSelector(state => { return state.authentication.user});
@@ -34,7 +35,12 @@ export default function ReportIndex() {
         })
         .catch(err => { errorMsg = "error message"; console.log(err, errorMsg); });
     };
+    useEffect(() => {    
+        if(isReports){ initReports(); isReports=false;}
+
+      }, [initReports]);
     const filterResults = (filterParam) => {
+        
         switch (filterParam) {
             case filterParams.isDistress: setFilteredRepo(reports.filter(el => el.isDistressed)); break;
             case filterParams.male: setFilteredRepo(reports.filter(el => el.person_gender === 'זכר')); break;
@@ -52,10 +58,11 @@ export default function ReportIndex() {
         }
     }
     const sortResults = orderParam => {
+        
         let sortArr = [...filteredRepo];
         switch (orderParam) {
-            case 'incDate': sortArr.sort((el1, el2) => { return new Date(el2.report_datetime) - new Date(el1.report_datetime) }); break;
-            case 'decDate': sortArr.sort((el1, el2) => { return new Date(el1.report_datetime) - new Date(el2.report_datetime) }); break;
+            case 'incDate': sortArr = sortArr.sort((el1, el2) => { return new Date(el2.report_datetime) - new Date(el1.report_datetime) }); break;
+            case 'decDate': sortArr = sortArr.sort((el1, el2) => { return new Date(el1.report_datetime) - new Date(el2.report_datetime) }); break;
             default: throw new Error('invalid sort');
         }
 
@@ -74,7 +81,7 @@ export default function ReportIndex() {
         setReports(reports.map(report => report.id === reportId ? { ...report, user_id_handler: userId, isHandled: true } : report));
         setFilteredRepo(filteredRepo.map(report => report.id === reportId ? { ...report, user_id_handler: userId, isHandled: true } : report));
     }
-    initReports();
+    
     return (<div className="d-flex flex-column justify-content-center">
         {user.name && <h1 className="text-end">{`היי ${user.name}`}</h1>}
         <NavReports onChange={changeReportOwner} />
