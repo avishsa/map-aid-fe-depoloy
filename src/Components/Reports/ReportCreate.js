@@ -75,6 +75,7 @@ function ReportCreate() {
                 localStorage.removeItem("reportDate");
                 localStorage.removeItem("lat");
                 localStorage.removeItem("lng");
+                localStorage.removeItem("location");
                 history.push("/report/success");
             })
             .catch(res => { setSubmitting(false); history.push("/report/failure"); })
