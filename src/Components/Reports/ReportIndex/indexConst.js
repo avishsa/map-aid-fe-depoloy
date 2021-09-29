@@ -1,5 +1,5 @@
 export const  filterParams = {
-    isDistress: 'isDistress',
+    isDistress: 'distress',
     male: 'male',
     female:'female',
     anybody:'anybody',
