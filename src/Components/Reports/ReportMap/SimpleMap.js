@@ -1,7 +1,7 @@
-import { Component, useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../../css/report/SimpleMap.css';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
-
+import { useHistory } from 'react-router';
 import LCG from 'leaflet-control-geocoder';
 import L from 'leaflet';
 
@@ -47,12 +47,12 @@ function LocationMarker({ onLocationFound }) {
       searchLabel: "הכנס כתובת",
       notFoundMessage: "לא נמצאו תוצאות",
       autoClose: true,
-      classNames: {resetButton: "ResetButton"}
+      classNames: { resetButton: "ResetButton" }
     });
 
     map.addControl(search);
 
-  }, [])
+  }, [map])
 
 
   return position === null ? null : (
@@ -65,47 +65,46 @@ function LocationMarker({ onLocationFound }) {
 }
 
 
-export default class SimpleMap extends Component {
+export default function SimpleMap({onAddressChanged}) {
 
-  state = {
-    location: localStorage.getItem('location'),
-    lat: localStorage.getItem('lat'),
-    lon: localStorage.getItem('lng')
+  const [location, setLocation] = useState(localStorage.getItem('location'));
+  const [lat, setLat] = useState(localStorage.getItem('lat'));
+  const [lng, setLng] = useState(localStorage.getItem('lng'));
+  const history = useHistory();
+
+
+  const redirect = () => {
+    if (location === '') return;
+    localStorage.setItem('location', location);
+    localStorage.setItem('lat', lat);
+    localStorage.setItem('lng', lng);
+    history.push("/report/create");
 
   }
-  redirect = () => {
-    if (this.state.location === '') return;
-    localStorage.setItem('location', this.state.location);
-    localStorage.setItem('lat', this.state.lat);
-    localStorage.setItem('lng', this.state.lng);
-    
-    this.props.history.push("/report/create");
+  return (
 
-  }
-  render() {
-    return (
+    <MapContainer id="mapid" center={[32.0576485, 34.7652664]} zoom={15} scrollWheelZoom={true}>
+      <LocationMarker onLocationFound={({ name, latlng }) => {
+        onAddressChanged(name);
+        setLocation(name);
+        setLat(latlng.lat);
+        setLng(latlng.lng);
 
-      <MapContainer id="mapid" center={[32.0576485, 34.7652664]} zoom={15} scrollWheelZoom={true}>
-        <LocationMarker onLocationFound={({ name, latlng }) => { 
-          // const nameParts = name.split(',');
-          // name = `${nameParts[1]} ${nameParts[0]}, ${nameParts[2]}`;
-          this.props.onAddressChanged(name);
-          this.setState({ location: name, lat: latlng.lat, lng: latlng.lng }) 
-          }} />
-        <TileLayer
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <div className="leaflet-bottom LeafletFooter">
-          <input type="button" value="אישור ומילוי טופס"
-            onClick={this.redirect}
-            className="btnStyle span3 leaflet-control SendAddressButton" />
+      }} />
+      <TileLayer
+        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+      <div className="leaflet-bottom LeafletFooter">
+        <input type="button" value="אישור ומילוי טופס"
+          onClick={redirect}
+          className="btnStyle span3 leaflet-control SendAddressButton" />
 
-        </div>
-      </MapContainer>
+      </div>
+    </MapContainer>
 
-    )
-  }
+  )
+
 }
 
 

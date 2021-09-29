@@ -1,9 +1,9 @@
-import { Component } from 'react';
+import React from 'react';
 import '../../../css/report/Explain.css';
 
 
-class Explain extends Component {
-    render() {
+export default function Explain ({address}){
+    
         return (
             <>
             <div className='ExplainContainer d-flex flex-column'>
@@ -22,7 +22,7 @@ class Explain extends Component {
                     מה מיקומו של דר הרחוב?
                 </div>
                 <div className="AddressTextContainer">
-                    <input className="AddressText" type="text" disabled value={this.props.address}/>
+                    <input className="AddressText" type="text" disabled value={address}/>
                 </div>
                 <div className='ExplainMap'>
                      לשינוי מיקום יש לסמן על המפה או לחפש בעזרת סמל החיפוש משמאל ולסמן מיקום מדוייק.
@@ -31,7 +31,6 @@ class Explain extends Component {
             </>
 
         )
-    }
+    
 }
 
-export default Explain
