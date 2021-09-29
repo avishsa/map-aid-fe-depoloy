@@ -10,6 +10,7 @@ import ReportIndex from  "../Components/Reports/ReportIndex";
 
 function ReportRouter() {
   const user = JSON.parse(sessionStorage.getItem('user'));
+  
   return (<Switch>
     <Route exact path="/report/create" component={ReportCreate} />
     <ProtectedRoute

@@ -24,14 +24,12 @@ export default function  AppContent (){
   const [token,setToken]= useState( initToken);
     return (<ThemeProvider theme={theme}>
     <Router>
-
       <div className="App container d-flex flex-column justify-content-end">
         <Header token={token} />
         <ScrollToTop />
-        <ReportRouter setToken={setToken} />
-        <UserRouter setToken={setToken}/>       
+        <ReportRouter  />
+        <UserRouter token={token} setToken={setToken}/>       
         <Footer />
-
       </div>
     </Router>
   </ThemeProvider>

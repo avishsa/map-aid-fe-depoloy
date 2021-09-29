@@ -1,26 +1,17 @@
 import { useState } from 'react';
 
 export default function useToken() {
-    const getToken = () => {
-        const tokenString = sessionStorage.getItem('token');
-        const userToken = JSON.parse(tokenString);
-        return userToken;
-    };
-    const [tokenUser, setTokenUser] = useState(getToken());
+    const initToken = JSON.parse(sessionStorage.getItem('token'));
+    const [tokenUser, setTokenUser] = useState(initToken);
     const saveToken = userToken => {
-        if (!userToken)
+        userToken ?
+            sessionStorage.setItem('token', JSON.stringify(userToken))
+            :
             sessionStorage.removeItem('token');
-        else
-            sessionStorage.setItem('token', JSON.stringify(userToken));
         setTokenUser(userToken);
     };
-    const deleteToken = () => {
-        sessionStorage.removeItem('token');
-        setTokenUser(undefined)
-    }
     return {
         setToken: saveToken,
-        delToken: deleteToken,
         token: tokenUser
     }
 }

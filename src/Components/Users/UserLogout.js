@@ -6,13 +6,8 @@ import useToken from "../../routers/Authentication/useToken";
 
 
 function UserLogout({setToken}) {
-    
-    
-    sessionStorage.removeItem('token');
-    
-    
-    sessionStorage.removeItem('user');
     setToken(undefined);
+    sessionStorage.removeItem('user');    
     return <Redirect to="/report/map"/>
     
 }

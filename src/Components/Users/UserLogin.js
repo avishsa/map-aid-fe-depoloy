@@ -15,7 +15,6 @@ import InputLabel from "../boilerplate/form/InputLabel";
 
 function UserLogin({setToken}) {
     
-    console.log("userLogin");
     const history = useHistory();
     const [submitting, setSubmitting] = useState(false);
     const methods = useForm({
@@ -29,9 +28,7 @@ function UserLogin({setToken}) {
         
         const cr = loginUser(data);        
         cr
-            .then(res => { setSubmitting(false); 
-                
-                // sessionStorage.setItem('token', JSON.stringify(res.token));
+            .then(res => { setSubmitting(false);                
                 sessionStorage.setItem('token', JSON.stringify(res.token));
                 sessionStorage.setItem('user', JSON.stringify(res.user));
                 setToken(JSON.stringify(res.token));

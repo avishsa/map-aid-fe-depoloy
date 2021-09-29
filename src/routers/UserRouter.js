@@ -3,10 +3,9 @@ import { Switch, Route } from "react-router-dom";
 import { Redirect } from 'react-router';
 import UserLogin from '../Components/Users/UserLogin';
 import UserLogout from '../Components/Users/UserLogout';
+import useToken from './Authentication/useToken';
+function UserRouter({token,setToken}){
 
-function UserRouter({setToken}){
-  
-  const token =  JSON.parse(sessionStorage.getItem('token'));
     return (<Switch>  
 
     <Route exact path="/user/login" render={props=>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import useToken from "../../routers/Authentication/useToken";
+//import useToken from "../../routers/Authentication/useToken";
 export default function NavApp({ token }) {
-
+    //const {token,setToken } = useToken();
     return (<nav className=" d-flex flex-row   navbar  navbar-light ">
         <ul className="d-flex flex-row p-0 m-0">
 

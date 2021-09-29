@@ -14,27 +14,28 @@ import { GiConsoleController } from 'react-icons/gi';
 let errorMsg = null;
 
 export default function ReportIndex() {
-    
-    const  user = JSON.parse(sessionStorage.getItem('user'));
-    const [reports, setReports] = useState(null);
-    
-    
-    const [filteredRepo, setFilteredRepo] = useState(null);
-    
-   
-   
-    useEffect(() => {
-        getReports()
-            .then(({ data }) => {
-                
-                data = data.filter(el => el.isHandled === false || el.user_id_handler === user.id);
 
-                setReports(data);
-                setFilteredRepo(data);
-            })
-            .catch(err => {errorMsg = "error message";console.log(err,errorMsg);});
-    },[]);
-   
+    const user = JSON.parse(sessionStorage.getItem('user'));
+    const [reports, setReports] = useState(null);
+
+
+    const [filteredRepo, setFilteredRepo] = useState(null);
+
+
+
+    
+
+    const initReports = () => {
+        getReports()
+        .then(({ data }) => {
+
+            data = data.filter(el => el.isHandled === false || el.user_id_handler === user.id);
+
+            setReports(data);
+            setFilteredRepo(data);
+        })
+        .catch(err => { errorMsg = "error message"; console.log(err, errorMsg); });
+    };
     const filterResults = (filterParam) => {
         switch (filterParam) {
             case filterParams.isDistress: setFilteredRepo(reports.filter(el => el.isDistressed)); break;
@@ -75,6 +76,7 @@ export default function ReportIndex() {
         setReports(reports.map(report => report.id === reportId ? { ...report, user_id_handler: userId, isHandled: true } : report));
         setFilteredRepo(filteredRepo.map(report => report.id === reportId ? { ...report, user_id_handler: userId, isHandled: true } : report));
     }
+    initReports();
     return (<div className="d-flex flex-column justify-content-center">
         <h1 className="text-end">{`היי ${user.name}`}</h1>
         <NavReports onChange={changeReportOwner} />
