@@ -5,7 +5,8 @@ import Explain from './ReportMap/Explain';
 
 
 function ReportMap({ props }) {
-  const [address, setAddress] = useState(""); 
+  const defaultAddress = localStorage.getItem("location");
+  const [address, setAddress] = useState(defaultAddress!==undefined? defaultAddress:""); 
   return (
     <div className="d-flex flex-column">
       <Explain address={address}/>
