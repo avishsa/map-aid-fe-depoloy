@@ -1,6 +1,7 @@
 import React from 'react';
 import { Switch, Route } from "react-router-dom";
 import { Redirect } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
 import ReportCreate from '../Components/Reports/ReportCreate';
 import ReportSuccess from '../Components/Reports/ReportSuccess';
 import ReportFailure from '../Components/Reports/ReportFailure';
@@ -9,13 +10,15 @@ import ProtectedRoute from './Authentication/ProtectedRoute';
 import ReportIndex from  "../Components/Reports/ReportIndex";
 
 function ReportRouter() {
-  const user = JSON.parse(sessionStorage.getItem('user'));
+  
+  
   
   return (<Switch>
     <Route exact path="/report/create" component={ReportCreate} />
     <ProtectedRoute
+    exact 
       path="/report/Index"    
-      component={<ReportIndex user={user}/>}
+      component={ReportIndex }
        />
     <Route exact path="/report/success" component={ReportSuccess} />
     <Route exact path="/report/report/map" render={props=><Redirect to="/report/map"/>} />

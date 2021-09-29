@@ -14,11 +14,9 @@ import { GiConsoleController } from 'react-icons/gi';
 let errorMsg = null;
 
 export default function ReportIndex() {
-
+    
     const user = JSON.parse(sessionStorage.getItem('user'));
     const [reports, setReports] = useState(null);
-
-
     const [filteredRepo, setFilteredRepo] = useState(null);
 
 

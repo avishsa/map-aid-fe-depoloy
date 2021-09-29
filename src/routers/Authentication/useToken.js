@@ -10,8 +10,12 @@ export default function useToken() {
             sessionStorage.removeItem('token');
         setTokenUser(userToken);
     };
+    const checkToken = ()=>{
+        return tokenUser===undefined;
+    }
     return {
         setToken: saveToken,
+        isLogged: checkToken,
         token: tokenUser
     }
 }

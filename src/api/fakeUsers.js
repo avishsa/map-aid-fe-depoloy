@@ -9,4 +9,5 @@ export const fakeLogin = (user) => new Promise(function (resolve, reject) {
     }, 300);
 });
 
+
 // export const fakeauthToken = token=> API('POST','/auth/token',token)
