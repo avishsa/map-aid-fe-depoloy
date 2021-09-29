@@ -24,7 +24,11 @@ export function authentication(state = initialState, action) {
                 loggedIn: true
             }
         case userConstants.LOGIN_FAILURE:
-            return {};
+            return {
+                loggedIn: false,
+                user: undefined,
+                token: undefined
+            };
         case userConstants.LOGOUT: {
             
             return {
