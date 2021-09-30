@@ -1,3 +1,4 @@
+
 import { reportConstants, reportFilterProperty, reportFilterCatagory } from "../constants/report.constants";
 
 export function reports(state = { property: "" }, action) {
@@ -105,6 +106,34 @@ export function reports(state = { property: "" }, action) {
             return {
                 ...state,
                 updateHandler: false
+            }
+        }
+        case reportConstants.CREATE_REPORT_REQUEST: return {
+            ...state,
+            loadingCreate: true
+        }
+        case reportConstants.CREATE_REPORT_SUCCESS: return {
+            ...state,
+            loadingCreate: false,
+            createReport: true,
+            newReport: action.report
+        }
+        case reportConstants.CREATE_REPORT_FAILURE: return {
+            ...state,
+            loadingCreate: false,
+            createReport: false,
+            error: action.error
+        }
+        case reportConstants.SAVE_REPORT: return {
+            ...state,
+            saveReport: action.report
+        }
+        case reportConstants.SAVE_LOCATION: return {
+            ...state,
+            saveReport: {
+                person_location: action.location,
+                location_lng: action.lng,
+                location_lat: action.lat
             }
         }
         default: return state;

@@ -1,6 +1,6 @@
 
 import * as yup from "yup";
-import {isLaterThanNow } from '../Utilities/TimeFormatter';
+import { isLaterThanNow } from '../Utilities/TimeFormatter';
 
 
 const digitsOnly = (value) => /^\d*$/.test(value)
@@ -62,6 +62,10 @@ export const formFields = {
     distressedText: {
         name: "distressed_info",
         label: "פירוט המצוקה"
+    },
+    location: {
+        name: "location",
+        label: "מיקום"
     },
     genderText: {
         name: "person_gender",
@@ -125,6 +129,9 @@ export const reportFormSchema = yup.object().shape({
     person_gender: yup.string('שדה מסוג טקסט')
         .typeError('שגיאה: בחר מגדר')
         .required('בחר מגדר'),
+    person_location: yup.string("שדה מסוג טקסט").required("שדה נדרש"),
+    location_lng: yup.number("מספר"),
+    location_lat: yup.number("מספר"),
     person_shirt_color: yup.string().typeError('שגיאת סוג'),
     person_pants_color: yup.string().typeError('שגיאת סוג'),
     person_general_description: yup.string().typeError('שגיאת סוג'),
@@ -133,33 +140,33 @@ export const reportFormSchema = yup.object().shape({
         .test('length', 'מספר טלפון צריך להיות באורך של 10 ספרות', (value) => value.length === 0 || value.length === 10)
     ,
 
-    isNotify : yup.boolean(),
+    isNotify: yup.boolean(),
     report_date: yup.date()
         .required("שדה נדרש")
         .typeError('תאריך לא תקין, חסר אחד מהערכים או יותר (יום, חודש, שנה)')
-    .test("","תאריך נוכחי",function (value){
-        return !isLaterThanNow(this.parent.report_date,this.parent.report_time);
-    })
+        .test("", "תאריך נוכחי", function (value) {
+            return !isLaterThanNow(this.parent.report_date, this.parent.report_time);
+        })
     ,
     report_time: yup.date()
         .required("שדה נדרש")
         .typeError('שעה לא תקינה, חסר אחד מהערכים או יותר (יום, חודש, שנה)')
-    .test("","השעה לא יכולה להיות מאוחרת יותר מהשעה הנוכחית, עבור היום",function (value){
-        
-        return !isLaterThanNow(this.parent.report_date,this.parent.report_time);
-    })
-    
+        .test("", "השעה לא יכולה להיות מאוחרת יותר מהשעה הנוכחית, עבור היום", function (value) {
 
-    
+            return !isLaterThanNow(this.parent.report_date, this.parent.report_time);
+        })
+
+
+
     // .test("max date",,value => value.getTime()<new Date().getTime())
-    
+
 
 })
     .test({
         name: "maxDate",
         message: "בדוק את התאריך והשעה שהזנת",
-        test: values =>  !isLaterThanNow(values.report_date, values.report_time),
-        
+        test: values => !isLaterThanNow(values.report_date, values.report_time),
+
     })
 
     ;

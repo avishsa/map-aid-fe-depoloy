@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import '../../../css/report/SimpleMap.css';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
-import { useHistory } from 'react-router';
+
 import LCG from 'leaflet-control-geocoder';
 import L from 'leaflet';
 
 import * as GeoSearch from 'leaflet-geosearch';
+import { reportActions } from '../../../actions/reportActions';
 
 function LocationMarker({ onLocationFound }) {
   const lat = isNaN(localStorage.getItem('lat')) ? undefined : localStorage.getItem('lat');
@@ -67,29 +69,23 @@ function LocationMarker({ onLocationFound }) {
 
 export default function SimpleMap({onAddressChanged}) {
 
-  const [location, setLocation] = useState(localStorage.getItem('location'));
-  const [lat, setLat] = useState(localStorage.getItem('lat'));
-  const [lng, setLng] = useState(localStorage.getItem('lng'));
-  const history = useHistory();
-
+  const report = useSelector(state => state.reports.saveReport);
+  const dispatch = useDispatch();
+  const [location, setLocation] = useState(report.person_location);
+  const [lat, setLat] = useState(report.location_lat);
+  const [lng, setLng] = useState(report.location_lng);
 
   const redirect = () => {
     if (location === '') return;
-    localStorage.setItem('location', location);
-    localStorage.setItem('lat', lat);
-    localStorage.setItem('lng', lng);
-    history.push("/report/create");
-
+    dispatch(reportActions.saveLocation(location,lat,lng))    
   }
   return (
-
     <MapContainer id="mapid" center={[32.0576485, 34.7652664]} zoom={15} scrollWheelZoom={true}>
       <LocationMarker onLocationFound={({ name, latlng }) => {
         onAddressChanged(name);
         setLocation(name);
         setLat(latlng.lat);
         setLng(latlng.lng);
-
       }} />
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

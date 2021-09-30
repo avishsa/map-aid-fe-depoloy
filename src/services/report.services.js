@@ -1,4 +1,5 @@
-import { getReports, assignReport } from "../api/reports";
+
+import { getReports, assignReport, createReport } from "../api/reports";
 
 const _getAll = user_id => {
     return getReports()
@@ -8,8 +9,8 @@ const _getAll = user_id => {
         })
         .catch(err => { console.log(err); });
 }
-const _updateHandler = (reportId,reportHandlerId, userId) => {
-    
+const _updateHandler = (reportId, reportHandlerId, userId) => {
+
     return assignReport(reportId, userId)
         .then(res => {
             return { reportId, userId }
@@ -17,9 +18,18 @@ const _updateHandler = (reportId,reportHandlerId, userId) => {
         .catch(res => { console.log("failure", res); });
 
 }
+const __createReport = data => {
+
+    return createReport(data)
+        .then(res => {
+            return data;
+        })
+        .catch(err => err)
+}
 export const reportService = {
 
     _getAll,
-    _updateHandler
+    _updateHandler,
+    __createReport
 
 };
