@@ -9,33 +9,36 @@ export function authentication(state = initialState, action) {
     switch (action.type) {
         case userConstants.LOGIN_REQUEST:
             return {
-                loggingIn: true,
-                user: action.data
+                loggedIn: false,
+                submitting: true,
+                user: action.data,
+                error: null
             };
         case userConstants.LOGIN_SUCCESS: {
-            
+        
             return {
                 loggedIn: true,
-                user: action.data
+                submitting:false,
+                user: action.data,
+                error: null
             };
         }
-        case userConstants.ISLOGGED:
-            return {
-                loggedIn: true
-            }
+       
         case userConstants.LOGIN_FAILURE:
             return {
                 loggedIn: false,
-                isFailed: true,
+                submitting: false,
+                error: action.error,
                 user: undefined,
-                token: undefined
+                token: undefined,
             };
         case userConstants.LOGOUT: {
             
             return {
                 loggedIn: false,
                 user: undefined,
-                token: undefined
+                token: undefined,
+                error: null
             };
         }
 

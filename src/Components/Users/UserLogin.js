@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import { userActions } from '../../actions/userActions';
 import { useForm, FormProvider } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -14,31 +14,25 @@ import '../../css/users/LoginForm.css';
 import InputLabel from "../boilerplate/form/InputLabel";
 
 function UserLogin() {
-    // const hasFailed = useSelector(state => state.authentication.isFailed);
-    const [submitting, setSubmitting] = useState(false);
+    
+    const submitting = useSelector(state => state.authentication.submitting);
+    const errorServer = useSelector(state => state.authentication.error);
+    const [errorForm,setErrorForm] = useState();
     const dispatch = useDispatch();
     const methods = useForm({
         mode: 'onBlur',
         resolver: yupResolver(userSchema)
     });
      
-    const onSubmit = (data, e) => {
-        
-        if (submitting) return;
-        setSubmitting(true);
+    const onSubmit = (data, e) => {        
+        if (submitting) return;        
         const  from  =   { pathname: "/" } ;
-        dispatch(userActions.login(data, from));
-        
-
+        dispatch(userActions.login(data, from));       
     };
     const onError = (errors, e) => {
-
+        setErrorForm(errors);
     }
-    // useEffect(() => {    
-    //     setSubmitting(false);
-       
-    //   }, [hasFailed]);
-    //const getErrorMsg = errorList => errorList[""]?.message;  
+     
     return (<div id="formContainer" className="d-flex flex-column justify-content-center">
         <h1 className="text-end">כניסת משתמש</h1>
 
@@ -53,7 +47,8 @@ function UserLogin() {
             >
                <InputLabel id="email" type="email" label="שם משתמש"/>
                <InputLabel id="password" label="סיסמא" type="password"/>
-                
+                {errorForm && <div>בעיה במילוי הטופס</div>}
+                {errorServer && <div>שם משתמש או סיסמא לא נכונים</div>}
                 <div id="buttonDiv" className="d-flex justify-content-center bd-highlight">
                     <input disabled={submitting}
                         id="loginBtn"
@@ -61,7 +56,6 @@ function UserLogin() {
                         type="submit"
                         className=" loginBtn btn text-center rounded-pill" />
                 </div>
-
             </form>
         </FormProvider>
     </div>
