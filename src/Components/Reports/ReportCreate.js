@@ -89,7 +89,7 @@ function ReportCreate() {
 
     if (!localStorage.getItem('location')) {
 
-        return <Redirect to="/report/map" />
+        return <Redirect to="/" />
     }
 
     return (<div id="formContainer" className="d-flex flex-column justify-content-center">

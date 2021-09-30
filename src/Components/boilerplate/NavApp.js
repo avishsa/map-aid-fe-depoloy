@@ -20,7 +20,7 @@ export default function NavApp(/*{ token }*/) {
             </li>
             }
             <li className=" d-flex flex-row">
-                <a id="emergacyLink" className="nav-link" href="\report\map"> דיווח חדש <span className="sr-only">(current)</span></a>
+                <a id="emergacyLink" className="nav-link" href="\"> דיווח חדש <span className="sr-only">(current)</span></a>
             </li>
         </ul>
     </nav>);

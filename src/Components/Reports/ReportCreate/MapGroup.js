@@ -14,7 +14,7 @@ export default function MapGroup({ location }) {
                 <button 
                 id="locationChangeBtn"
                 className=" btn-sm form-control btn mx-1" 
-                onClick={() => { history.push("/report/map");}}>שינוי</button>
+                onClick={() => { history.push("/");}}>שינוי</button>
             </div>
         </div>
     );

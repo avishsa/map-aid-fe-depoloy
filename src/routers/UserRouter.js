@@ -16,7 +16,7 @@ function UserRouter(){
     }/>
     
     
-    <Route exact path="/user/report/map" render={props=><Redirect to="/report/map"/>}/>
+    <Route exact path="/user/" render={props=><Redirect to="/"/>}/>
     
   </Switch>)
 }

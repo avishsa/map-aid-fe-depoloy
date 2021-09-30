@@ -54,7 +54,7 @@ const ReportSuccess = props => {
         value="תודה, נתראה בפעם הבאה"
         type="button"
         className=" redirectBtn btn text-center rounded-pill"
-        onClick={() => { history.push("/report/map"); }} />
+        onClick={() => { history.push("/"); }} />
     </div>
   </div>);
 };

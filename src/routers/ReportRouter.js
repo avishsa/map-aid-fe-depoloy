@@ -11,6 +11,7 @@ import ReportIndex from "../Components/Reports/ReportIndex";
 
 function ReportRouter() {
   return (<Switch>
+    <Route exact path="/" component={ReportMap} />
     <Route exact path="/report/create" component={ReportCreate} />
     <ProtectedRoute
       exact
@@ -18,10 +19,10 @@ function ReportRouter() {
       component={ReportIndex}
     />
     <Route exact path="/report/success" component={ReportSuccess} />
-    <Route exact path="/report/report/map" render={props => <Redirect to="/report/map" />} />
+    <Route exact path="/report/" render={props => <Redirect to="/" />} />
     <Route exact path="/report/report/index" render={props => <Redirect to="/report/index" />} />
     <Route exact path="/report/failure" component={ReportFailure} />
-    <Route exact path="/report/map" component={ReportMap} />
+    
 
   </Switch>)
 }
