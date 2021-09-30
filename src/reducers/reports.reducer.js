@@ -1,6 +1,6 @@
 import { reportConstants, reportFilterProperty, reportFilterCatagory } from "../constants/report.constants";
 
-export function reports(state = {property:""}, action) {
+export function reports(state = { property: "" }, action) {
     switch (action.type) {
         case reportConstants.GETALL_REQUEST:
             return {
@@ -66,10 +66,10 @@ export function reports(state = {property:""}, action) {
             }
         }
         case reportConstants.SORT: {
-            
+
             switch (action.orderName) {
-                case 'incDate': return {...state, items_filtered: state?.items_filtered.sort((el1, el2) => { return new Date(el2.report_datetime) - new Date(el1.report_datetime) }) };
-                case 'decDate': return { ...state,items_filtered: state?.items_filtered.sort((el1, el2) => { return new Date(el1.report_datetime) - new Date(el2.report_datetime) }) };
+                case 'incDate': return { ...state, items_filtered: state?.items_filtered.sort((el1, el2) => { return new Date(el2.report_datetime) - new Date(el1.report_datetime) }) };
+                case 'decDate': return { ...state, items_filtered: state?.items_filtered.sort((el1, el2) => { return new Date(el1.report_datetime) - new Date(el2.report_datetime) }) };
                 default: throw new Error('invalid sort');
             }
         }
@@ -84,9 +84,12 @@ export function reports(state = {property:""}, action) {
             const userId = action.userId;
 
             return {
+                ...state,
                 loadingUpdate: false,
                 updateHandler: true,
-                items: state?.items.map(report => report.id === reportId ? { ...report, user_id_handler: userId, isHandled: true } : report)
+                items: state?.items.map(report => report.id === reportId ? { ...report, user_id_handler: userId, isHandled: true } : report),
+                items_catagory: state?.items_catagory.map(report => report.id === reportId ? { ...report, user_id_handler: userId, isHandled: true } : report),
+                items_filtered: state?.items_filtered.map(report => report.id === reportId ? { ...report, user_id_handler: userId, isHandled: true } : report),
             }
 
         }
