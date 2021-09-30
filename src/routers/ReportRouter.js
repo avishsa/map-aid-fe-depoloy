@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route } from "react-router-dom";
 import { Redirect } from 'react-router';
-
+import { useSelector } from 'react-redux';
 import ReportCreate from '../Components/Reports/ReportCreate';
 import ReportSuccess from '../Components/Reports/ReportSuccess';
 import ReportFailure from '../Components/Reports/ReportFailure';
@@ -11,12 +11,14 @@ import ReportIndex from "../Components/Reports/ReportIndex";
 
 function ReportRouter() {
   
-  
-  
-  
+  const report = useSelector(state => state.reports.saveReport);
   return (<Switch>
-    <Route exact path="/" render={props => <ReportMap/>} />
-    <Route exact path="/report/create" component={ReportCreate} />
+    <Route exact path="/" render={props => <ReportMap />} />
+    <Route
+      exact
+      path="/report/create"
+      render = {props=>{return report?<ReportCreate/>:<Redirect to="/"/>}}
+    />
     <ProtectedRoute
       exact
       path="/report/Index"
@@ -26,7 +28,7 @@ function ReportRouter() {
     <Route exact path="/report/" render={props => <Redirect to="/" />} />
     <Route exact path="/report/report/index" render={props => <Redirect to="/report/index" />} />
     <Route exact path="/report/failure" component={ReportFailure} />
-    
+
 
   </Switch>)
 }

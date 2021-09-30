@@ -1,10 +1,10 @@
 import React from 'react';
 import { userActions} from "../../actions/userActions";
 import { useDispatch,useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
+import { history } from '../../helps/history';
 export default function NavApp(/*{ token }*/) {
     const dispatch = useDispatch();    
-    const history = useHistory();
+    
     const loggedIn = useSelector(state => { return state.authentication.loggedIn});
     return (<nav className=" d-flex flex-row   navbar  navbar-light ">
         <ul className="d-flex flex-row p-0 m-0">

@@ -6,7 +6,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 
 import { heIL } from '@material-ui/core/locale';
-import { useHistory } from 'react-router';
+import { history } from './helps/history';
 import ScrollToTop from './Components/boilerplate/ScrollToTop';
 
 import ReportRouter from './routers/ReportRouter';
@@ -20,18 +20,21 @@ const theme = createTheme({
 }, heIL);
 
 export default function AppContent() {
-  const history = useHistory();
+
   return (
     <ThemeProvider theme={theme}>
-      <Router>
-        <div className="App container d-flex flex-column justify-content-end">
-          <Header  />
-          <ScrollToTop history={history} />
+
+      <div className="App container d-flex flex-column justify-content-end">
+        <Header />
+
+        <Router history={history}>
+          {/* <ScrollToTop /> */}
           <ReportRouter />
           <UserRouter />
-          <Footer />
-        </div>
-      </Router>
+        </Router>
+        <Footer />
+      </div>
+
     </ThemeProvider>
   );
 }

@@ -1,5 +1,5 @@
 import { useEffect, useState} from 'react';
-import { useHistory } from "react-router-dom";
+
 
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
 
@@ -59,7 +59,7 @@ function LocationMarker({onLocationFound}) {
 }
 
 export default function SimpleMap(){
-  const history = useHistory();
+  
   const [locationQuery,setLocationQuery] = useState('');
   const  redirectCreateReport = () => {
     if(locationQuery==='') return;

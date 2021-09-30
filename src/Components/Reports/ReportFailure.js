@@ -1,8 +1,8 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { history } from "../../helps/history";
 import ReportFail from '../../images/reportFailed.png'
 const ReportFailure = props => {
-  const history = useHistory();
+  
 
   return (<div className="d-flex flex-column align-items-center">
     <img alt="report-failure" style={{ width: "212pt", height: "166.4pt" }} src={ReportFail} />

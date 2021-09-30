@@ -58,17 +58,24 @@ function updateHandler(reportId, reportHandlerId, userId) {
     function failure(error) { return { type: reportConstants.HANDLER_SET_FAILURE, error } }
 
 }
-function saveReport(data){
-    history.push("");
-    return {type:reportConstants.SAVE_REPORT,report:data}
+function saveReport(data) {
+    return dispatch => {
+        dispatch(request())
+        history.push("");
+    }
+    function request() { return { type: reportConstants.SAVE_REPORT, report: data } }
 }
-function saveLocation(location,lat,lng){
-    history.push("/report/create");
-    return {type:reportConstants.SAVE_LOCATION,report:{location,lat,lng}}
+function saveLocation(location, lat, lng) {
+    return dispatch => {
+        dispatch(request())
+        const toPush = { pathname: "/report/create" };
+        history.push(toPush);
+    }
+    function request() { return { type: reportConstants.SAVE_LOCATION, report: { location, lat, lng } } }
 }
 function createReport(data) {
     debugger;
-    
+
     data = {
         ...data,
         report_datetime: getDateTimeFormattedString(data["report_date"], data["report_time"])
@@ -92,7 +99,7 @@ function createReport(data) {
             );
     };
     function request() { return { type: reportConstants.CREATE_REPORT_REQUEST } }
-    function success(report) { return { type: reportConstants.CREATE_REPORT_SUCCESS,report} }
+    function success(report) { return { type: reportConstants.CREATE_REPORT_SUCCESS, report } }
     function failure(error) { return { type: reportConstants.CREATE_REPORT_FAILURE, error } }
-    
+
 }

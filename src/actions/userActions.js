@@ -1,4 +1,4 @@
-import { history } from '../helps/history';
+
 import { userConstants } from '../constants/user.constants';
 import { _login,_logout ,_islogged} from '../services/user.services';
 
@@ -9,16 +9,13 @@ export const userActions = {
     isLogged
 };
 
-function login(data) {
-    
+function login(data) {    
     return dispatch => {
         dispatch(request(data));
         _login(data)
             .then(
                 res => {                     
-                    dispatch(success(res));
-                    history.push("/");                    
-                  
+                    dispatch(success(res));                  
                 },
                 error => {
                     dispatch(failure(error.toString()));                    

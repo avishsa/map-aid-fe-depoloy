@@ -71,13 +71,13 @@ export default function SimpleMap({onAddressChanged}) {
 
   const report = useSelector(state => state.reports.saveReport);
   const dispatch = useDispatch();
-  const [location, setLocation] = useState(report.person_location);
-  const [lat, setLat] = useState(report.location_lat);
-  const [lng, setLng] = useState(report.location_lng);
+  const [location, setLocation] = useState(report ? report.person_location:"");
+  const [lat, setLat] = useState(report? report.location_lat:undefined);
+  const [lng, setLng] = useState(report? report.location_lng:undefined);
 
   const redirect = () => {
-    if (location === '') return;
-    dispatch(reportActions.saveLocation(location,lat,lng))    
+
+    if (location !== '') {console.log(location,lat,lng);dispatch(reportActions.saveLocation(location,lat,lng))}    
   }
   return (
     <MapContainer id="mapid" center={[32.0576485, 34.7652664]} zoom={15} scrollWheelZoom={true}>

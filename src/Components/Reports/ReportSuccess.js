@@ -1,9 +1,9 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { history } from "../../helps/history";
 import ListGap from "./ReportSuccess/ListGap";
 import "../../css/report/reportSuccess.css";
 const ReportSuccess = props => {
-  const history = useHistory();
+  
   const preventDefault = e => e.preventDefault();
   return (<div className="d-flex flex-column">
     <h2>תודה שהודעת לנו!</h2>
