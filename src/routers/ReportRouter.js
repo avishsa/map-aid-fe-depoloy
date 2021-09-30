@@ -10,8 +10,12 @@ import ProtectedRoute from './Authentication/ProtectedRoute';
 import ReportIndex from "../Components/Reports/ReportIndex";
 
 function ReportRouter() {
+  
+  
+  
+  
   return (<Switch>
-    <Route exact path="/" component={ReportMap} />
+    <Route exact path="/" render={props => <ReportMap/>} />
     <Route exact path="/report/create" component={ReportCreate} />
     <ProtectedRoute
       exact

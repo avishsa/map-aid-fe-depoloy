@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { reportActions } from "../../../actions/reportActions";
 import { reportFilterCatagory } from "../../../constants/report.constants";
 
-import { filterParams } from "./indexConst";
+
 export default function NavReports() {
     const dispatch = useDispatch();
     const user = useSelector(state => { return state.authentication.user });

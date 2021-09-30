@@ -1,26 +1,28 @@
 import React from 'react';
 import { userActions} from "../../actions/userActions";
 import { useDispatch,useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 export default function NavApp(/*{ token }*/) {
     const dispatch = useDispatch();    
+    const history = useHistory();
     const loggedIn = useSelector(state => { return state.authentication.loggedIn});
     return (<nav className=" d-flex flex-row   navbar  navbar-light ">
         <ul className="d-flex flex-row p-0 m-0">
 
             <li className=" d-flex flex-row">
                 {loggedIn ?
-                    <button className="btn text-primary nav-link" href='#' onClick={()=>{dispatch(userActions.logout());}} >יציאת משתמש <span className="sr-only">(current)</span></button>
+                    <button className="btn text-primary nav-link" style={{border:0,boxShadow:"none"}} onClick={()=>{ dispatch(userActions.logout());}} >יציאת משתמש</button>
                     :
-                    <a className="btn text-primary nav-link" href="\user\login" >כניסת משתמש <span className="sr-only">(current)</span></a>
+                    <button className="btn text-primary nav-link" style={{border:0,boxShadow:"none"}} onClick={()=>{history.push('/user/login');}} >כניסת משתמש </button>
                 }
             </li>
             { loggedIn && 
             <li className=" d-flex flex-row">
-                 <a className="btn text-primary nav-link" href="\report\index" >דיווחים <span className="sr-only">(current)</span></a>
+                 <button className="btn text-primary nav-link" style={{border:0,boxShadow:"none"}} onClick={()=>{history.push('/report/index');}} >דיווחים </button>
             </li>
             }
             <li className=" d-flex flex-row">
-                <a id="emergacyLink" className="nav-link" href="\"> דיווח חדש <span className="sr-only">(current)</span></a>
+                <button id="emergacyLink" className="nav-link"  style={{border:0,boxShadow:"none"}} onClick={()=>{history.push('/');}}> דיווח חדש </button>
             </li>
         </ul>
     </nav>);

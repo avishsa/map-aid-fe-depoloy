@@ -1,4 +1,4 @@
-import React, {useState ,useEffect} from 'react';
+import React, {useEffect} from 'react';
 import { useSelector ,useDispatch} from 'react-redux';
 
 
@@ -15,12 +15,12 @@ import "../../css/report/reportIndex.css"
 export default function ReportIndex() {
 
     const user = useSelector(state => { return state.authentication.user});
-    const reports =  useSelector(state => { console.log("fewfewfewfewfwefweewf",state);return state.reports});
+    const reports =  useSelector(state => { return state.reports});
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(reportActions.getAll(user.id));
-    }, [dispatch]);
+    }, [dispatch,user]);
     
       
     const getBorderColor = (isHandled) => {
