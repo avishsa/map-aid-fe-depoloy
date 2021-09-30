@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { assignReport } from "../../../api/reports";
+import { useDispatch } from 'react-redux';
+import {reportActions} from "../../../actions/reportActions";
 import ReportDescriptionBtn from './reportItem/ReportDescriptionBtn';
 import ReportIcons from './reportItem/ReportIcons';
 import ReportWazeBtn from './reportItem/ReportWazeBtn';
@@ -7,17 +8,7 @@ import ReportTimeLocation from './reportItem/ReportTimeLocation';
 //color according to : HandledByMe = red NotHandled - green  handledBySomeOne else - blank
 export default function ReportItem({ report, LOGGEDUSER, patchReport }) {
     const [description, setDescription] = useState(false);
-    const assignReportToMe = (reportId, userId) => {
-        
-        
-        if (report.user_id_handler!==null && report.user_id_handler!==undefined) return;
-        assignReport(reportId, userId)
-            .then(res => {
-            
-                patchReport(reportId, userId);
-            })
-            .catch(res => { console.log("failure", res); });
-    }
+    const dispatch = useDispatch();
     const getDescripionBtn = () => {
         if (!report.person_general_description)
             return <ReportDescriptionBtn />
@@ -35,7 +26,8 @@ export default function ReportItem({ report, LOGGEDUSER, patchReport }) {
     return (<div
         className="d-flex flex-column bd-highlight" 
         onClick={() => {           
-             assignReportToMe(report.id, LOGGEDUSER) }}>
+            dispatch(reportActions.updateHandler(report.id,report.user_id_handler,LOGGEDUSER));
+             }}>
         <div className="d-flex  flex-row bd-highlight justify-content-between">
             <div className="d-flex flex-column  col-10 bd-highlight">
                 <ReportTimeLocation date={reportDate} location={report.person_location} />

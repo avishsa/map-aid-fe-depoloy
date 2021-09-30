@@ -26,6 +26,7 @@ export function authentication(state = initialState, action) {
         case userConstants.LOGIN_FAILURE:
             return {
                 loggedIn: false,
+                isFailed: true,
                 user: undefined,
                 token: undefined
             };
@@ -39,6 +40,6 @@ export function authentication(state = initialState, action) {
         }
 
         default:
-            return state
+            return state;
     }
 }

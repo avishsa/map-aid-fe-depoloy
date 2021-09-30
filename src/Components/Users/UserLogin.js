@@ -14,6 +14,7 @@ import '../../css/users/LoginForm.css';
 import InputLabel from "../boilerplate/form/InputLabel";
 
 function UserLogin() {
+    // const hasFailed = useSelector(state => state.authentication.isFailed);
     const [submitting, setSubmitting] = useState(false);
     const dispatch = useDispatch();
     const methods = useForm({
@@ -33,6 +34,10 @@ function UserLogin() {
     const onError = (errors, e) => {
 
     }
+    // useEffect(() => {    
+    //     setSubmitting(false);
+       
+    //   }, [hasFailed]);
     //const getErrorMsg = errorList => errorList[""]?.message;  
     return (<div id="formContainer" className="d-flex flex-column justify-content-center">
         <h1 className="text-end">כניסת משתמש</h1>

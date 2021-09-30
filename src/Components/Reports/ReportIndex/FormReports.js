@@ -6,8 +6,8 @@ export default function FormReports({filterResults,sortResults}) {
     
     return (<div  className="d-flex flex-row  bd-highlight ">
         
-        <FilterReports name="filter" onChange={filterResults}/>
-        <SortReports onChange={sortResults}/>
+        <FilterReports />
+        <SortReports />
         
     </div>);
 }
