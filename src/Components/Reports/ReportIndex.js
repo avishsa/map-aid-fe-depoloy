@@ -16,6 +16,7 @@ export default function ReportIndex() {
 
     const user = useSelector(state => { return state.authentication.user});
     const reports =  useSelector(state => { return state.reports});
+    const filterParam = useSelector(state => { ; return state.reports.property });
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -36,7 +37,7 @@ export default function ReportIndex() {
     return (<div className="d-flex flex-column justify-content-center">
         {user.name && <h1 className="text-end">{`היי ${user.name}`}</h1>}
         <NavReports  />
-        <FormReports   />
+        {filterParam &&<FormReports   />}
         {reports.items_filtered && (<ul className="list-group" style={{ paddingInlineStart: '0 !important' }}>
             {reports.items_filtered.map((report, index) => (
                 <li className="list-group-item my-2"
