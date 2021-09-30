@@ -1,6 +1,6 @@
 import { reportConstants, reportFilterProperty, reportFilterCatagory } from "../constants/report.constants";
 
-export function reports(state = {}, action) {
+export function reports(state = {property:""}, action) {
     switch (action.type) {
         case reportConstants.GETALL_REQUEST:
             return {
@@ -22,14 +22,17 @@ export function reports(state = {}, action) {
             switch (action.filter) {
                 case reportFilterProperty.DISTRESS: return {
                     ...state,
+                    property: reportFilterProperty.DISTRESS,
                     items_filtered: state?.items_catagory.filter(el => el.isDistressed)
                 }
                 case reportFilterProperty.MALE: return {
                     ...state,
+                    property: reportFilterProperty.MALE,
                     items_filtered: state?.items_catagory.filter(el => el.person_gender === 'זכר')
                 }
                 case reportFilterProperty.FEMALE: return {
                     ...state,
+                    property: reportFilterProperty.FEMALE,
                     items_filtered: state?.items_catagory.filter(el => el.person_gender === 'נקבה')
                 }
 
@@ -63,9 +66,10 @@ export function reports(state = {}, action) {
             }
         }
         case reportConstants.SORT: {
+            
             switch (action.orderName) {
-                case 'incDate': return { items: state?.items.sort((el1, el2) => { return new Date(el2.report_datetime) - new Date(el1.report_datetime) }) };
-                case 'decDate': return { items: state?.items.sort((el1, el2) => { return new Date(el1.report_datetime) - new Date(el2.report_datetime) }) };
+                case 'incDate': return {...state, items_filtered: state?.items_filtered.sort((el1, el2) => { return new Date(el2.report_datetime) - new Date(el1.report_datetime) }) };
+                case 'decDate': return { ...state,items_filtered: state?.items_filtered.sort((el1, el2) => { return new Date(el1.report_datetime) - new Date(el2.report_datetime) }) };
                 default: throw new Error('invalid sort');
             }
         }

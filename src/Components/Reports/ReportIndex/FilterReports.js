@@ -4,6 +4,7 @@ import { reportActions } from "../../../actions/reportActions";
 import { reportFilterProperty } from "../../../constants/report.constants";
 
 export default function FilterReports() {
+  
   const filterParam = useSelector(state => { ; return state.reports.property });
   const dispatch = useDispatch();
   const changeFilter = filtername => dispatch(reportActions.filterByProperty(filtername));
