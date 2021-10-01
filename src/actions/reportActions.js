@@ -67,12 +67,8 @@ function saveReport(data) {
     function request() { return { type: reportConstants.SAVE_REPORT, report: data } }
 }
 function saveLocation(location, lat, lng) {
-    debugger;
-    return dispatch => {
-        dispatch(request())
-       
-    }
-    function request() { return { type: reportConstants.SAVE_LOCATION, report: { location, lat, lng } } }
+    console.log("savelocation",location,lat,lng)
+     return { type: reportConstants.SAVE_LOCATION, report: { location, lat, lng } } 
 }
 function createReport(data) {
     debugger;
