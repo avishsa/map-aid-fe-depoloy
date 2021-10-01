@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import '../../../css/report/SimpleMap.css';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
 import { history } from '../../../helps/history';
+
 import LCG from 'leaflet-control-geocoder';
 import L from 'leaflet';
 
 import * as GeoSearch from 'leaflet-geosearch';
 import { reportActions } from '../../../actions/reportActions';
+// import { useHistory } from 'react-router';
 
 function LocationMarker({onLocationFound, lat,lng}) {
   const [position, setPosition] = useState(lat && lng ? { lat: lat, lng: lng } : null);
@@ -17,8 +20,8 @@ function LocationMarker({onLocationFound, lat,lng}) {
       setPosition(e.latlng)      
       const geocoder = L.Control.Geocoder.nominatim();
       geocoder.reverse(e.latlng, map.options.crs.scale(300), results => {
-        setLocationName(results[0].name);
-        onLocationFound( results[0].name,e.latlng.lat,e.latlng.lng );
+        setLocationName(results[0]?.name);
+        onLocationFound( results[0]?.name,e?.latlng.lat,e?.latlng.lng );
       })
       map.flyTo(e.latlng, map.getZoom())
     },
@@ -30,8 +33,8 @@ function LocationMarker({onLocationFound, lat,lng}) {
       map.flyTo(e.latlng, map.getZoom())
       const geocoder = L.Control.Geocoder.nominatim();
       geocoder.reverse(e.latlng, map.options.crs.scale(300), results => {
-        setLocationName(results[0].name);        
-        onLocationFound( results[0].name,e.latlng.lat,e.latlng.lng );
+        setLocationName(results[0]?.name);        
+        onLocationFound( results[0]?.name,e?.latlng.lat,e?.latlng.lng );
       })
 
     }
@@ -68,9 +71,10 @@ function LocationMarker({onLocationFound, lat,lng}) {
 
 export default function SimpleMap() {  
   const report = useSelector(state => state.reports.saveReport);
+  // const history = useHistory();
   const dispatch = useDispatch();
-  const onLocationFound = (name,lat,lng)=> {console.log("onLocationFounf",name,lat,lng);dispatch(reportActions.saveLocation(name,lat,lng));}
-  const redirect = () => {debugger; report.location !== '' ? history.push("/report/create"):console.log("empty location");}
+  const onLocationFound = (name,lat,lng)=> dispatch(reportActions.saveLocation(name,lat,lng));
+  const redirect = () => {report.location !== '' ? history.push("/report/create"):console.log("empty location");}
   return (
     <MapContainer id="mapid" center={[32.0576485, 34.7652664]} zoom={15} scrollWheelZoom={true}>
       <LocationMarker onLocationFound={onLocationFound} lat={report?.location_lat} lng={report?.location_lat}   />

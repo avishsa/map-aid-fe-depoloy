@@ -2,7 +2,7 @@ import React,{useEffect} from 'react';
 
 import Header from './Components/boilerplate/Header';
 import Footer from './Components/boilerplate/Footer';
-import { BrowserRouter } from "react-router-dom";
+import { Router } from "react-router";
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 
 import { heIL } from '@material-ui/core/locale';
@@ -20,14 +20,10 @@ const theme = createTheme({
 }, heIL);
 
 export default function AppContent() {
-  useEffect(() => {
-    const unlisten = history.listen((props) => {
-      console.dir(props);
-    });
-  });
+  
   return (
     <ThemeProvider theme={theme}>
-      <BrowserRouter history={history}>
+      <Router history={history}>
         <div className="App container d-flex flex-column justify-content-end">
           <Header />
           {/* <ScrollToTop /> */}
@@ -36,7 +32,7 @@ export default function AppContent() {
 
           <Footer />
         </div>
-      </BrowserRouter>
+      </Router>
     </ThemeProvider>
   );
 }

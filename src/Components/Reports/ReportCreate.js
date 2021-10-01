@@ -8,7 +8,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { reportFormSchema } from '../../scheme/reportScheme';
 import { getDateTime } from "../../Utilities/TimeFormatter";
 import '../../css/report/createReport.css';
-import { withRouter } from "react-router-dom";
+
 
 import { reportActions } from "../../actions/reportActions";
 //
@@ -28,7 +28,7 @@ function ReportCreate() {
     const loadingCreate = useSelector(state => state.reports.loadingCreate);
 
     const saveReport = useSelector(state => state.reports.saveReport);
-
+    console.log(saveReport,"hnhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
     const defaultValues = (saveReport !== null && saveReport["report_time"] !== undefined) ? saveReport : {
         "isNotify": false,
         "report_datetime": getDateTime(new Date()),
@@ -36,16 +36,18 @@ function ReportCreate() {
         "report_date": new Date(),
         "person_shirt_color": "#000000",
         "person_pants_color": "#000000",
-        "person_location": saveReport.location,
-        "location_lng": saveReport.lng,
-        "location_lat": saveReport.lat,
+        "person_location" :saveReport.person_location,
+        "location_lng":saveReport.location_lng,
+        "location_lat":saveReport.location_lat,
+        
     }
+    console.log("deafulr",defaultValues);
     const methods = useForm({
         mode: 'onBlur',
         defaultValues,
         resolver: yupResolver(reportFormSchema)
     });
-
+    console.log("fefewfewfew1111111111111111111111111111111111111",methods.watch());
     const onSubmit = (data, e) => {
         if (!loadingCreate) dispatch(reportActions.createReport(data));
 
@@ -55,9 +57,7 @@ function ReportCreate() {
     }
     const getErrorMsg = errorList => errorList[""]?.message;
 
-    if (!localStorage.getItem('location')) {
-        return <Redirect to="/" />
-    }
+    
 
     return (<div id="formContainer" className="d-flex flex-column justify-content-center">
         <h1 className="text-end"> זיהוי דר רחוב</h1>
@@ -107,4 +107,4 @@ function ReportCreate() {
 }
 
 
-export default withRouter(ReportCreate);
+export default ReportCreate;

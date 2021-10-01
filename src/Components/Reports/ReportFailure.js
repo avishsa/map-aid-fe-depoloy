@@ -1,6 +1,6 @@
 import React from "react";
 import { history } from "../../helps/history";
-import { withRouter } from "react-router-dom";
+
 import ReportFail from '../../images/reportFailed.png'
 const ReportFailure = props => {
   
@@ -15,4 +15,4 @@ const ReportFailure = props => {
       onClick={() => { history.push("/report/create"); }} />
   </div>);
 };
-export default withRouter(ReportFailure);
+export default ReportFailure;

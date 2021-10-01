@@ -128,12 +128,15 @@ export function reports(state = { property: "" }, action) {
             ...state,
             saveReport: action.report
         }
-        case reportConstants.SAVE_LOCATION: return {
-            ...state,
-            saveReport: {
-                person_location: action.report.location,
-                location_lng: action.report.lng,
-                location_lat: action.report.lat
+        case reportConstants.SAVE_LOCATION: {
+            
+            return {
+                ...state,
+                saveReport: {
+                    person_location: action.report.person_location,
+                    location_lng: action.report.location_lng,
+                    location_lat: action.report.location_lat
+                }
             }
         }
         default: return state;

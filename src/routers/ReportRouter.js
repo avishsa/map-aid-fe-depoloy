@@ -17,14 +17,26 @@ function ReportRouter() {
     <Route
       exact
       path="/report/create"
-      render = {props=>{return report?<ReportCreate/>:<Redirect to="/"/>}}
+      render={props => {
+  
+        if (report !== null && report !== undefined) {
+  
+          return <ReportCreate />
+        }
+
+        else {
+          console.log("FAIL FAIL FAIL",report);
+          return <Redirect to="/" />
+        }
+      }
+      }
     />
     <ProtectedRoute
       exact
       path="/report/Index"
       component={ReportIndex}
     />
-    <Route exact path="/report/success" component={ReportSuccess} />    
+    <Route exact path="/report/success" component={ReportSuccess} />
     <Route exact path="/report/failure" component={ReportFailure} />
   </Switch>)
 }

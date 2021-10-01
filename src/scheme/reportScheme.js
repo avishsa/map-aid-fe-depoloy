@@ -64,7 +64,7 @@ export const formFields = {
         label: "פירוט המצוקה"
     },
     location: {
-        name: "location",
+        name: "person_location",
         label: "מיקום"
     },
     genderText: {

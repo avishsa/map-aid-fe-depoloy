@@ -67,12 +67,9 @@ function saveReport(data) {
     function request() { return { type: reportConstants.SAVE_REPORT, report: data } }
 }
 function saveLocation(location, lat, lng) {
-    console.log("savelocation",location,lat,lng)
-     return { type: reportConstants.SAVE_LOCATION, report: { location, lat, lng } } 
+     return { type: reportConstants.SAVE_LOCATION, report: { person_location:location, location_lat:lat, location_lng:lng } } 
 }
 function createReport(data) {
-    debugger;
-
     data = {
         ...data,
         report_datetime: getDateTimeFormattedString(data["report_date"], data["report_time"])

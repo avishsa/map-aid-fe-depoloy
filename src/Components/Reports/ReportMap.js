@@ -1,7 +1,7 @@
 import React from 'react';
 import SimpleMap from './ReportMap/SimpleMap';
 import Explain from './ReportMap/Explain';
-import { withRouter } from "react-router-dom";
+
 
 
 function ReportMap() {
@@ -14,5 +14,5 @@ function ReportMap() {
   )
 }
 
-export default withRouter(ReportMap)
+export default ReportMap;
 
