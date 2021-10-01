@@ -1,11 +1,12 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import '../../../css/report/Explain.css';
 
 
-export default function Explain ({address}){
-    
-        return (
-            <>
+export default function Explain() {
+    const report = useSelector(state => state.reports.saveReport);
+    return (
+        <>
             <div className='ExplainContainer d-flex flex-column'>
                 <div className='Explain d-flex flex-column'>
                     <div>
@@ -13,24 +14,24 @@ export default function Explain ({address}){
                     </div>
                     <div className="d-flex column">
                         <div>עוד על הפעילות</div>
-                    <a className="mx-3" href="https://www.facebook.com/groups/1382205272129865/">ממש כאן</a>
+                        <a className="mx-3" href="https://www.facebook.com/groups/1382205272129865/">ממש כאן</a>
                     </div>
                 </div>
-                <hr className='Line'/>
-                
+                <hr className='Line' />
+
                 <div className='Title'>
                     מה מיקומו של דר הרחוב?
                 </div>
                 <div className="AddressTextContainer">
-                    <input className="AddressText" type="text" disabled value={address}/>
+                    <input className="AddressText" type="text" disabled value={report ? report.person_location:""} />
                 </div>
                 <div className='ExplainMap'>
-                     לשינוי מיקום יש לסמן על המפה או לחפש בעזרת סמל החיפוש משמאל ולסמן מיקום מדוייק.
+                    לשינוי מיקום יש לסמן על המפה או לחפש בעזרת סמל החיפוש משמאל ולסמן מיקום מדוייק.
                 </div>
             </div>
-            </>
+        </>
 
-        )
-    
+    )
+
 }
 

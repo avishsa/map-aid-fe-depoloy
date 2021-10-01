@@ -1,8 +1,8 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 
 import Header from './Components/boilerplate/Header';
 import Footer from './Components/boilerplate/Footer';
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 
 import { heIL } from '@material-ui/core/locale';
@@ -20,21 +20,23 @@ const theme = createTheme({
 }, heIL);
 
 export default function AppContent() {
-
+  useEffect(() => {
+    const unlisten = history.listen((props) => {
+      console.dir(props);
+    });
+  });
   return (
     <ThemeProvider theme={theme}>
-
-      <div className="App container d-flex flex-column justify-content-end">
-        <Header />
-
-        <Router history={history}>
+      <BrowserRouter history={history}>
+        <div className="App container d-flex flex-column justify-content-end">
+          <Header />
           {/* <ScrollToTop /> */}
           <ReportRouter />
           <UserRouter />
-        </Router>
-        <Footer />
-      </div>
 
+          <Footer />
+        </div>
+      </BrowserRouter>
     </ThemeProvider>
   );
 }

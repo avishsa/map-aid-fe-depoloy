@@ -1,6 +1,7 @@
 import React from "react";
 import { history } from "../../helps/history";
 import ListGap from "./ReportSuccess/ListGap";
+import { withRouter } from "react-router-dom";
 import "../../css/report/reportSuccess.css";
 const ReportSuccess = props => {
   
@@ -58,4 +59,4 @@ const ReportSuccess = props => {
     </div>
   </div>);
 };
-export default ReportSuccess;
+export default withRouter(ReportSuccess);

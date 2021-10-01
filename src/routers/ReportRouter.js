@@ -11,7 +11,7 @@ import ReportIndex from "../Components/Reports/ReportIndex";
 
 function ReportRouter() {
   
-  const report = useSelector(state => state.reports.saveReport);
+  const report = useSelector(state => state?.reports?.saveReport);
   return (<Switch>
     <Route exact path="/" render={props => <ReportMap />} />
     <Route
@@ -24,12 +24,8 @@ function ReportRouter() {
       path="/report/Index"
       component={ReportIndex}
     />
-    <Route exact path="/report/success" component={ReportSuccess} />
-    <Route exact path="/report/" render={props => <Redirect to="/" />} />
-    <Route exact path="/report/report/index" render={props => <Redirect to="/report/index" />} />
+    <Route exact path="/report/success" component={ReportSuccess} />    
     <Route exact path="/report/failure" component={ReportFailure} />
-
-
   </Switch>)
 }
 export default ReportRouter;

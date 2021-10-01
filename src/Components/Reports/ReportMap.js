@@ -1,20 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import SimpleMap from './ReportMap/SimpleMap';
 import Explain from './ReportMap/Explain';
+import { withRouter } from "react-router-dom";
 
 
-
-function ReportMap({ props }) {
-  const defaultAddress = localStorage.getItem("location") ;
-  const [address, setAddress] = useState(defaultAddress ? defaultAddress:""); 
+function ReportMap() {
   return (
     <div className="d-flex flex-column">
-      <Explain address={address}/>
-      <SimpleMap  onAddressChanged={setAddress}/>
+      <Explain />
+      <SimpleMap  />
     </div>
 
   )
 }
 
-export default ReportMap
+export default withRouter(ReportMap)
 

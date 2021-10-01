@@ -8,7 +8,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { reportFormSchema } from '../../scheme/reportScheme';
 import { getDateTime } from "../../Utilities/TimeFormatter";
 import '../../css/report/createReport.css';
-
+import { withRouter } from "react-router-dom";
 
 import { reportActions } from "../../actions/reportActions";
 //
@@ -107,4 +107,4 @@ function ReportCreate() {
 }
 
 
-export default ReportCreate;
+export default withRouter(ReportCreate);

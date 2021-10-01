@@ -59,17 +59,18 @@ function updateHandler(reportId, reportHandlerId, userId) {
 
 }
 function saveReport(data) {
+    
     return dispatch => {
         dispatch(request())
-        history.push("");
+        history.push("/");
     }
     function request() { return { type: reportConstants.SAVE_REPORT, report: data } }
 }
 function saveLocation(location, lat, lng) {
+    debugger;
     return dispatch => {
         dispatch(request())
-        const toPush = { pathname: "/report/create" };
-        history.push(toPush);
+       
     }
     function request() { return { type: reportConstants.SAVE_LOCATION, report: { location, lat, lng } } }
 }

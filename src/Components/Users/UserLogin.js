@@ -4,10 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { userActions } from '../../actions/userActions';
 import { useForm, FormProvider } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
+import { withRouter } from "react-router-dom";
 import { userSchema } from '../../scheme/userScheme';
 
 import '../../css/users/LoginForm.css';
-//import { loginUser } from "../../api/users";
+
 
 
 
@@ -62,4 +63,4 @@ function UserLogin() {
 
 
 
-export default UserLogin;
+export default withRouter(UserLogin);
