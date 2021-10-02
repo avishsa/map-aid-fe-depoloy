@@ -61,10 +61,10 @@ function updateHandler(reportId, reportHandlerId, userId) {
 function saveReport(data) {
     
     return dispatch => {
-        dispatch(request())
+        dispatch(request(data))
         history.push("/");
     }
-    function request() { return { type: reportConstants.SAVE_REPORT, report: data } }
+    function request(data) { return { type: reportConstants.SAVE_REPORT, report: data } }
 }
 function saveLocation(location, lat, lng) {
      return { type: reportConstants.SAVE_LOCATION, report: { person_location:location, location_lat:lat, location_lng:lng } } 

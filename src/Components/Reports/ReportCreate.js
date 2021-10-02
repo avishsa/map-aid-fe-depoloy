@@ -28,26 +28,25 @@ function ReportCreate() {
     const loadingCreate = useSelector(state => state.reports.loadingCreate);
 
     const saveReport = useSelector(state => state.reports.saveReport);
-    console.log(saveReport,"hnhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
+    
     const defaultValues = (saveReport !== null && saveReport["report_time"] !== undefined) ? saveReport : {
+        
         "isNotify": false,
         "report_datetime": getDateTime(new Date()),
         "report_time": new Date(),
         "report_date": new Date(),
         "person_shirt_color": "#000000",
         "person_pants_color": "#000000",
-        "person_location" :saveReport.person_location,
-        "location_lng":saveReport.location_lng,
-        "location_lat":saveReport.location_lat,
+        ...saveReport
         
     }
-    console.log("deafulr",defaultValues);
+    
     const methods = useForm({
         mode: 'onBlur',
         defaultValues,
         resolver: yupResolver(reportFormSchema)
     });
-    console.log("fefewfewfew1111111111111111111111111111111111111",methods.watch());
+    
     const onSubmit = (data, e) => {
         if (!loadingCreate) dispatch(reportActions.createReport(data));
 

@@ -25,7 +25,7 @@ function ReportRouter() {
         }
 
         else {
-          console.log("FAIL FAIL FAIL",report);
+          
           return <Redirect to="/" />
         }
       }
