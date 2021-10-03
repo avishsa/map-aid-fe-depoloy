@@ -84,6 +84,7 @@ function createReport(data) {
             .then(
                 report => {
                     dispatch(success(data));
+                    localStorage.removeItem("report");
                     history.push("/report/success");
                 },
                 error => {

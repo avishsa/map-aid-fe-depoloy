@@ -77,7 +77,7 @@ function LocationMarker({ onLocationFound, lat, lng, location }) {
 
 export default function SimpleMap() {
   const report = useSelector(state => state.reports.saveReport);
-  const latlng = report.location_lat && report.location_lng ? [report.location_lat,report.location_lng] : LATLNG;
+  const latlng = report?.location_lat && report?.location_lng ? [report.location_lat,report.location_lng] : LATLNG;
   
   const dispatch = useDispatch();
   const onLocationFound = (name, lat, lng) => { dispatch(reportActions.saveLocation(name, lat, lng)) };

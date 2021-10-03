@@ -18,7 +18,7 @@ const _updateHandler = (reportId, reportHandlerId, userId) => {
         .catch(res => { console.log("failure", res); });
 
 }
-const __createReport = data => {
+const _createReport = data => {
 
     return createReport(data)
         .then(res => {
@@ -30,6 +30,6 @@ export const reportService = {
 
     _getAll,
     _updateHandler,
-    __createReport
+    _createReport
 
 };
