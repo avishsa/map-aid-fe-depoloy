@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React from 'react';
 
 import Header from './Components/boilerplate/Header';
 import Footer from './Components/boilerplate/Footer';

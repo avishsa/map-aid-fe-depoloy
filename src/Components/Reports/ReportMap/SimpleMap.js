@@ -12,20 +12,23 @@ import * as GeoSearch from 'leaflet-geosearch';
 import { reportActions } from '../../../actions/reportActions';
 const LATLNG = [32.0576485, 34.7652664];
 
-
 function LocationMarker({ onLocationFound, lat, lng, location }) {
-  console.log("lat",lat,"lng",lng);
   const [position, setPosition] = useState(lat && lng ? { lat: lat, lng: lng } : null);
-  console.log("position position position",position);
   const [locationName, setLocationName] = useState(location);
-
+  function setAddress({ country = "", neighbourhood = "", village = "", city = "", road = "", house_number = "", suburb = "" }) {
+    let name = village ? village : `${city}${suburb ? `, ${suburb}` : ""}${road ? `, ${road}` : ""}${neighbourhood ? `, ${neighbourhood}` : ""} ${house_number}`;
+    name = name === ' ' ? country : name;
+    return name;
+  }
   const map = useMapEvents({
     locationfound(e) {
       setPosition(e.latlng)
       const geocoder = L.Control.Geocoder.nominatim();
       geocoder.reverse(e.latlng, map.options.crs.scale(300), results => {
-        setLocationName(results[0]?.name);
-        onLocationFound(results[0]?.name, e?.latlng.lat, e?.latlng.lng);
+        const name = setAddress( results[0].properties.address);
+        
+        setLocationName(name);
+        onLocationFound(name, e?.latlng.lat, e?.latlng.lng);
       })
       map.flyTo(e.latlng, map.getZoom())
     },
@@ -37,8 +40,10 @@ function LocationMarker({ onLocationFound, lat, lng, location }) {
       map.flyTo(e.latlng, map.getZoom())
       const geocoder = L.Control.Geocoder.nominatim();
       geocoder.reverse(e.latlng, map.options.crs.scale(300), results => {
-        setLocationName(results[0]?.name);
-        onLocationFound(results[0]?.name, e?.latlng.lat, e?.latlng.lng);
+        
+        const name = setAddress( results[0].properties.address);
+        setLocationName(name);
+        onLocationFound(name, e?.latlng.lat, e?.latlng.lng);
       })
 
     }
@@ -46,7 +51,7 @@ function LocationMarker({ onLocationFound, lat, lng, location }) {
 
   useEffect(() => {
     if (!lat || !lng)
-      map.locate();    
+      map.locate();
     const search = new GeoSearch.GeoSearchControl({
       provider: new GeoSearch.OpenStreetMapProvider(),
       showMarker: false,
@@ -55,13 +60,13 @@ function LocationMarker({ onLocationFound, lat, lng, location }) {
       autoClose: true,
       classNames: { resetButton: "ResetButton" }
     });
-
-    map.addControl(search);
+    if(!position)
+      map.addControl(search);
 
   }, [map])
 
 
-  if (position !== null && locationName !== null) {    
+  if (position !== null && locationName !== null) {
     return (
       <Marker id="markerMap" position={position}>
         <Popup add={e => console.log(e)} closeButton={true} closeOnClick={false}>
@@ -70,22 +75,22 @@ function LocationMarker({ onLocationFound, lat, lng, location }) {
       </Marker>
     )
   }
-  
+
   return <div id="failedMarker"></div>;
 }
 
 
 export default function SimpleMap() {
   const report = useSelector(state => state.reports.saveReport);
-  const latlng = report?.location_lat && report?.location_lng ? [report.location_lat,report.location_lng] : LATLNG;
-  
+  const latlng = report?.location_lat && report?.location_lng ? [report.location_lat, report.location_lng] : LATLNG;
+
   const dispatch = useDispatch();
   const onLocationFound = (name, lat, lng) => { dispatch(reportActions.saveLocation(name, lat, lng)) };
   const redirect = () => { report.location !== '' ? history.push("/report/create") : console.log("empty location"); }
-  window.onbeforeunload = e =>{
+  window.onbeforeunload = e => {
     e.preventDefault();
-    localStorage.setItem('report',JSON.stringify({...report,persom_location:"",location_lng:undefined,location_lat:undefined}));       
-}
+    localStorage.setItem('report', JSON.stringify({ ...report, persom_location: "", location_lng: undefined, location_lat: undefined }));
+  }
   return (
     <MapContainer id="mapid" center={latlng} zoom={15} scrollWheelZoom={true}>
       <LocationMarker
