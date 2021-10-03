@@ -1,7 +1,7 @@
 
 import { reportConstants, reportFilterProperty, reportFilterCatagory } from "../constants/report.constants";
-
-export function reports(state = { property: "" }, action) {
+const initialSaveReport = JSON.parse(localStorage.getItem('report'));
+export function reports(state = {saveReport:initialSaveReport, property: "" }, action) {
     switch (action.type) {
         case reportConstants.GETALL_REQUEST:
             return {

@@ -73,7 +73,7 @@ export default function SimpleMap() {
   const report = useSelector(state => state.reports.saveReport);
   // const history = useHistory();
   const dispatch = useDispatch();
-  const onLocationFound = (name,lat,lng)=> dispatch(reportActions.saveLocation(name,lat,lng));
+  const onLocationFound = (name,lat,lng)=> {dispatch(reportActions.saveLocation(name,lat,lng))};
   const redirect = () => {report.location !== '' ? history.push("/report/create"):console.log("empty location");}
   return (
     <MapContainer id="mapid" center={[32.0576485, 34.7652664]} zoom={15} scrollWheelZoom={true}>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Redirect } from "react-router";
@@ -24,13 +24,12 @@ import ReporterDetails from "./ReportCreate/ReporterDetails";
 
 function ReportCreate() {
     const dispatch = useDispatch();
-    
+
     const loadingCreate = useSelector(state => state.reports.loadingCreate);
 
     const saveReport = useSelector(state => state.reports.saveReport);
-    
+
     const defaultValues = (saveReport !== null && saveReport["report_time"] !== undefined) ? saveReport : {
-        
         "isNotify": false,
         "report_datetime": getDateTime(new Date()),
         "report_time": new Date(),
@@ -38,25 +37,36 @@ function ReportCreate() {
         "person_shirt_color": "#000000",
         "person_pants_color": "#000000",
         ...saveReport
-        
+
     }
-    
+
     const methods = useForm({
         mode: 'onBlur',
         defaultValues,
         resolver: yupResolver(reportFormSchema)
     });
-    
-    const onSubmit = (data, e) => {
-        if (!loadingCreate) dispatch(reportActions.createReport(data));
 
-    };
-    const onError = (errors, e) => {
-
-    }
+    const onSubmit = (data, e) => { if (!loadingCreate) dispatch(reportActions.createReport(data)); };
+    const onError = (errors, e) => { }
     const getErrorMsg = errorList => errorList[""]?.message;
 
-    
+    window.onbeforeunload = e =>{
+        e.preventDefault();
+        localStorage.setItem('report',JSON.stringify(methods.watch()));       
+    }
+     useEffect(()=>{
+        localStorage.setItem('report',JSON.stringify(methods.watch()));
+        window.addEventListener("beforeunload", saveData);
+        return () => {
+          window.removeEventListener("beforeunload", saveData);
+        };
+        
+     },[])
+     const saveData = (e) => {
+        e.preventDefault();
+        console.log("REFRESH REFRESH REFRESH REFRESH")
+        localStorage.setItem('report',JSON.stringify(methods.watch()));
+      };
 
     return (<div id="formContainer" className="d-flex flex-column justify-content-center">
         <h1 className="text-end"> זיהוי דר רחוב</h1>
@@ -66,14 +76,12 @@ function ReportCreate() {
                 id="createReport"
                 className="form-inline needs-validation"
                 noValidate
-                onSubmit={
-                    methods.handleSubmit(onSubmit, onError)
-                }
+                onSubmit={methods.handleSubmit(onSubmit, onError)}
             >
                 <div className="mb-3">
                     <DistressedGroup />
                     <DateTimePickerHE />
-                    <MapGroup  />
+                    <MapGroup />
                 </div>
                 <HomelessDetails />
                 <ReporterDetails />
