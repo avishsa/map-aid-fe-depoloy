@@ -54,19 +54,7 @@ function ReportCreate() {
         e.preventDefault();
         localStorage.setItem('report',JSON.stringify(methods.watch()));       
     }
-     useEffect(()=>{
-        localStorage.setItem('report',JSON.stringify(methods.watch()));
-        window.addEventListener("beforeunload", saveData);
-        return () => {
-          window.removeEventListener("beforeunload", saveData);
-        };
-        
-     },[])
-     const saveData = (e) => {
-        e.preventDefault();
-        console.log("REFRESH REFRESH REFRESH REFRESH")
-        localStorage.setItem('report',JSON.stringify(methods.watch()));
-      };
+    
 
     return (<div id="formContainer" className="d-flex flex-column justify-content-center">
         <h1 className="text-end"> זיהוי דר רחוב</h1>

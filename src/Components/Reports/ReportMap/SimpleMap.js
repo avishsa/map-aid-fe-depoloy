@@ -10,18 +10,22 @@ import L from 'leaflet';
 
 import * as GeoSearch from 'leaflet-geosearch';
 import { reportActions } from '../../../actions/reportActions';
-// import { useHistory } from 'react-router';
+const LATLNG = [32.0576485, 34.7652664];
 
-function LocationMarker({onLocationFound, lat,lng}) {
+
+function LocationMarker({ onLocationFound, lat, lng, location }) {
+  console.log("lat",lat,"lng",lng);
   const [position, setPosition] = useState(lat && lng ? { lat: lat, lng: lng } : null);
-  const [locationName, setLocationName] = useState("");
+  console.log("position position position",position);
+  const [locationName, setLocationName] = useState(location);
+
   const map = useMapEvents({
-    locationfound(e) {      
-      setPosition(e.latlng)      
+    locationfound(e) {
+      setPosition(e.latlng)
       const geocoder = L.Control.Geocoder.nominatim();
       geocoder.reverse(e.latlng, map.options.crs.scale(300), results => {
         setLocationName(results[0]?.name);
-        onLocationFound( results[0]?.name,e?.latlng.lat,e?.latlng.lng );
+        onLocationFound(results[0]?.name, e?.latlng.lat, e?.latlng.lng);
       })
       map.flyTo(e.latlng, map.getZoom())
     },
@@ -29,21 +33,20 @@ function LocationMarker({onLocationFound, lat,lng}) {
       if (e.containerPoint.y > 325) {
         return
       }
-      setPosition(e.latlng)      
+      setPosition(e.latlng)
       map.flyTo(e.latlng, map.getZoom())
       const geocoder = L.Control.Geocoder.nominatim();
       geocoder.reverse(e.latlng, map.options.crs.scale(300), results => {
-        setLocationName(results[0]?.name);        
-        onLocationFound( results[0]?.name,e?.latlng.lat,e?.latlng.lng );
+        setLocationName(results[0]?.name);
+        onLocationFound(results[0]?.name, e?.latlng.lat, e?.latlng.lng);
       })
 
     }
   })
 
-  
-
   useEffect(() => {
-    map.locate();
+    if (!lat || !lng)
+      map.locate();    
     const search = new GeoSearch.GeoSearchControl({
       provider: new GeoSearch.OpenStreetMapProvider(),
       showMarker: false,
@@ -58,26 +61,39 @@ function LocationMarker({onLocationFound, lat,lng}) {
   }, [map])
 
 
-  if(position !== null && locationName!==null)  return(
-    <Marker position={position}>
-      <Popup add={e => console.log(e)} closeButton={false} closeOnClick={false}>
-        {locationName}
-      </Popup>
-    </Marker>
-  )
-  return null;
+  if (position !== null && locationName !== null) {    
+    return (
+      <Marker id="markerMap" position={position}>
+        <Popup add={e => console.log(e)} closeButton={true} closeOnClick={false}>
+          {locationName}
+        </Popup>
+      </Marker>
+    )
+  }
+  
+  return <div id="failedMarker"></div>;
 }
 
 
-export default function SimpleMap() {  
+export default function SimpleMap() {
   const report = useSelector(state => state.reports.saveReport);
-  // const history = useHistory();
+  const latlng = report.location_lat && report.location_lng ? [report.location_lat,report.location_lng] : LATLNG;
+  
   const dispatch = useDispatch();
-  const onLocationFound = (name,lat,lng)=> {dispatch(reportActions.saveLocation(name,lat,lng))};
-  const redirect = () => {report.location !== '' ? history.push("/report/create"):console.log("empty location");}
+  const onLocationFound = (name, lat, lng) => { dispatch(reportActions.saveLocation(name, lat, lng)) };
+  const redirect = () => { report.location !== '' ? history.push("/report/create") : console.log("empty location"); }
+  window.onbeforeunload = e =>{
+    e.preventDefault();
+    localStorage.setItem('report',JSON.stringify({...report,persom_location:"",location_lng:undefined,location_lat:undefined}));       
+}
   return (
-    <MapContainer id="mapid" center={[32.0576485, 34.7652664]} zoom={15} scrollWheelZoom={true}>
-      <LocationMarker onLocationFound={onLocationFound} lat={report?.location_lat} lng={report?.location_lat}   />
+    <MapContainer id="mapid" center={latlng} zoom={15} scrollWheelZoom={true}>
+      <LocationMarker
+        onLocationFound={onLocationFound}
+        location={report?.person_location}
+        lat={report?.location_lat}
+        lng={report?.location_lng}
+      />
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
