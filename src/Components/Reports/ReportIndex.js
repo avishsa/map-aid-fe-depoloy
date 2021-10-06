@@ -34,13 +34,13 @@ export default function ReportIndex() {
     }
     
     
-    return (<div className="d-flex flex-column justify-content-center">
+    return (<div className="d-flex flex-column justify-content-center" style={{height:"410pt"}}>
         {user.name && <h1 className="text-end">{`היי ${user.name}`}</h1>}
         <NavReports  />
         {filterParam!==undefined &&<FormReports   />}
-        {reports.items_filtered && (<ul className="list-group" style={{ paddingInlineStart: '0 !important' }}>
+        {reports.items_filtered && (<ul dir="ltr" className="list-group overflow-auto" style={{ paddingInlineStart: '0 !important' }}>
             {reports.items_filtered.map((report, index) => (
-                <li className="list-group-item my-2"
+                <li   dir="rtl" className="list-group-item my-2"
                     style={{ 'borderTop': `solid ${getBorderColor(report.isHandled)} 3pt` }}
                     key={index}>
                     <ReportItem LOGGEDUSER={user.id} report={report}/>

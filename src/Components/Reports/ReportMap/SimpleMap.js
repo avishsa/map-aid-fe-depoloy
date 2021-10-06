@@ -15,18 +15,22 @@ const LATLNG = [32.0576485, 34.7652664];
 function LocationMarker({ onLocationFound, lat, lng, location }) {
   const [position, setPosition] = useState(lat && lng ? { lat: lat, lng: lng } : null);
   const [locationName, setLocationName] = useState(location);
-  function setAddress({ country = "", neighbourhood = "", village = "", city = "", road = "", house_number = "", suburb = "" }) {
-    let name = village ? village : `${city}${suburb ? `, ${suburb}` : ""}${road ? `, ${road}` : ""}${neighbourhood ? `, ${neighbourhood}` : ""} ${house_number}`;
-    name = name === ' ' ? country : name;
-    return name;
+  function setAddress({ country = "", neighbourhood = "", town="",village = "", city = "", road = "", house_number = "", suburb = "" }) {
+    let start = village;
+    if(start!=="") return start;   
+    start=town;
+    if(start!=="") return `${start}${road ? `, ${road} ${house_number}`:""}`;
+    start=city;
+    if(start!=="") return  `${city}${suburb ? `, ${suburb}` : ""}${road ? `, ${road}` : ""}${neighbourhood ? `, ${neighbourhood}` : ""} ${house_number}`;
+    return country;
+    
   }
   const map = useMapEvents({
     locationfound(e) {
       setPosition(e.latlng)
       const geocoder = L.Control.Geocoder.nominatim();
-      geocoder.reverse(e.latlng, map.options.crs.scale(300), results => {
-        const name = setAddress( results[0].properties.address);
-        
+      geocoder.reverse(e.latlng, map.options.crs.scale(300), results => {        
+        const name = results[0] ? setAddress( results[0].properties.address): "Illegal address";        
         setLocationName(name);
         onLocationFound(name, e?.latlng.lat, e?.latlng.lng);
       })
@@ -39,9 +43,8 @@ function LocationMarker({ onLocationFound, lat, lng, location }) {
       setPosition(e.latlng)
       map.flyTo(e.latlng, map.getZoom())
       const geocoder = L.Control.Geocoder.nominatim();
-      geocoder.reverse(e.latlng, map.options.crs.scale(300), results => {
-        
-        const name = setAddress( results[0].properties.address);
+      geocoder.reverse(e.latlng, map.options.crs.scale(300), results => {        
+        const name = results[0] ? setAddress( results[0].properties.address): "Illegal address";
         setLocationName(name);
         onLocationFound(name, e?.latlng.lat, e?.latlng.lng);
       })

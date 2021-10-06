@@ -26,7 +26,7 @@ export default function AppContent() {
       <Router history={history}>
         <div className="App container d-flex flex-column justify-content-end">
           <Header />
-          {/* <ScrollToTop /> */}
+          <ScrollToTop /> 
           <ReportRouter />
           <UserRouter />
 
