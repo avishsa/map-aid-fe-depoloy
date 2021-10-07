@@ -101,13 +101,14 @@ export function reports(state = { saveReport: initialSaveReport, property: "",it
                 saveReport: action.report
             }
         }
-        case reportConstants.CREATE_REPORT_SUCCESS: return {
+        case reportConstants.CREATE_REPORT_SUCCESS: {return {
             ...state,
             loadingCreate: false,
             createReport: true,
             newReport: action.report,
             saveReport: null
         }
+    }
         case reportConstants.CREATE_REPORT_FAILURE: return {
             ...state,
             loadingCreate: false,

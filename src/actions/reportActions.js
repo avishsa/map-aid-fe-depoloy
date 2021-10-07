@@ -109,7 +109,7 @@ function createReport(data) {
             ;
     };
     function request(data) { return { type: reportConstants.CREATE_REPORT_REQUEST, report: data } }
-    function success(report) { return { type: reportConstants.CREATE_REPORT_SUCCESS, report } }
+    function success(report) { localStorage.removeItem("report"); return { type: reportConstants.CREATE_REPORT_SUCCESS, report } }
     function failure(error) { return { type: reportConstants.CREATE_REPORT_FAILURE, error } }
 
 }
