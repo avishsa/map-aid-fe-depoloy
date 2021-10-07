@@ -97,9 +97,11 @@ function LocationMarker({ onLocationFound, lat, lng, location, hasMap, setHasMap
       classNames: {
         resetButton: "ResetButton"
 
-      }
+      },
+      position:'topright'
     });
     map.addControl(search);
+    map.zoomControl.setPosition('topright');
     setHasMap(true);
 
 
