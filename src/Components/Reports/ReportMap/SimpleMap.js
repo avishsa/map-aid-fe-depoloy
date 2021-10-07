@@ -75,7 +75,7 @@ function LocationMarker({ onLocationFound, lat, lng, location,hasMap,setHasMap }
   if (position !== null && locationName !== null) {
     return (
       <Marker id="markerMap" position={position}>
-        <Popup add={e => console.log(e)} closeButton={true} closeOnClick={false}>
+        <Popup  closeButton={true} closeOnClick={false}>
           {locationName}
         </Popup>
       </Marker>
@@ -96,7 +96,9 @@ export default function SimpleMap() {
   const redirect = (e) => { e.preventDefault(); if(report.location !== ''){ setHasMap(false); history.push("/report/create");} }
   window.onbeforeunload = e => {
     e.preventDefault();
-    localStorage.setItem('report', JSON.stringify({ ...report, persom_location: "", location_lng: undefined, location_lat: undefined }));
+    const localReport = JSON.stringify({ ...report, person_location: "", location_lng: undefined, location_lat: undefined })
+    
+    localStorage.setItem('report', localReport);
   }
   return (
     <MapContainer id="mapid" center={latlng} zoom={15} scrollWheelZoom={true}>

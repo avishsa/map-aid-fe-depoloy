@@ -1,13 +1,14 @@
 
 import { reportConstants, reportFilterProperty, reportFilterCatagory } from "../constants/report.constants";
 const initialSaveReport = JSON.parse(localStorage.getItem('report'));
-export function reports(state = { saveReport: initialSaveReport, property: "" }, action) {
+export function reports(state = { saveReport: initialSaveReport, property: "",items_filtered:[] }, action) {
     switch (action.type) {
         case reportConstants.GETALL_REQUEST:
             return {
                 loading: true
             };
-        case reportConstants.GETALL_SUCCESS:
+        case reportConstants.GETALL_SUCCESS:{
+            
             return {
                 items: action.reports,
                 items_catagory: action.reports,
@@ -15,6 +16,7 @@ export function reports(state = { saveReport: initialSaveReport, property: "" },
                 items_filtered: action.reports,
                 property: reportFilterProperty.EMPTY,
             };
+            }
         case reportConstants.GETALL_FAILURE:
             return {
                 error: action.error
@@ -38,7 +40,7 @@ export function reports(state = { saveReport: initialSaveReport, property: "" },
             switch (action.filter) {
                 case reportFilterCatagory.ANYBODY: break;
                 case reportFilterCatagory.NOBODY: funcFilter = el => !el.user_id_handler; break;
-                case reportFilterCatagory.ME: funcFilter = el => el.user_id_handler === action.userId; break;                
+                case reportFilterCatagory.ME: funcFilter = el => el.user_id_handler === action.userId; break;
                 case reportFilterCatagory.STATUS_DONE: funcFilter = el => el.status === 'DONE'; break;
                 default: throw new Error('filter parameter is invalid');
             }
@@ -91,15 +93,20 @@ export function reports(state = { saveReport: initialSaveReport, property: "" },
                 updateHandler: false
             }
         }
-        case reportConstants.CREATE_REPORT_REQUEST: return {
-            ...state,
-            loadingCreate: true
+        case reportConstants.CREATE_REPORT_REQUEST: {
+            
+            return {
+                ...state,
+                loadingCreate: true,
+                saveReport: action.report
+            }
         }
         case reportConstants.CREATE_REPORT_SUCCESS: return {
             ...state,
             loadingCreate: false,
             createReport: true,
-            newReport: action.report
+            newReport: action.report,
+            saveReport: null
         }
         case reportConstants.CREATE_REPORT_FAILURE: return {
             ...state,

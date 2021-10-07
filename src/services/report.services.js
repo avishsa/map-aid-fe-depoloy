@@ -5,9 +5,9 @@ const _getAll = user_id => {
     return getReports()
         .then(({ data }) => {
             data = data.filter(el => el.isHandled === false || el.user_id_handler === user_id);
-            return data;
+            return { data: data };
         })
-        .catch(err => { console.log(err); });
+        .catch(err => { return { err: err } });
 }
 const _updateHandler = (reportId, reportHandlerId, userId) => {
 
@@ -15,16 +15,17 @@ const _updateHandler = (reportId, reportHandlerId, userId) => {
         .then(res => {
             return { reportId, userId }
         })
-        .catch(res => { console.log("failure", res); });
+        .catch(res => { return { res } });
 
 }
 const _createReport = data => {
-
     return createReport(data)
         .then(res => {
-            return data;
+            if (res.data) {
+                return { data: data };
+            }
         })
-        .catch(err => err)
+        .catch(err => { return { err: err }; })
 }
 export const reportService = {
 

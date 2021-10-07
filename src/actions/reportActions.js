@@ -18,14 +18,18 @@ function getAll(user_id) {
 
     return dispatch => {
         dispatch(request());
-
         reportService._getAll(user_id)
             .then(
-                reports => dispatch(success(reports)),
-                error => dispatch(failure(error.toString()))
+                res => {
+
+                    if (res?.data) dispatch(success(res.data))
+                    else {
+                        if (res?.err) dispatch(failure(res.error.toString()))
+                        else dispatch(failure("couldn't get reports"))
+                    }
+                }
             );
     };
-
     function request() { return { type: reportConstants.GETALL_REQUEST } }
     function success(reports) { return { type: reportConstants.GETALL_SUCCESS, reports } }
     function failure(error) { return { type: reportConstants.GETALL_FAILURE, error } }
@@ -59,7 +63,7 @@ function updateHandler(reportId, reportHandlerId, userId) {
 
 }
 function saveReport(data) {
-    
+
     return dispatch => {
         dispatch(request(data))
         history.push("/");
@@ -67,7 +71,7 @@ function saveReport(data) {
     function request(data) { return { type: reportConstants.SAVE_REPORT, report: data } }
 }
 function saveLocation(location, lat, lng) {
-     return { type: reportConstants.SAVE_LOCATION, report: { person_location:location, location_lat:lat, location_lng:lng } } 
+    return { type: reportConstants.SAVE_LOCATION, report: { person_location: location, location_lat: lat, location_lng: lng } }
 }
 function createReport(data) {
     data = {
@@ -78,22 +82,33 @@ function createReport(data) {
     delete data["report_time"];
 
     return dispatch => {
-        dispatch(request());
+
+        dispatch(request(data));
 
         reportService._createReport(data)
             .then(
-                report => {
-                    dispatch(success(data));
-                    localStorage.removeItem("report");
-                    history.push("/report/success");
-                },
-                error => {
-                    dispatch(failure(error.toString()));
-                    history.push("/report/failure");
+                res => {
+                    if (res.err) {
+                        dispatch(failure(res.err));
+                        history.push("/report/failure");
+                    }
+                    if (res.data) {
+                        dispatch(success(data));
+                        localStorage.removeItem("report");
+                        history.push("/report/success");
+                    }
+                    dispatch(failure("something went wrong"));
                 }
-            );
+            )
+            .catch(error => {
+
+                dispatch(failure(error.toString()));
+                history.push("/report/failure");
+
+            })
+            ;
     };
-    function request() { return { type: reportConstants.CREATE_REPORT_REQUEST } }
+    function request(data) { return { type: reportConstants.CREATE_REPORT_REQUEST, report: data } }
     function success(report) { return { type: reportConstants.CREATE_REPORT_SUCCESS, report } }
     function failure(error) { return { type: reportConstants.CREATE_REPORT_FAILURE, error } }
 

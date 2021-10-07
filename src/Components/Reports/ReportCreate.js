@@ -28,7 +28,7 @@ function ReportCreate() {
     const loadingCreate = useSelector(state => state.reports.loadingCreate);
 
     const saveReport = useSelector(state => state.reports.saveReport);
-
+    
     const defaultValues = (saveReport !== null && saveReport["report_time"] !== undefined) ? saveReport : {
         "isNotify": false,
         "report_datetime": getDateTime(new Date()),

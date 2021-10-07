@@ -18,7 +18,7 @@ export default function ReportIndex() {
     const reports = useSelector(state => { return state.reports });
     const filterParam = useSelector(state => { ; return state.reports.property });
     const dispatch = useDispatch();
-
+    
     useEffect(() => {
         dispatch(reportActions.getAll(user.id));
     }, [dispatch, user]);
