@@ -1,7 +1,7 @@
 
 import { userConstants } from '../constants/user.constants';
 import { _login,_logout ,_islogged} from '../services/user.services';
-
+import { history } from "../helps/history";
 
 export const userActions = {
     login,
@@ -28,9 +28,9 @@ function login(data) {
     function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
 }
 
-function logout() {
-    
+function logout() {   
     _logout();
+    history.push("/user/login");
     return { type: userConstants.LOGOUT };
 }
 function isLogged(){
