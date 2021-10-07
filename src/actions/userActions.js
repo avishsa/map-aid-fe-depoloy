@@ -30,7 +30,7 @@ function login(data) {
 
 function logout() {   
     _logout();
-    history.push("/user/login");
+    history.push("/");
     return { type: userConstants.LOGOUT };
 }
 function isLogged(){
