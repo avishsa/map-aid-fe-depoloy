@@ -23,7 +23,7 @@ export default function Explain() {
                     מה מיקומו של דר הרחוב?
                 </div>
                 <div className="AddressTextContainer">
-                    <input className="text-start px-3 AddressText" type="text" disabled value={report ? report.person_location:""} />
+                    <input className=" px-3 AddressText" type="text" disabled value={report ? report.person_location:""} />
                 </div>
                 <div className='ExplainMap'>
                     לשינוי מיקום יש לסמן על המפה או לחפש בעזרת סמל החיפוש משמאל ולסמן מיקום מדוייק.

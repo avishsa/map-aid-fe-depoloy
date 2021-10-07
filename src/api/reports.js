@@ -2,7 +2,7 @@ import axios from 'axios';
 import {API} from './index';
 import MockAxios from "../test/mocks/MockAxios";
 const serverUrl = "https://elem-homeless-mapping.herokuapp.com/api";
-const token = sessionStorage.getItem('token');
+// const token = sessionStorage.getItem('token');
 const basicAxios = process.env.JEST_WORKER_ID === undefined ? axios.create({
     baseURL: serverUrl,
     //headers:{ Authorization: `Bearer ${token}`}

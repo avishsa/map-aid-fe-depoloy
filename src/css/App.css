@@ -30,3 +30,11 @@ input {
   background-color: white; 
 }
 
+.headerPage{
+  position: fixed !important;
+  top: 70pt !important;
+  width: 100% !important;
+  z-index:  1040 !important;
+  padding-bottom: 20pt !important;
+  background-color: rgb(233, 236, 241) !important;
+}

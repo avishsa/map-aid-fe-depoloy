@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Redirect } from "react-router";
+
 import { useForm, FormProvider } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -28,7 +28,7 @@ function ReportCreate() {
     const loadingCreate = useSelector(state => state.reports.loadingCreate);
 
     const saveReport = useSelector(state => state.reports.saveReport);
-    
+
     const defaultValues = (saveReport !== null && saveReport["report_time"] !== undefined) ? saveReport : {
         "isNotify": false,
         "report_datetime": getDateTime(new Date()),
@@ -50,18 +50,20 @@ function ReportCreate() {
     const onError = (errors, e) => { }
     const getErrorMsg = errorList => errorList[""]?.message;
 
-    window.onbeforeunload = e =>{
+    window.onbeforeunload = e => {
         e.preventDefault();
-        localStorage.setItem('report',JSON.stringify(methods.watch()));       
+        localStorage.setItem('report', JSON.stringify(methods.watch()));
     }
-    
+
 
     return (<div id="formContainer" className="d-flex flex-column justify-content-center">
-        <h1 className="text-end"> זיהוי דר רחוב</h1>
-
+        <div className="headerPage ">
+            <h1 className=" text-end"> זיהוי דר רחוב</h1>
+        </div>
         <FormProvider {...methods}>
             <form
                 id="createReport"
+                style={{ marginTop: "40pt" }}
                 className="form-inline needs-validation"
                 noValidate
                 onSubmit={methods.handleSubmit(onSubmit, onError)}

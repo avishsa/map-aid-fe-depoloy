@@ -21,7 +21,8 @@ export default function MapGroup() {
                 <button 
                 id="locationChangeBtn"
                 className=" btn-sm form-control btn mx-1" 
-                onClick={() => { 
+                onClick={(e) => { 
+                    e.preventDefault() 
                     dispatch(reportActions.saveReport(watch()));                    
                     }}>שינוי</button>
             </div>

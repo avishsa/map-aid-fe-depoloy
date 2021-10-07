@@ -36,12 +36,12 @@ export default function ReportIndex() {
 
     return (<div className="d-flex flex-column justify-content-center" >
 
-        <div id="headerPage" style={{"position": "fixed","top":"70pt","width": "100%","zIndex": "1040","backgroundColor":"rgb(233, 236, 241)"}}>
+        <div id="headerPage" className="headerPage" >
             {user.name && <h1 className="text-end">{`היי ${user.name}`}</h1>}
             <NavReports />
             {filterParam !== undefined && <FormReports />}
         </div>
-        {reports.items_filtered && (<ul dir="ltr" className="list-group overflow-auto" style={{marginTop:"100pt", paddingInlineStart: '0 !important' }}>
+        {reports.items_filtered && (<ul dir="ltr" className="list-group " style={{ marginTop:'15pt',paddingInlineStart: '0 !important' }}>
             {reports.items_filtered.map((report, index) => (
                 <li dir="rtl" className="list-group-item my-2"
                     style={{ 'borderTop': `solid ${getBorderColor(report.isHandled)} 3pt` }}

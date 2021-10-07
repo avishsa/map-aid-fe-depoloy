@@ -12,26 +12,38 @@ import * as GeoSearch from 'leaflet-geosearch';
 import { reportActions } from '../../../actions/reportActions';
 const LATLNG = [32.0576485, 34.7652664];
 
-function LocationMarker({ onLocationFound, lat, lng, location,hasMap,setHasMap }) {
+function LocationMarker({ onLocationFound, lat, lng, location, hasMap, setHasMap }) {
   const [position, setPosition] = useState(lat && lng ? { lat: lat, lng: lng } : null);
   const [locationName, setLocationName] = useState(location);
-  
-  function setAddress({ country = "", neighbourhood = "", town="",village = "", city = "", road = "", house_number = "", suburb = "" }) {
+
+  function setAddress({ country = "", neighbourhood = "", town = "", village = "", city = "", road = "", house_number = "", suburb = "" }) {
+
     let start = village;
-    if(start!=="") return start;   
-    start=town;
-    if(start!=="") return `${start}${road ? `, ${road} ${house_number}`:""}`;
-    start=city;
-    if(start!=="") return  `${city}${suburb ? `, ${suburb}` : ""}${road ? `, ${road}` : ""}${neighbourhood ? `, ${neighbourhood}` : ""} ${house_number}`;   
+    if (start !== "") return start;
+    start = town;
+    if (start !== "") return `${start}${road ? `, ${road} ${house_number}` : ""}`;
+    start = city;
+    if (start !== "") return `${city}${suburb ? `, ${suburb}` : ""}${road ? `, ${road}` : ""}${neighbourhood ? `, ${neighbourhood}` : ""} ${house_number}`;
     return country;
-    
+
   }
+
   const map = useMapEvents({
     locationfound(e) {
       setPosition(e.latlng)
-      const geocoder = L.Control.Geocoder.nominatim();
-      geocoder.reverse(e.latlng, map.options.crs.scale(300), results => {                
-        const name = results[0] ? setAddress( results[0].properties.address): "Illegal address";        
+
+      const geocoder = L.Control.Geocoder.nominatim({
+        geocodingQueryParams: {
+          'accept-language': 'he', // render results in Hebrew
+          countrycodes: 'il', // limit search results to the Israel
+        },
+        reverseQueryParams:{
+          'accept-language': 'he', // render results in Hebrew
+          countrycodes: 'il', // limit search results to the Israel
+        }
+      });
+      geocoder.reverse(e.latlng, map.options.crs.scale(300), results => {
+        const name = results[0] ? setAddress(results[0].properties.address) : "Illegal address";
         setLocationName(name);
         onLocationFound(name, e?.latlng.lat, e?.latlng.lng);
       })
@@ -41,12 +53,21 @@ function LocationMarker({ onLocationFound, lat, lng, location,hasMap,setHasMap }
       if (e.containerPoint.y > 325) {
         return
       }
-      
+
       setPosition(e.latlng)
       map.flyTo(e.latlng, map.getZoom())
-      const geocoder = L.Control.Geocoder.nominatim();
-      geocoder.reverse(e.latlng, map.options.crs.scale(300), results => {        
-        const name = results[0] ? setAddress( results[0].properties.address): "Illegal address";
+      const geocoder = L.Control.Geocoder.nominatim({
+        geocodingQueryParams:{
+          'accept-language': 'he', // render results in Hebrew
+          countrycodes: 'il', // limit search results to the Israel
+        },
+        reverseQueryParams:{
+          'accept-language': 'he', // render results in Hebrew
+          countrycodes: 'il', // limit search results to the Israel
+        }
+      });
+      geocoder.reverse(e.latlng, map.options.crs.scale(300), results => {
+        const name = results[0] ? setAddress(results[0].properties.address) : "Illegal address";
         setLocationName(name);
         onLocationFound(name, e?.latlng.lat, e?.latlng.lng);
       })
@@ -57,25 +78,36 @@ function LocationMarker({ onLocationFound, lat, lng, location,hasMap,setHasMap }
   useEffect(() => {
     if (!lat || !lng)
       map.locate();
+    if (hasMap) {
+      return;
+    }
     const search = new GeoSearch.GeoSearchControl({
-      provider: new GeoSearch.OpenStreetMapProvider(),
+      provider: new GeoSearch.OpenStreetMapProvider({
+        params: {
+          'accept-language': 'he', // render results in Hebrew
+          countrycodes: 'il', // limit search results to the Israel
+
+        },
+      }),
       showMarker: false,
       searchLabel: "הכנס כתובת",
       notFoundMessage: "לא נמצאו תוצאות",
       autoClose: true,
-      classNames: { resetButton: "ResetButton" }
+      classNames: {
+        resetButton: "ResetButton"
+
+      }
     });
-    
-    if(!hasMap){
-      map.addControl(search);
-      setHasMap(true);
-    }
-  }, [map])
+    map.addControl(search);
+    setHasMap(true);
+
+
+  }, [map, hasMap, setHasMap, lat, lng])
 
   if (position !== null && locationName !== null) {
     return (
       <Marker id="markerMap" position={position}>
-        <Popup  closeButton={true} closeOnClick={false}>
+        <Popup closeButton={true} closeOnClick={false}>
           {locationName}
         </Popup>
       </Marker>
@@ -88,16 +120,16 @@ function LocationMarker({ onLocationFound, lat, lng, location,hasMap,setHasMap }
 
 export default function SimpleMap() {
   const report = useSelector(state => state.reports.saveReport);
-  const [hasMap,setHasMap] = useState(false);
+  const [hasMap, setHasMap] = useState(false);
   const latlng = report?.location_lat && report?.location_lng ? [report.location_lat, report.location_lng] : LATLNG;
-  
+
   const dispatch = useDispatch();
   const onLocationFound = (name, lat, lng) => { dispatch(reportActions.saveLocation(name, lat, lng)) };
-  const redirect = (e) => { e.preventDefault(); if(report.location !== ''){ setHasMap(false); history.push("/report/create");} }
+  const redirect = (e) => { e.preventDefault(); if (report.location !== '') { setHasMap(false); history.push("/report/create"); } }
   window.onbeforeunload = e => {
     e.preventDefault();
     const localReport = JSON.stringify({ ...report, person_location: "", location_lng: undefined, location_lat: undefined })
-    
+
     localStorage.setItem('report', localReport);
   }
   return (
