@@ -2,7 +2,7 @@ import React from 'react';
 import { userActions} from "../../actions/userActions";
 import { useDispatch,useSelector } from 'react-redux';
 import { history } from '../../helps/history';
-export default function NavApp(/*{ token }*/) {
+export default function NavApp() {
     const dispatch = useDispatch();    
     
     const loggedIn = useSelector(state => { return state.authentication.loggedIn});

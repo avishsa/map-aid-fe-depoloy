@@ -10,4 +10,3 @@ export const fakeLogin = (user) => new Promise(function (resolve, reject) {
 });
 
 
-// export const fakeauthToken = token=> API('POST','/auth/token',token)

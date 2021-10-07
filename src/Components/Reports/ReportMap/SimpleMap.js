@@ -12,16 +12,17 @@ import * as GeoSearch from 'leaflet-geosearch';
 import { reportActions } from '../../../actions/reportActions';
 const LATLNG = [32.0576485, 34.7652664];
 
-function LocationMarker({ onLocationFound, lat, lng, location }) {
+function LocationMarker({ onLocationFound, lat, lng, location,hasMap,setHasMap }) {
   const [position, setPosition] = useState(lat && lng ? { lat: lat, lng: lng } : null);
   const [locationName, setLocationName] = useState(location);
+  
   function setAddress({ country = "", neighbourhood = "", town="",village = "", city = "", road = "", house_number = "", suburb = "" }) {
     let start = village;
     if(start!=="") return start;   
     start=town;
     if(start!=="") return `${start}${road ? `, ${road} ${house_number}`:""}`;
     start=city;
-    if(start!=="") return  `${city}${suburb ? `, ${suburb}` : ""}${road ? `, ${road}` : ""}${neighbourhood ? `, ${neighbourhood}` : ""} ${house_number}`;
+    if(start!=="") return  `${city}${suburb ? `, ${suburb}` : ""}${road ? `, ${road}` : ""}${neighbourhood ? `, ${neighbourhood}` : ""} ${house_number}`;   
     return country;
     
   }
@@ -29,7 +30,7 @@ function LocationMarker({ onLocationFound, lat, lng, location }) {
     locationfound(e) {
       setPosition(e.latlng)
       const geocoder = L.Control.Geocoder.nominatim();
-      geocoder.reverse(e.latlng, map.options.crs.scale(300), results => {        
+      geocoder.reverse(e.latlng, map.options.crs.scale(300), results => {                
         const name = results[0] ? setAddress( results[0].properties.address): "Illegal address";        
         setLocationName(name);
         onLocationFound(name, e?.latlng.lat, e?.latlng.lng);
@@ -40,6 +41,7 @@ function LocationMarker({ onLocationFound, lat, lng, location }) {
       if (e.containerPoint.y > 325) {
         return
       }
+      
       setPosition(e.latlng)
       map.flyTo(e.latlng, map.getZoom())
       const geocoder = L.Control.Geocoder.nominatim();
@@ -63,11 +65,12 @@ function LocationMarker({ onLocationFound, lat, lng, location }) {
       autoClose: true,
       classNames: { resetButton: "ResetButton" }
     });
-    if(!position)
+    
+    if(!hasMap){
       map.addControl(search);
-
+      setHasMap(true);
+    }
   }, [map])
-
 
   if (position !== null && locationName !== null) {
     return (
@@ -85,11 +88,12 @@ function LocationMarker({ onLocationFound, lat, lng, location }) {
 
 export default function SimpleMap() {
   const report = useSelector(state => state.reports.saveReport);
+  const [hasMap,setHasMap] = useState(false);
   const latlng = report?.location_lat && report?.location_lng ? [report.location_lat, report.location_lng] : LATLNG;
-
+  
   const dispatch = useDispatch();
   const onLocationFound = (name, lat, lng) => { dispatch(reportActions.saveLocation(name, lat, lng)) };
-  const redirect = () => { report.location !== '' ? history.push("/report/create") : console.log("empty location"); }
+  const redirect = (e) => { e.preventDefault(); if(report.location !== ''){ setHasMap(false); history.push("/report/create");} }
   window.onbeforeunload = e => {
     e.preventDefault();
     localStorage.setItem('report', JSON.stringify({ ...report, persom_location: "", location_lng: undefined, location_lat: undefined }));
@@ -101,6 +105,8 @@ export default function SimpleMap() {
         location={report?.person_location}
         lat={report?.location_lat}
         lng={report?.location_lng}
+        hasMap={hasMap}
+        setHasMap={setHasMap}
       />
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

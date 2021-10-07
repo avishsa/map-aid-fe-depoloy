@@ -132,10 +132,7 @@ export default function DatePickerHE({ value }) {
                                 />)}
                         />
                         <div className="mr-1 pr-2 d-flex flex-row  invalid-feedback">
-                            {/*errors &&
-                                errors[""] &&
-                                errors[""].type === "maxDate" &&
-                                errors[""].message*/
+                            {
                                 errors["report_time"] &&
                                 errors["report_time"].message
                             }

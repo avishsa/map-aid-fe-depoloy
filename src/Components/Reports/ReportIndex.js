@@ -34,7 +34,7 @@ export default function ReportIndex() {
     }
 
 
-    return (<div className="d-flex flex-column justify-content-center" /*style={{height:"410pt"}}*/>
+    return (<div className="d-flex flex-column justify-content-center" >
 
         <div id="headerPage" style={{"position": "fixed","top":"70pt","width": "100%","zIndex": "1040","backgroundColor":"rgb(233, 236, 241)"}}>
             {user.name && <h1 className="text-end">{`היי ${user.name}`}</h1>}
