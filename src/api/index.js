@@ -1,4 +1,5 @@
 const deploy = async (method, path, data,basicAxios) => {
+    
     switch (method) {
         case 'POST': return data ? basicAxios.post(path, data) : basicAxios.post(path);
         case 'DELETE': return data ? basicAxios.delete(path, data) : basicAxios.delete(path);
