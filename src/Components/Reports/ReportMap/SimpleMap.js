@@ -81,6 +81,7 @@ function LocationMarker({ onLocationFound, lat, lng, location, hasMap, setHasMap
     if (hasMap) {
       return;
     }
+    
     const search = new GeoSearch.GeoSearchControl({
       provider: new GeoSearch.OpenStreetMapProvider({
         params: {
@@ -103,7 +104,7 @@ function LocationMarker({ onLocationFound, lat, lng, location, hasMap, setHasMap
 
 
   }, [map, hasMap, setHasMap, lat, lng])
-
+  
   if (position !== null && locationName !== null) {
     return (
       <Marker id="markerMap" position={position}>
