@@ -1,7 +1,7 @@
 
 import { reportConstants, reportFilterProperty, reportFilterCatagory } from "../constants/report.constants";
 const initialSaveReport = JSON.parse(localStorage.getItem('report'));
-export function reports(state = {saveReport:initialSaveReport, property: "" }, action) {
+export function reports(state = { saveReport: initialSaveReport, property: "" }, action) {
     switch (action.type) {
         case reportConstants.GETALL_REQUEST:
             return {
@@ -20,54 +20,37 @@ export function reports(state = {saveReport:initialSaveReport, property: "" }, a
                 error: action.error
             };
         case reportConstants.FILTER_BY_PROPERTY: {
+            let funcFilter = null;
             switch (action.filter) {
-                case reportFilterProperty.DISTRESS: return {
-                    ...state,
-                    property: reportFilterProperty.DISTRESS,
-                    items_filtered: state?.items_catagory.filter(el => el.isDistressed)
-                }
-                case reportFilterProperty.MALE: return {
-                    ...state,
-                    property: reportFilterProperty.MALE,
-                    items_filtered: state?.items_catagory.filter(el => el.person_gender === 'זכר')
-                }
-                case reportFilterProperty.FEMALE: return {
-                    ...state,
-                    property: reportFilterProperty.FEMALE,
-                    items_filtered: state?.items_catagory.filter(el => el.person_gender === 'נקבה')
-                }
-
+                case reportFilterProperty.DISTRESS: funcFilter = el => el.isDistressed; break;
+                case reportFilterProperty.MALE: funcFilter = el => el.person_gender === 'זכר'; break;
+                case reportFilterProperty.FEMALE: funcFilter = el => el.person_gender === 'נקבה'; break;
                 default: throw new Error('filter parameter is invalid');
+            }
+            return {
+                ...state,
+                property: action.filter,
+                items_filtered: state?.items_catagory.filter(funcFilter)
             }
         }
         case reportConstants.FILTER_BY_CATAGORY: {
+            let funcFilter = null;
             switch (action.filter) {
-                case reportFilterCatagory.ANYBODY: return {
-                    ...state,
-                    items_catagory: state?.items,
-                    items_filtered: state?.items,
-                    catagory: reportFilterCatagory.ANYBODY,
-                    property: reportFilterProperty.EMPTY
-                };
-                case reportFilterCatagory.NOBODY: return {
-                    ...state,
-                    items_catagory: state?.items.filter(el => !el.user_id_handler),
-                    items_filtered: state?.items.filter(el => !el.user_id_handler),
-                    catagory: reportFilterCatagory.NOBODY,
-                    property: reportFilterProperty.EMPTY
-                };
-                case reportFilterCatagory.ME: return {
-                    ...state,
-                    items_catagory: state?.items.filter(el => el.user_id_handler === action.userId),
-                    items_filtered: state?.items.filter(el => el.user_id_handler === action.userId),
-                    catagory: reportFilterCatagory.ME,
-                    property: reportFilterProperty.EMPTY
-                };
+                case reportFilterCatagory.ANYBODY: break;
+                case reportFilterCatagory.NOBODY: funcFilter = el => !el.user_id_handler; break;
+                case reportFilterCatagory.ME: funcFilter = el => el.user_id_handler === action.userId; break;                
+                case reportFilterCatagory.STATUS_DONE: funcFilter = el => el.status === 'DONE'; break;
                 default: throw new Error('filter parameter is invalid');
+            }
+            return {
+                ...state,
+                items_catagory: funcFilter ? state?.items.filter(funcFilter) : state?.items,
+                items_filtered: funcFilter ? state?.items.filter(funcFilter) : state?.items,
+                catagory: action.filter,
+                property: reportFilterProperty.EMPTY
             }
         }
         case reportConstants.SORT: {
-
             switch (action.orderName) {
                 case 'incDate': return { ...state, items_filtered: state?.items_filtered.sort((el1, el2) => { return new Date(el2.report_datetime) - new Date(el1.report_datetime) }) };
                 case 'decDate': return { ...state, items_filtered: state?.items_filtered.sort((el1, el2) => { return new Date(el1.report_datetime) - new Date(el2.report_datetime) }) };
@@ -125,7 +108,7 @@ export function reports(state = {saveReport:initialSaveReport, property: "" }, a
             error: action.error
         }
         case reportConstants.SAVE_REPORT: {
-            
+
             return {
                 ...state,
                 saveReport: action.report

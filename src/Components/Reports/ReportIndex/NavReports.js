@@ -11,15 +11,23 @@ export default function NavReports() {
     return (<nav className=" d-flex flex-row navbar  navbar-light ">
         <ul className="d-flex flex-row p-0 m-0">
             <li className=" d-flex flex-row">
-                <button id="emergacyLink"
-                    onClick={() => { changeFilter(reportFilterCatagory.ANYBODY) }}
-                    className="nav-link btn text-secondary" >{reportFilterCatagory.ANYBODY} <span className="sr-only">(current)</span></button>
+                <button
+                    className="nav-link btn black"
+                    onClick={() => { changeFilter(reportFilterCatagory.ANYBODY) }}>
+                    {reportFilterCatagory.ANYBODY} <span className="sr-only">(current)</span>
+                </button>
             </li>
             <li className=" d-flex flex-row">
-                <button className="nav-link btn blue" onClick={() => { changeFilter(reportFilterCatagory.ME) }}>{reportFilterCatagory.ME} <span className="sr-only">(current)</span></button>
+                <button className="nav-link btn blue"
+                    onClick={() => { changeFilter(reportFilterCatagory.ME) }}>
+                    {reportFilterCatagory.ME} <span className="sr-only">(current)</span>
+                </button>
             </li>
             <li className=" d-flex flex-row">
                 <button className="nav-link btn text-success" onClick={() => { changeFilter(reportFilterCatagory.NOBODY) }}>{reportFilterCatagory.NOBODY} <span className="sr-only">(current)</span></button>
+            </li>
+            <li className=" d-flex flex-row">
+                <button className="nav-link btn text-secondary" onClick={() => { changeFilter(reportFilterCatagory.STATUS_DONE) }}>{reportFilterCatagory.STATUS_DONE} <span className="sr-only">(current)</span></button>
             </li>
         </ul>
     </nav>);

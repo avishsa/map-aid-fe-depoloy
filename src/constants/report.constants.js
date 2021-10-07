@@ -32,5 +32,6 @@ export const reportFilterProperty = {
 export const reportFilterCatagory = {
     ANYBODY:'כל הדיווחים',
     NOBODY:'חדשים',
-    ME: 'בטיפולי'
+    ME: 'בטיפולי',
+    STATUS_DONE:'סיום טיפול'
 }
