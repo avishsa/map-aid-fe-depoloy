@@ -12,12 +12,8 @@ import * as GeoSearch from 'leaflet-geosearch';
 import { reportActions } from '../../../actions/reportActions';
 const LATLNG = [32.0576485, 34.7652664];
 
-function LocationMarker({ onLocationFound, lat, lng, location, hasMap, setHasMap }) {
-  const [position, setPosition] = useState(lat && lng ? { lat: lat, lng: lng } : null);
-  const [locationName, setLocationName] = useState(location);
-
+function LocationMarker({ onLocationFound, position, setPosition, locationName, setLocationName, hasMap, setHasMap }) {
   function setAddress({ country = "", neighbourhood = "", town = "", village = "", city = "", road = "", house_number = "", suburb = "" }) {
-
     let start = village;
     if (start !== "") return start;
     start = town;
@@ -27,67 +23,42 @@ function LocationMarker({ onLocationFound, lat, lng, location, hasMap, setHasMap
     return country;
 
   }
-
-  const map = useMapEvents({
-    locationfound(e) {
-      setPosition(e.latlng)
-
-      const geocoder = L.Control.Geocoder.nominatim({
-        geocodingQueryParams: {
-          'accept-language': 'he', // render results in Hebrew
-          countrycodes: 'il', // limit search results to the Israel
-        },
-        reverseQueryParams:{
-          'accept-language': 'he', // render results in Hebrew
-          countrycodes: 'il', // limit search results to the Israel
-        }
-      });
-      geocoder.reverse(e.latlng, map.options.crs.scale(300), results => {
-        const name = results[0] ? setAddress(results[0].properties.address) : "Illegal address";
-        setLocationName(name);
-        onLocationFound(name, e?.latlng.lat, e?.latlng.lng);
-      })
-      map.flyTo(e.latlng, map.getZoom())
+  const geocoder = L.Control.Geocoder.nominatim({
+    geocodingQueryParams: {
+      'accept-language': 'he', // render results in Hebrew
+      countrycodes: 'il', // limit search results to the Israel
     },
+    reverseQueryParams: {
+      'accept-language': 'he', // render results in Hebrew
+      countrycodes: 'il', // limit search results to the Israel
+    }
+  });
+  const getLocationNameByCoordinates = (coordinates,map)=>{
+    geocoder.reverse(coordinates, map.options.crs.scale(300), results => {
+      const name = results[0] ? setAddress(results[0].properties.address) : "Illegal address";
+      setLocationName(name);
+      setPosition(coordinates); 
+      onLocationFound(name, coordinates?.latlng?.lat, coordinates?.latlng?.lng);
+      map.flyTo(coordinates, map.getZoom())
+    })
+  }
+  const map = useMapEvents({
+    locationfound(e) { getLocationNameByCoordinates(e.latlng,map);},
     click(e) {
-      if (e.containerPoint.y > 325) {
-        return
-      }
-
-      setPosition(e.latlng)
-      map.flyTo(e.latlng, map.getZoom())
-      const geocoder = L.Control.Geocoder.nominatim({
-        geocodingQueryParams:{
-          'accept-language': 'he', // render results in Hebrew
-          countrycodes: 'il', // limit search results to the Israel
-        },
-        reverseQueryParams:{
-          'accept-language': 'he', // render results in Hebrew
-          countrycodes: 'il', // limit search results to the Israel
-        }
-      });
-      geocoder.reverse(e.latlng, map.options.crs.scale(300), results => {
-        const name = results[0] ? setAddress(results[0].properties.address) : "Illegal address";
-        setLocationName(name);
-        onLocationFound(name, e?.latlng.lat, e?.latlng.lng);
-      })
-
+      if (e.containerPoint.y > 325) return                 
+      getLocationNameByCoordinates(e?.latlng,map);     
     }
   })
 
   useEffect(() => {
-    if (!lat || !lng)
-      map.locate();
-    if (hasMap) {
-      return;
-    }
-    
+    if (!position) map.locate();
+    if (hasMap) return;
+
     const search = new GeoSearch.GeoSearchControl({
       provider: new GeoSearch.OpenStreetMapProvider({
         params: {
           'accept-language': 'he', // render results in Hebrew
           countrycodes: 'il', // limit search results to the Israel
-
         },
       }),
       showMarker: false,
@@ -96,18 +67,15 @@ function LocationMarker({ onLocationFound, lat, lng, location, hasMap, setHasMap
       autoClose: true,
       classNames: {
         resetButton: "ResetButton"
-
       },
-      position:'topright'
+      position: 'topright'
     });
     map.addControl(search);
     map.zoomControl.setPosition('topright');
     setHasMap(true);
+  }, [map, hasMap, setHasMap, position])
 
-
-  }, [map, hasMap, setHasMap, lat, lng])
-  
-  if (position !== null && locationName !== null) {
+  if (position && locationName ) {
     return (
       <Marker id="markerMap" position={position}>
         <Popup closeButton={true} closeOnClick={false}>
@@ -116,32 +84,35 @@ function LocationMarker({ onLocationFound, lat, lng, location, hasMap, setHasMap
       </Marker>
     )
   }
-
   return <div id="failedMarker"></div>;
 }
 
 
 export default function SimpleMap() {
   const report = useSelector(state => state.reports.saveReport);
+  const [position, setPosition] = useState(report?.location_lat && report?.location_lng ? { lat: report?.location_lat, lng: report?.location_lng } : null);
+  const [locationName, setLocationName] = useState(report?.person_location);
   const [hasMap, setHasMap] = useState(false);
   const latlng = report?.location_lat && report?.location_lng ? [report.location_lat, report.location_lng] : LATLNG;
 
   const dispatch = useDispatch();
   const onLocationFound = (name, lat, lng) => { dispatch(reportActions.saveLocation(name, lat, lng)) };
   const redirect = (e) => { e.preventDefault(); if (report.location !== '') { setHasMap(false); history.push("/report/create"); } }
+  
   window.onbeforeunload = e => {
     e.preventDefault();
-    const localReport = JSON.stringify({ ...report, person_location: "", location_lng: undefined, location_lat: undefined })
-
+    const localReport = JSON.stringify({ ...report, person_location: locationName, location_lng: position?.lng, location_lat: position?.lat })
     localStorage.setItem('report', localReport);
   }
+
   return (
     <MapContainer id="mapid" center={latlng} zoom={15} scrollWheelZoom={true}>
       <LocationMarker
         onLocationFound={onLocationFound}
-        location={report?.person_location}
-        lat={report?.location_lat}
-        lng={report?.location_lng}
+        position={position}
+        setPosition={setPosition}
+        locationName={locationName}
+        setLocationName={setLocationName}
         hasMap={hasMap}
         setHasMap={setHasMap}
       />
