@@ -41,7 +41,7 @@ export default function ReportIndex() {
             <NavReports />
             {filterParam !== undefined && <FormReports />}
         </div>
-        {reports.items_filtered && (<ul dir="ltr" className="list-group " style={{ marginTop:'30pt',paddingInlineStart: '0 !important' }}>
+        {reports.items_filtered && (<ul dir="ltr" className="list-group " style={{ marginTop:'80pt',paddingInlineStart: '0 !important' }}>
             {reports.items_filtered.map((report, index) => (
                 <li dir="rtl" className="list-group-item my-2"
                     style={{ 'borderTop': `solid ${getBorderColor(report.isHandled)} 3pt` }}
