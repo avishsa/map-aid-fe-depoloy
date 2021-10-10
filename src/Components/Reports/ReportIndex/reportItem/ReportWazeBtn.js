@@ -13,7 +13,7 @@ export default function ReportWazeBtn({ lng, lat }) {
                 event.stopPropagation();
             }}
         >
-            <label style={{ cursor: 'pointer' }} htmlFor="BtnWaze" className="col-6"> נווט עם</label>
+            <label style={{ cursor: 'pointer' }} htmlFor="BtnWaze" className="col-8"> נווט עם</label>
             <img
                 alt="go2waze"
                 id="BtnWaze"
