@@ -14,11 +14,11 @@ export default function ReportItem({ report, LOGGEDUSER, patchReport }) {
             return <ReportDescriptionBtn />
         return description ? (<ReportDescriptionBtn
             style={{ cursor: 'pointer' }}
-            onclick={() => { setDescription(false); }}
+            onclick={(e) => { e.preventDefault(); setDescription(false); }}
             text="-" />)
             : (<ReportDescriptionBtn
                 style={{ cursor: 'pointer' }}
-                onclick={() => { setDescription(true); }}
+                onclick={(e) => { e.preventDefault(); setDescription(true); }}
                 text="+" />)
     }
     const reportDate = new Date(report.report_datetime);
