@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { reportActions } from "../../../actions/reportActions";
+
 import ReportDescriptionBtn from './reportItem/ReportDescriptionBtn';
 import ReportIcons from './reportItem/ReportIcons';
 import ReportWazeBtn from './reportItem/ReportWazeBtn';
@@ -9,7 +8,7 @@ import ReportStatusChange from './reportItem/ReportStatusChange';
 //color according to : HandledByMe = red NotHandled - green  handledBySomeOne else - blank
 export default function ReportItem({ report, LOGGEDUSER, patchReport }) {
     const [description, setDescription] = useState(false);
-    const dispatch = useDispatch();
+    
     const getDescripionBtn = () => {
         if (!report.person_general_description)
             return <ReportDescriptionBtn />
@@ -25,11 +24,9 @@ export default function ReportItem({ report, LOGGEDUSER, patchReport }) {
     const reportDate = new Date(report.report_datetime);
 
     return (<div
-        className="d-flex flex-column bd-highlight"
-        onClick={() => {
-            dispatch(reportActions.updateHandler(report.id, report.user_id_handler, LOGGEDUSER));
-        }}>
-        <div className="d-flex  flex-row bd-highlight justify-content-between">
+        className="d-flex flex-column bd-highlight">
+        
+        <div className="d-flex mb-3 flex-row bd-highlight justify-content-between ">
             <ReportTimeLocation date={reportDate} location={report.person_location} />
             <ReportIcons
                 gender={report.person_gender}
@@ -37,11 +34,17 @@ export default function ReportItem({ report, LOGGEDUSER, patchReport }) {
                 pantsColor={report.person_pants_color}
             />
         </div>
-        <div>
-            <div className="d-flex  flex-row bd-highlight align-items-center">
+
+        <div >
+            <div className="d-flex  flex-row bd-highlight align-items-center justify-content-between">
                 {getDescripionBtn()}
                 <ReportWazeBtn lng={report.location_lng} lat={report.location_lat} />
-                <ReportStatusChange status={report.status}/>
+                <ReportStatusChange 
+                status={report.isHandled/*report.status*/}
+                reportId={report.id}
+                reportUserIdHandler={report.user_id_handler}
+                loggedUser={LOGGEDUSER}
+                />
             </div>
         </div>
         {

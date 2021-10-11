@@ -7,7 +7,9 @@ export const reportActions = {
     filterByProperty,
     filterByCatagory,
     sort,
-    updateHandler,
+    assignHandler,
+    unassignHandler,
+    updateStatus,
 
     createReport,
     saveReport,
@@ -44,7 +46,7 @@ function filterByCatagory(catagoryName, userId) {
 function sort(orderName) {
     return { type: reportConstants.SORT, orderName: orderName };
 }
-function updateHandler(reportId, reportHandlerId, userId) {
+function assignHandler(reportId, reportHandlerId, userId) {
     if (reportHandlerId !== null && reportHandlerId !== undefined)
         return { type: reportConstants.HANDLER_SET_OCCUPIED }
 
@@ -62,6 +64,22 @@ function updateHandler(reportId, reportHandlerId, userId) {
     function failure(error) { return { type: reportConstants.HANDLER_SET_FAILURE, error } }
 
 }
+function unassignHandler(reportId) {
+    return dispatch => {
+        dispatch(request());
+
+        reportService._updateHandler(reportId)
+            .then(
+                report => dispatch(success(reportId)),
+                error => dispatch(failure(error.toString()))
+            );
+    };
+    function request() { return { type: reportConstants.UNASSIGN_SET_REQUEST } }
+    function success(reportId, userId) { return { type: reportConstants.UNASSIGN_SET_SUCCESS, reportId, userId } }
+    function failure(error) { return { type: reportConstants.UNASSIGN_SET_FAILURE, error } }
+
+}
+
 function saveReport(data) {
 
     return dispatch => {
@@ -112,4 +130,20 @@ function createReport(data) {
     function success(report) { localStorage.removeItem("report"); return { type: reportConstants.CREATE_REPORT_SUCCESS, report } }
     function failure(error) { return { type: reportConstants.CREATE_REPORT_FAILURE, error } }
 
+}
+function updateStatus(reportId,status){
+    console.log("need to implement");
+    return { type: reportConstants.UPDATESTATUS_SET_FAILURE, error:"need to implement" } 
+    /*return dispatch => {
+        dispatch(request());
+
+        reportService._updateStatus(reportId,status)
+            .then(
+                report => dispatch(success(reportId)),
+                error => dispatch(failure(error.toString()))
+            );
+    };*/
+    function request() { return { type: reportConstants.UPDATESTATUS_SET_REQUEST } }
+    function success(reportId, userId) { return { type: reportConstants.UPDATESTATUS_SET_SUCCESS, reportId, userId } }
+    function failure(error) { return { type: reportConstants.UPDATESTATUS_SET_FAILURE, error } }
 }
