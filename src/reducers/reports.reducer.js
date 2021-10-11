@@ -1,14 +1,14 @@
 
 import { reportConstants, reportFilterProperty, reportFilterCatagory } from "../constants/report.constants";
 const initialSaveReport = JSON.parse(localStorage.getItem('report'));
-export function reports(state = { saveReport: initialSaveReport, property: "",items_filtered:[] }, action) {
+export function reports(state = { saveReport: initialSaveReport, property: "", items_filtered: [] }, action) {
     switch (action.type) {
         case reportConstants.GETALL_REQUEST:
             return {
                 loading: true
             };
-        case reportConstants.GETALL_SUCCESS:{
-            
+        case reportConstants.GETALL_SUCCESS: {
+
             return {
                 items: action.reports,
                 items_catagory: action.reports,
@@ -16,7 +16,7 @@ export function reports(state = { saveReport: initialSaveReport, property: "",it
                 items_filtered: action.reports,
                 property: reportFilterProperty.EMPTY,
             };
-            }
+        }
         case reportConstants.GETALL_FAILURE:
             return {
                 error: action.error
@@ -54,8 +54,12 @@ export function reports(state = { saveReport: initialSaveReport, property: "",it
         }
         case reportConstants.SORT: {
             switch (action.orderName) {
-                case 'incDate': return { ...state, items_filtered: state?.items_filtered.sort((el1, el2) => { return new Date(el2.report_datetime) - new Date(el1.report_datetime) }) };
-                case 'decDate': return { ...state, items_filtered: state?.items_filtered.sort((el1, el2) => { return new Date(el1.report_datetime) - new Date(el2.report_datetime) }) };
+                case 'incDate': return {
+                    ...state,
+                    items_filtered: state?.items_filtered.sort((el1, el2) => { return new Date(el2.report_datetime) - new Date(el1.report_datetime) })
+                };
+                case 'decDate': return { ...state,
+                     items_filtered: state?.items_filtered.sort((el1, el2) => { return new Date(el1.report_datetime) - new Date(el2.report_datetime) }) };
                 default: throw new Error('invalid sort');
             }
         }
@@ -94,21 +98,22 @@ export function reports(state = { saveReport: initialSaveReport, property: "",it
             }
         }
         case reportConstants.CREATE_REPORT_REQUEST: {
-            
+
             return {
                 ...state,
                 loadingCreate: true,
                 saveReport: action.report
             }
         }
-        case reportConstants.CREATE_REPORT_SUCCESS: {return {
-            ...state,
-            loadingCreate: false,
-            createReport: true,
-            newReport: action.report,
-            saveReport: null
+        case reportConstants.CREATE_REPORT_SUCCESS: {
+            return {
+                ...state,
+                loadingCreate: false,
+                createReport: true,
+                newReport: action.report,
+                saveReport: null
+            }
         }
-    }
         case reportConstants.CREATE_REPORT_FAILURE: return {
             ...state,
             loadingCreate: false,

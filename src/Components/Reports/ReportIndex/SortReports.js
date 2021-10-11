@@ -6,7 +6,7 @@ import {reportActions} from "../../../actions/reportActions";
 const valueToLabel = {'incDate':'מהחדש לישן', 'decDate':'מהישן לחדש','':''}
 export default function SortReports() {   
     
-    const [sortParam, setSortParam] = useState('');
+    const [sortParam, setSortParam] = useState('incDate');
     const dispatch = useDispatch();;
     const changeOrder = (orderName) => {
       setSortParam(orderName); 
@@ -14,7 +14,7 @@ export default function SortReports() {
     }
     return (<div style={{ cursor: 'pointer'  }} className={`d-flex flex-row justify-content-end bd-highlight dropdown `}>
         <button className="btn dropdown-toggle" type="button"  data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      {`מיין ${valueToLabel[sortParam]}`}     
+      {`${valueToLabel[sortParam]}`}     
     </button>
     <ul className="dropdown-menu text-end dropdown-menu-end" aria-labelledby="dropdownMenuButton">
     
