@@ -34,11 +34,12 @@ function LocationMarker({ onLocationFound, position, setPosition, locationName, 
     }
   });
   const getLocationNameByCoordinates = (coordinates,map)=>{
+    
     geocoder.reverse(coordinates, map.options.crs.scale(300), results => {
       const name = results[0] ? setAddress(results[0].properties.address) : "Illegal address";
       setLocationName(name);
       setPosition(coordinates); 
-      onLocationFound(name, coordinates?.latlng?.lat, coordinates?.latlng?.lng);
+      onLocationFound(name, coordinates?.lat, coordinates?.lng);
       map.flyTo(coordinates, map.getZoom())
     })
   }
@@ -96,7 +97,7 @@ export default function SimpleMap() {
   const latlng = report?.location_lat && report?.location_lng ? [report.location_lat, report.location_lng] : LATLNG;
 
   const dispatch = useDispatch();
-  const onLocationFound = (name, lat, lng) => { dispatch(reportActions.saveLocation(name, lat, lng)) };
+  const onLocationFound = (name, lat, lng) => {  dispatch(reportActions.saveLocation(name, lat, lng)) };
   const redirect = (e) => { e.preventDefault(); if (report.location !== '') { setHasMap(false); history.push("/report/create"); } }
   
   window.onbeforeunload = e => {

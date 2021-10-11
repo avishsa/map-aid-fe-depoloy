@@ -10,10 +10,10 @@ export function reports(state = { saveReport: initialSaveReport, property: "", i
         case reportConstants.GETALL_SUCCESS: {
 
             return {
-                items: action.reports,
-                items_catagory: action.reports,
+                items: action.reports.sort((el1, el2) => { return new Date(el2.report_datetime) - new Date(el1.report_datetime) }),
+                items_catagory: action.reports.sort((el1, el2) => { return new Date(el2.report_datetime) - new Date(el1.report_datetime) }),
                 catagory: reportFilterCatagory.ANYBODY,
-                items_filtered: action.reports,
+                items_filtered: action.reports.sort((el1, el2) => { return new Date(el2.report_datetime) - new Date(el1.report_datetime) }),
                 property: reportFilterProperty.EMPTY,
             };
         }
