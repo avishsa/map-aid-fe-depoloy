@@ -90,7 +90,7 @@ function LocationMarker({ onLocationFound, position, setPosition, locationName, 
 
 
 export default function SimpleMap() {
-  const report = useSelector(state => state.reports.saveReport);
+  const report = useSelector(state => state.createReport.temp);
   const [position, setPosition] = useState(report?.location_lat && report?.location_lng ? { lat: report?.location_lat, lng: report?.location_lng } : null);
   const [locationName, setLocationName] = useState(report?.person_location);
   const [hasMap, setHasMap] = useState(false);

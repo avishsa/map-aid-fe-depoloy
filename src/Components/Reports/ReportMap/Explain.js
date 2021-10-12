@@ -4,7 +4,7 @@ import '../../../css/report/Explain.css';
 
 
 export default function Explain() {
-    const report = useSelector(state => state.reports.saveReport);
+    const report = useSelector(state => state.createReport.temp);
     return (
         <>
             <div className='ExplainContainer d-flex flex-column'>

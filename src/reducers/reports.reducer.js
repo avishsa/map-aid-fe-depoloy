@@ -72,7 +72,6 @@ export function reports(state = { saveReport: initialSaveReport, property: "", i
         case reportConstants.HANDLER_SET_SUCCESS: {
             const reportId = action.reportId;
             const userId = action.userId;
-
             return {
                 ...state,
                 loadingUpdate: false,
@@ -157,51 +156,7 @@ export function reports(state = { saveReport: initialSaveReport, property: "", i
                 updateHandler: false
             }
         }
-
-
-
-        case reportConstants.CREATE_REPORT_REQUEST: {
-
-            return {
-                ...state,
-                loadingCreate: true,
-                saveReport: action.report
-            }
-        }
-        case reportConstants.CREATE_REPORT_SUCCESS: {
-            return {
-                ...state,
-                loadingCreate: false,
-                createReport: true,
-                newReport: action.report,
-                saveReport: null
-            }
-        }
-        case reportConstants.CREATE_REPORT_FAILURE: return {
-            ...state,
-            loadingCreate: false,
-            createReport: false,
-            error: action.error
-        }
-        case reportConstants.SAVE_REPORT: {
-
-            return {
-                ...state,
-                saveReport: action.report
-            }
-        }
-        case reportConstants.SAVE_LOCATION: {
-
-            return {
-                ...state,
-                saveReport: {
-                    ...state?.saveReport,
-                    person_location: action.report.person_location,
-                    location_lng: action.report.location_lng,
-                    location_lat: action.report.location_lat
-                }
-            }
-        }
+       
         default: return state;
     }
 }
