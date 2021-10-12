@@ -20,3 +20,7 @@ ul {
 .black{
     color:black;
 }
+.close-report-btn{
+    background-color:rgb(128,128,128);
+    color:rgb(255,255,255)
+}

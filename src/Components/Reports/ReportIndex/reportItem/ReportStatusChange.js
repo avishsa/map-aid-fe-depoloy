@@ -25,11 +25,11 @@ export default function ReportStatusChange({ status,reportId, reportUserIdHandle
             return (
                 <div className=" d-flex flex-row">
                     <button
-                        className="mx-1 btn btn-success"
+                        className="mx-1 btn rounded-pill btn-success"
                         onClick={() => { dispatch(reportActions.assignHandler(reportId, reportUserIdHandler, loggedUser)); }}>
                         העבר לטיפולי</button>
-                    <button className="btn btn-secondary" 
-                    onClick={ closeStatus}> סגור דיווח</button>
+                    <button className="btn rounded-pill close-report-btn" 
+                    onClick={ closeStatus}> סיום טיפול</button>
                 </div>
             )
         }

@@ -12,9 +12,9 @@ export default function SortReports() {
       setSortParam(orderName); 
       dispatch(reportActions.sort(orderName));      
     }
-    return (<div style={{ cursor: 'pointer'  }} className={`d-flex flex-row justify-content-end bd-highlight dropdown `}>
+    return (<div style={{ cursor: 'pointer'  }} className={`d-flex flex-row justify-content-end bd-highlight dropdown   `}>
         <button className="btn dropdown-toggle" type="button"  data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      {`${valueToLabel[sortParam]}`}     
+      {` ${valueToLabel[sortParam]} `}     
     </button>
     <ul className="dropdown-menu text-end dropdown-menu-end" aria-labelledby="dropdownMenuButton">
     
