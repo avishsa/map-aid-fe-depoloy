@@ -12,11 +12,10 @@ export const _login = data => {
     
     return loginUser(data)
     .then(({data:{token,first_name,last_name}})=>{
-        
         const user_name = `${first_name} ${last_name}`;
         sessionStorage.setItem('token', JSON.stringify(token));
         sessionStorage.setItem('user', JSON.stringify(user_name));
-        return user_name;
+        return {...data,token,first_name,last_name};
     })
 
        

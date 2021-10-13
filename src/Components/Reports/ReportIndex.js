@@ -13,7 +13,6 @@ import "../../css/report/reportIndex.css"
 
 
 export default function ReportIndex() {
-
     const user = useSelector(state => { return state.authentication.user });
     const reports = useSelector(state => { return state.reports });
     const filterParam = useSelector(state => { ; return state.reports.property });
@@ -38,7 +37,7 @@ export default function ReportIndex() {
     return (<div className="d-flex flex-column justify-content-center" >
 
         <div id="headerPage" className="headerPage" >
-            {user.name && <h1 className="text-end">{`היי ${user.name}`}</h1>}
+            {user.first_name && user.last_name && <h1 className="text-end">{`היי ${user.first_name} ${user.last_name}`}</h1>}
             <NavReports />
             {filterParam !== undefined && <FormReports />}
         </div>

@@ -14,7 +14,7 @@ function login(data) {
         dispatch(request(data));
         _login(data)
             .then(
-                res => {                     
+                res => {                                    
                     dispatch(success(res));                  
                 },
                 error => {
