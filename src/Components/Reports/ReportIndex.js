@@ -20,7 +20,7 @@ export default function ReportIndex() {
     const dispatch = useDispatch();
     
     useEffect(() => {
-        debugger;
+        
         dispatch(reportActions.getAll(user.id,sessionStorage.getItem('token')));
     }, [dispatch, user]);
 
