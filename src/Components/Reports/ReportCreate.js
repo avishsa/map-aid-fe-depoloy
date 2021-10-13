@@ -25,9 +25,9 @@ import ReporterDetails from "./ReportCreate/ReporterDetails";
 function ReportCreate() {
     const dispatch = useDispatch();
 
-    const loadingCreate = useSelector(state => state.reports.loadingCreate);
+    const loadingCreate = useSelector(state => state.createReport.loadingCreate);
 
-    const saveReport = useSelector(state => state.reports.saveReport);
+    const saveReport = useSelector(state => state.createReport.temp);
 
     const defaultValues = (saveReport !== null && saveReport["report_time"] !== undefined) ? saveReport : {
         "isNotify": false,

@@ -23,10 +23,10 @@ function getAll(user_id,token) {
         reportService._getAll(user_id,token)
             .then(
                 res => {
-
+                    
                     if (res?.data) dispatch(success(res.data))
                     else {
-                        if (res?.err) dispatch(failure(res.error.toString()))
+                        if (res?.err) { dispatch(failure(res.err.toString()))}
                         else dispatch(failure("couldn't get reports"))
                     }
                 }

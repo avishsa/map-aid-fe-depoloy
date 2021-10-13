@@ -9,10 +9,10 @@ export default function FilterReports() {
   const dispatch = useDispatch();
   const changeFilter = filtername => dispatch(reportActions.filterByProperty(filtername));
   return (<div className={`dropdown `}>
-    <button className="btn dropdown-toggle"
+    <button className="btn dropdown-toggle filter-reports"
       type="button"
       data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      {`סנן לפי ${filterParam}`}
+      {` סנן לפי ${filterParam}`}
     </button>
     <ul className="dropdown-menu text-end dropdown-menu-end " aria-labelledby="dropdownMenuButton">
       <li>
