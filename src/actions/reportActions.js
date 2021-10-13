@@ -23,7 +23,7 @@ function getAll(user_id) {
         reportService._getAll(user_id)
             .then(
                 res => {
-                    debugger;
+                    
                     if (res?.data) dispatch(success(res.data))
                     else {
                         if (res?.err) { dispatch(failure(res.err.toString()))}
