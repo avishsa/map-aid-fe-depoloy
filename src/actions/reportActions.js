@@ -16,11 +16,11 @@ export const reportActions = {
     saveLocation
 
 };
-function getAll(user_id) {
+function getAll(user_id,token) {
 
     return dispatch => {
         dispatch(request());
-        reportService._getAll(user_id)
+        reportService._getAll(user_id,token)
             .then(
                 res => {
 

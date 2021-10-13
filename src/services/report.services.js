@@ -1,8 +1,8 @@
 
 import { getReports, assignReport, createReport,updateStatusReport } from "../api/reports";
 
-const _getAll = user_id => {
-    return getReports()
+const _getAll = (user_id,token) => {
+    return getReports(user_id, token)
         .then(({ data }) => {
             data = data.filter(el => el.isHandled === false || el.user_id_handler === user_id);
             return { data: data };
