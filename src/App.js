@@ -10,7 +10,7 @@ import Home from "./Components/Home";
 
 
 export default function App (){
-  
+
   const [startSession,setStartSession] =useState(true);
   const dispatch = useDispatch();
   const start = useSelector(state => state.slider.start);

@@ -2,31 +2,35 @@
 import { getReports, assignReport, createReport,updateStatusReport } from "../api/reports";
 
 const _getAll = user_id => {
+    
     return getReports()
         .then(({ data }) => {
+            
             data = data.filter(el => el.isHandled === false || el.user_id_handler === user_id);
             return { data: data };
         })
-        .catch(err => { return { err: err } });
+        .catch(err => {  return { err: err } });
 }
 const _updateHandler = (reportId, reportHandlerId, userId) => {
 
     return assignReport(reportId, userId)
         .then(res => {
-            debugger;
+            
             return { reportId, userId }
         })
         .catch(res => { return { res } });
 
 }
 const _createReport = data => {
+    
     return createReport(data)
         .then(res => {
             if (res.data) {
+                
                 return { data: data };
             }
         })
-        .catch(err => { return { err: err }; })
+        .catch(err => {  return { err: err }; })
 }
 const _updateStatus = (reportId,status)=>{
     return updateStatusReport({report_id:reportId,status})

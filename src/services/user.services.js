@@ -1,5 +1,5 @@
 import { fakeLogin } from "../api/fakeUsers";
-
+import {loginUser} from "../api/users";
 
 export const _logout = () => {
     
@@ -10,11 +10,13 @@ export const _logout = () => {
 
 export const _login = data => {
     
-    return fakeLogin(data)
-    .then(res=>{
-        sessionStorage.setItem('token', JSON.stringify(res.token));
-        sessionStorage.setItem('user', JSON.stringify(res.user));
-        return res.user;
+    return loginUser(data)
+    .then(({data:{token,first_name,last_name}})=>{
+        
+        const user_name = `${first_name} ${last_name}`;
+        sessionStorage.setItem('token', JSON.stringify(token));
+        sessionStorage.setItem('user', JSON.stringify(user_name));
+        return user_name;
     })
 
        

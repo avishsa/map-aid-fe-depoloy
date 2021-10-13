@@ -23,10 +23,10 @@ function getAll(user_id) {
         reportService._getAll(user_id)
             .then(
                 res => {
-
+                    debugger;
                     if (res?.data) dispatch(success(res.data))
                     else {
-                        if (res?.err) dispatch(failure(res.error.toString()))
+                        if (res?.err) { dispatch(failure(res.err.toString()))}
                         else dispatch(failure("couldn't get reports"))
                     }
                 }
