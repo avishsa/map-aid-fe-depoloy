@@ -11,14 +11,14 @@ import ReportIndex from "../Components/Reports/ReportIndex";
 
 function ReportRouter() {
   
-  const report = useSelector(state => state?.reports?.saveReport);
+  const report = useSelector(state => state?.createReport?.temp);
   return (<Switch>
     <Route exact path="/" render={props => <ReportMap />} />
     <Route
       exact
       path="/report/create"
       render={props => {
-  
+        
         if (report !== null && report !== undefined) {
   
           return <ReportCreate />

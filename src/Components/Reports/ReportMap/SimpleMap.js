@@ -33,25 +33,26 @@ function LocationMarker({ onLocationFound, position, setPosition, locationName, 
       countrycodes: 'il', // limit search results to the Israel
     }
   });
-  const getLocationNameByCoordinates = (coordinates,map)=>{
-    
+  const getLocationNameByCoordinates = (coordinates, map) => {
+
     geocoder.reverse(coordinates, map.options.crs.scale(300), results => {
       const name = results[0] ? setAddress(results[0].properties.address) : "Illegal address";
       setLocationName(name);
-      setPosition(coordinates); 
+      setPosition(coordinates);
       onLocationFound(name, coordinates?.lat, coordinates?.lng);
       map.flyTo(coordinates, map.getZoom())
     })
   }
   const map = useMapEvents({
-    locationfound(e) { getLocationNameByCoordinates(e.latlng,map);},
+    locationfound(e) { getLocationNameByCoordinates(e.latlng, map); },
     click(e) {
-      if (e.containerPoint.y > 325) return                 
-      getLocationNameByCoordinates(e?.latlng,map);     
+      if (e.containerPoint.y > 325) return
+      getLocationNameByCoordinates(e?.latlng, map);
     }
   })
 
   useEffect(() => {
+    
     if (!position) map.locate();
     if (hasMap) return;
 
@@ -76,7 +77,7 @@ function LocationMarker({ onLocationFound, position, setPosition, locationName, 
     setHasMap(true);
   }, [map, hasMap, setHasMap, position])
 
-  if (position && locationName ) {
+  if (position && locationName) {
     return (
       <Marker id="markerMap" position={position}>
         <Popup closeButton={true} closeOnClick={false}>
@@ -97,9 +98,17 @@ export default function SimpleMap() {
   const latlng = report?.location_lat && report?.location_lng ? [report.location_lat, report.location_lng] : LATLNG;
 
   const dispatch = useDispatch();
-  const onLocationFound = (name, lat, lng) => {  dispatch(reportActions.saveLocation(name, lat, lng)) };
-  const redirect = (e) => { e.preventDefault(); if (report.location !== '') { setHasMap(false); history.push("/report/create"); } }
-  
+  const onLocationFound = (name, lat, lng) => { dispatch(reportActions.saveLocation(name, lat, lng)) };
+  const redirect = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    if (report.person_location !== '') {
+      setHasMap(false);
+      history.push("/report/create");
+    }
+  }
+
   window.onbeforeunload = e => {
     e.preventDefault();
     const localReport = JSON.stringify({ ...report, person_location: locationName, location_lng: position?.lng, location_lat: position?.lat })

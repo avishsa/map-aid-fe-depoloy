@@ -92,6 +92,7 @@ function saveLocation(location, lat, lng) {
     return { type: reportConstants.SAVE_LOCATION, report: { person_location: location, location_lat: lat, location_lng: lng } }
 }
 function createReport(data) {
+    
     data = {
         ...data,
         report_datetime: getDateTimeFormattedString(data["report_date"], data["report_time"])
@@ -106,6 +107,7 @@ function createReport(data) {
         reportService._createReport(data)
             .then(
                 res => {
+                    
                     if (res.err) {
                         dispatch(failure(res.err));
                         history.push("/report/failure");
