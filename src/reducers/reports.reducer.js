@@ -75,13 +75,18 @@ export function reports(state = { items:[], property: "", items_filtered: [] }, 
         case reportConstants.HANDLER_SET_SUCCESS: {
             const reportId = action.reportId;
             const userId = action.userId;
+            const funcMap = report => {
+                return report.id === reportId ? 
+                { ...report,status:reportStatus.HANDLED, user_id_handler: userId, isHandled: true }
+                : report
+            }
             return {
                 ...state,
                 loadingUpdate: false,
                 updateHandler: true,
-                items: state?.items.map(report => report.id === reportId ? { ...report, user_id_handler: userId, isHandled: true } : report),
-                items_catagory: state?.items_catagory.map(report => report.id === reportId ? { ...report, user_id_handler: userId, isHandled: true } : report),
-                items_filtered: state?.items_filtered.map(report => report.id === reportId ? { ...report, user_id_handler: userId, isHandled: true } : report),
+                items: state?.items.map(funcMap),
+                items_catagory: state?.items_catagory.map(funcMap),
+                items_filtered: state?.items_filtered.map(funcMap),
             }
 
         }
@@ -102,14 +107,16 @@ export function reports(state = { items:[], property: "", items_filtered: [] }, 
         }
         case reportConstants.UNASSIGN_SET_SUCCESS: {
             const reportId = action.reportId;           
-
+            const funcMap = report => {
+                return report.id === reportId ? { ...report,status:reportStatus.PENDING, user_id_handler: null, isHandled: false } : report
+            }
             return {
                 ...state,
                 loadingUpdate: false,
                 updateHandler: true,
-                items: state?.items.map(report => report.id === reportId ? { ...report, user_id_handler: null, isHandled: false } : report),
-                items_catagory: state?.items_catagory.map(report => report.id === reportId ? { ...report, user_id_handler: null, isHandled: false } : report),
-                items_filtered: state?.items_filtered.map(report => report.id === reportId ? { ...report, user_id_handler: null, isHandled: false } : report),
+                items: state?.items.map(funcMap),
+                items_catagory: state?.items_catagory.map(funcMap),
+                items_filtered: state?.items_filtered.map(funcMap),
             }
 
         }
@@ -132,13 +139,16 @@ export function reports(state = { items:[], property: "", items_filtered: [] }, 
         case reportConstants.UPDATESTATUS_SET_SUCCESS: {
             const reportId = action.reportId;           
             const status = action.status;                       
+            const funcMap = report => {
+                return report.id === reportId ? { ...report,status:status } : report
+            }
             return {
                 ...state,
                 loadingUpdate: false,
                 updateHandler: true,
-                items: state?.items.map(report => report.id === reportId ? { ...report, status } : report),
-                items_catagory: state?.items_catagory.map(report => report.id === reportId ? { ...report,status } : report),
-                items_filtered: state?.items_filtered.map(report => report.id === reportId ? { ...report, status } : report),
+                items: state?.items.map(funcMap),
+                items_catagory: state?.items_catagory.map(funcMap),
+                items_filtered: state?.items_filtered.map(funcMap),
             }
         }
         case reportConstants.UPDATESTATUS_SET_FAILURE: {

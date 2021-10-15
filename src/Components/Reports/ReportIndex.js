@@ -28,7 +28,7 @@ export default function ReportIndex() {
 
 
     const getBorderColor = status => {       
-        debugger;
+        
         switch (status) {
             case reportStatus.HANDLED: return 'rgb(66, 91, 206)';
             case reportStatus.DONE: return 'rgb(136 ,137, 138)';

@@ -1,30 +1,30 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { reportActions } from '../../../../actions/reportActions';
-import { reportConstants } from '../../../../constants/report.constants';
+import { reportStatus } from '../../../../constants/report.constants';
 
 export default function ReportStatusChange({ status, reportId, reportUserIdHandler, loggedUser }) {
     const dispatch = useDispatch();
-    function closeStatus() {
-        
+    function closeStatus() {        
         dispatch(reportActions.updateStatus(reportId, loggedUser))
     }
+    
     switch (status) {
-        case true: {
+        case reportStatus.HANDLED: {
             return (
                 <div className="d-flex flex-row">
                     <button
-                        className="mx-1 btn btn-primary"
+                        className="mx-1 btn rounded-pill btn-primary"
                         onClick={() => {
                             dispatch(reportActions.unassignHandler(reportId, reportUserIdHandler, loggedUser));
                         }}> הסר מטיפולי</button>
-                    <button className="btn btn-secondary"
+                    <button className="btn rounded-pill btn-secondary"
                         onClick={closeStatus}>
-                        סגור דיווח</button>
+                        סיום טיפול</button>
                 </div>
             )
         }
-        case false: {
+        case reportStatus.PENDING: {
             return (
                 <div className=" d-flex flex-row">
                     <button
@@ -35,6 +35,14 @@ export default function ReportStatusChange({ status, reportId, reportUserIdHandl
                         onClick={closeStatus}> סיום טיפול</button>
                 </div>
             )
+        }
+        case reportStatus.DONE:{
+            return (<div className=" d-flex flex-row">
+                    <button
+                        className="mx-1 btn rounded-pill btn-success"
+                        onClick={() => { dispatch(reportActions.assignHandler(reportId, reportUserIdHandler, loggedUser)); }}>
+                        העבר לטיפולי</button>                    
+                </div>)
         }
         default: return null;
     }

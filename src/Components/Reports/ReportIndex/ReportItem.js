@@ -40,7 +40,7 @@ export default function ReportItem({ report, LOGGEDUSER, patchReport }) {
                 {getDescripionBtn()}
                 <ReportWazeBtn lng={report.location_lng} lat={report.location_lat} />
                 <ReportStatusChange 
-                status={report.isHandled/*report.status*/}
+                status={report.status}
                 reportId={report.id}
                 reportUserIdHandler={report.user_id_handler}
                 loggedUser={LOGGEDUSER}

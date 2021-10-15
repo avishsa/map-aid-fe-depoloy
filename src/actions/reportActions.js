@@ -38,10 +38,10 @@ function getAll(user_id, token) {
     function failure(error) { return { type: reportConstants.GETALL_FAILURE, error } }
 }
 function getAllHandled(user_id, token) {
-    return getAll(user_id,token);
+    return getAll(user_id, token);
 }
 function getAllPending(token) {
-    return getAll(null,token);
+    return getAll(null, token);
 }
 function filterByProperty(propertyName) {
     return { type: reportConstants.FILTER_BY_PROPERTY, filter: propertyName };
@@ -61,8 +61,9 @@ function assignHandler(reportId, reportHandlerId, userId) {
 
         reportService._updateHandler(reportId, reportHandlerId, userId)
             .then(
-                report => dispatch(success(reportId, userId)),
-                error => dispatch(failure(error.toString()))
+                res => {
+                    res?.err ? dispatch(failure(res.err.toString())) : dispatch(success(reportId, userId));
+                }
             );
     };
     function request() { return { type: reportConstants.HANDLER_SET_REQUEST } }
@@ -76,8 +77,7 @@ function unassignHandler(reportId) {
 
         reportService._updateHandler(reportId)
             .then(
-                report => dispatch(success(reportId)),
-                error => dispatch(failure(error.toString()))
+                res => res?.err ? dispatch(failure(res.err.toString())) : dispatch(success(reportId))
             );
     };
     function request() { return { type: reportConstants.UNASSIGN_SET_REQUEST } }
