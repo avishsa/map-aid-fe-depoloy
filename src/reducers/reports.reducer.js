@@ -39,10 +39,15 @@ export function reports(state = { items:[], property: "", items_filtered: [] }, 
         }
         case reportConstants.FILTER_BY_CATAGORY: {
             let funcFilter = null;
+            
             switch (action.filter) {
                 case reportFilterCatagory.ANYBODY: break;
-                case reportFilterCatagory.NOBODY: funcFilter = el => !el.user_id_handler; break;
-                case reportFilterCatagory.ME: funcFilter = el => el.user_id_handler === action.userId; break;
+                case reportFilterCatagory.NOBODY: funcFilter = el => el.status === reportStatus.PENDING; break;
+                case reportFilterCatagory.ME: funcFilter = el => {
+                    return el => el.status === reportStatus.HANDLED && el.user_id_handler === action.userId;
+                }
+                     break;
+                
                 case reportFilterCatagory.STATUS_DONE: funcFilter = el => el.status === reportStatus.DONE; break;
                 default: throw new Error('filter parameter is invalid');
             }

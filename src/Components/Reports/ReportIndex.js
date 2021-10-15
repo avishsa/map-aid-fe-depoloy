@@ -8,7 +8,7 @@ import ReportItem from './ReportIndex/ReportItem';
 
 import { reportActions } from "../../actions/reportActions";
 import "../../css/report/reportIndex.css"
-import { reportConstants,reportStatus } from '../../constants/report.constants';
+import { reportStatus } from '../../constants/report.constants';
 
 
 

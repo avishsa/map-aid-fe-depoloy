@@ -7,7 +7,7 @@ import { reportFilterCatagory } from "../../../constants/report.constants";
 export default function NavReports() {
     const dispatch = useDispatch();
     const user = useSelector(state => { return state.authentication.user });
-    const changeFilter = filtername => dispatch(reportActions.filterByCatagory(filtername, user.id))
+    const changeFilter = filtername => {dispatch(reportActions.filterByCatagory(filtername, user.id))}
     return (<nav className=" d-flex flex-row navbar  navbar-light ">
         <ul className="d-flex flex-row p-0 m-0">
             <li className=" d-flex flex-row col-4">
