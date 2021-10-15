@@ -33,7 +33,7 @@ const _createReport = data => {
         .catch(err => {  return { err: err }; })
 }
 const _updateStatus = (reportId,userId)=>{
-    return updateStatusReport({reportId,userId})
+    return updateStatusReport(reportId,userId)
     .then(res => {
         if (res.data) {
             return { reportId};

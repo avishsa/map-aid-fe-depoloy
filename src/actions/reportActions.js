@@ -1,9 +1,11 @@
 import { history } from "../helps/history";
 import { reportService } from "../services/report.services";
-import { reportConstants } from "../constants/report.constants";
+import { reportConstants, reportStatus } from "../constants/report.constants";
 import { getDateTimeFormattedString } from "../Utilities/TimeFormatter";
 export const reportActions = {
     getAll,
+    getAllHandled,
+    getAllPending,
     filterByProperty,
     filterByCatagory,
     sort,
@@ -16,17 +18,16 @@ export const reportActions = {
     saveLocation
 
 };
-function getAll(user_id,token) {
-
+function getAll(user_id, token) {
     return dispatch => {
         dispatch(request());
-        reportService._getAll(user_id,token)
+        reportService._getAll(user_id, token)
             .then(
                 res => {
-                    
+
                     if (res?.data) dispatch(success(res.data))
                     else {
-                        if (res?.err) { dispatch(failure(res.err.toString()))}
+                        if (res?.err) { dispatch(failure(res.err.toString())) }
                         else dispatch(failure("couldn't get reports"))
                     }
                 }
@@ -36,7 +37,12 @@ function getAll(user_id,token) {
     function success(reports) { return { type: reportConstants.GETALL_SUCCESS, reports } }
     function failure(error) { return { type: reportConstants.GETALL_FAILURE, error } }
 }
-
+function getAllHandled(user_id, token) {
+    return getAll(user_id,token);
+}
+function getAllPending(token) {
+    return getAll(null,token);
+}
 function filterByProperty(propertyName) {
     return { type: reportConstants.FILTER_BY_PROPERTY, filter: propertyName };
 }
@@ -92,7 +98,7 @@ function saveLocation(location, lat, lng) {
     return { type: reportConstants.SAVE_LOCATION, report: { person_location: location, location_lat: lat, location_lng: lng } }
 }
 function createReport(data) {
-    
+
     data = {
         ...data,
         report_datetime: getDateTimeFormattedString(data["report_date"], data["report_time"])
@@ -107,7 +113,7 @@ function createReport(data) {
         reportService._createReport(data)
             .then(
                 res => {
-                    
+
                     if (res.err) {
                         dispatch(failure(res.err));
                         history.push("/report/failure");
@@ -133,18 +139,22 @@ function createReport(data) {
     function failure(error) { return { type: reportConstants.CREATE_REPORT_FAILURE, error } }
 
 }
-function updateStatus(reportId,userId){
-    
+function updateStatus(reportId, userId) {
+
     return dispatch => {
         dispatch(request());
 
-        reportService._updateStatus(reportId,userId)
+        reportService._updateStatus(reportId, userId)
             .then(
-                report => dispatch(success(reportId)),
-                error => dispatch(failure(error.toString()))
+                res => {
+
+                    if (res.err) { dispatch(failure(res.err.toString())) }
+                    else dispatch(success(reportId))
+
+                }
             );
     };
     function request() { return { type: reportConstants.UPDATESTATUS_SET_REQUEST } }
-    function success(reportId, userId) { return { type: reportConstants.UPDATESTATUS_SET_SUCCESS, reportId, userId } }
+    function success(reportId, userId) { return { type: reportConstants.UPDATESTATUS_SET_SUCCESS, data: { reportId, userId, status: reportStatus.DONE } } }
     function failure(error) { return { type: reportConstants.UPDATESTATUS_SET_FAILURE, error } }
 }

@@ -17,7 +17,7 @@ export const _login = data => {
         
         const user_name = `${first_name} ${last_name}`;
         sessionStorage.setItem('token', JSON.stringify(token));
-        sessionStorage.setItem('user', JSON.stringify(user_name));
+        sessionStorage.setItem('user', JSON.stringify(user));
         return user;
     }).catch(err=>{
         

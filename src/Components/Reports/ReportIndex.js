@@ -8,11 +8,13 @@ import ReportItem from './ReportIndex/ReportItem';
 
 import { reportActions } from "../../actions/reportActions";
 import "../../css/report/reportIndex.css"
+import { reportConstants,reportStatus } from '../../constants/report.constants';
 
 
 
 
 export default function ReportIndex() {
+    
     const user = useSelector(state => { return state.authentication.user });
     const reports = useSelector(state => { return state.reports });
     const filterParam = useSelector(state => { ; return state.reports.property });
@@ -20,16 +22,20 @@ export default function ReportIndex() {
     
     useEffect(() => {
         console.log("get the reports from server");
-        dispatch(reportActions.getAll(user.id,sessionStorage.getItem('token')));
+        dispatch(reportActions.getAllHandled(user.id,sessionStorage.getItem('token')));
+        dispatch(reportActions.getAllPending(null,sessionStorage.getItem('token')));
     }, [dispatch, user]);
 
 
-    const getBorderColor = (isHandled) => {
-
-        switch (isHandled) {
-            case true: return 'rgb(66, 91, 206)';
-            case false: return 'green';
-            default: return 'rgb(136 ,137, 138)';
+    const getBorderColor = status => {       
+        debugger;
+        switch (status) {
+            case reportStatus.HANDLED: return 'rgb(66, 91, 206)';
+            case reportStatus.DONE: return 'rgb(136 ,137, 138)';
+            case reportStatus.PENDING: return 'green';
+            default: 
+            return 'green';
+            
         }
     }
 
@@ -44,7 +50,7 @@ export default function ReportIndex() {
         {reports.items_filtered && (<ul dir="ltr" className="list-group " style={{ marginTop:'120pt',paddingInlineStart: '0 !important' }}>
             {reports.items_filtered.map((report, index) => (
                 <li dir="rtl" className="list-group-item my-2"
-                    style={{ 'borderTop': `solid ${getBorderColor(report.isHandled)} 3pt` }}
+                    style={{ 'borderTop': `solid ${getBorderColor(report.status)} 3pt` }}
                     key={index}>
                     <ReportItem LOGGEDUSER={user.id} report={report} />
                 </li>

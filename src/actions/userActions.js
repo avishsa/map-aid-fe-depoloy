@@ -14,11 +14,9 @@ function login(data) {
         dispatch(request(data));
         _login(data)
             .then(
-                res => {                                    
-                    debugger;
+                res => {                                                        
                     if(res?.err)  dispatch(failure(res.err.toString()));                    
-                    else {dispatch(success(res));}                  
-                    
+                    else {dispatch(success(res));}                                      
                 },
                 
             );
