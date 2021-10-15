@@ -15,11 +15,12 @@ function login(data) {
         _login(data)
             .then(
                 res => {                                    
-                    dispatch(success(res));                  
+                    debugger;
+                    if(res?.err)  dispatch(failure(res.err.toString()));                    
+                    else {dispatch(success(res));}                  
+                    
                 },
-                error => {
-                    dispatch(failure(error.toString()));                    
-                }
+                
             );
     };
 

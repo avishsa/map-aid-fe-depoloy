@@ -15,8 +15,7 @@ const _getAll = (user_id,token) => {
 const _updateHandler = (reportId, reportHandlerId, userId) => {
 
     return assignReport(reportId, userId)
-        .then(res => {
-            
+        .then(res => {            
             return { reportId, userId }
         })
         .catch(res => { return { res } });
@@ -33,11 +32,11 @@ const _createReport = data => {
         })
         .catch(err => {  return { err: err }; })
 }
-const _updateStatus = (reportId,status)=>{
-    return updateStatusReport({report_id:reportId,status})
+const _updateStatus = (reportId,userId)=>{
+    return updateStatusReport({reportId,userId})
     .then(res => {
         if (res.data) {
-            return { reportId,status};
+            return { reportId};
         }
     })
     .catch(err => { return { err: err }; })

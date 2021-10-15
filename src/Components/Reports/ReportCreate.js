@@ -63,7 +63,7 @@ function ReportCreate() {
         <FormProvider {...methods}>
             <form
                 id="createReport"
-                style={{ marginTop: "80pt" }}
+                style={{ marginTop: "40pt" }}
                 className="px-1 form-inline needs-validation"
                 noValidate
                 onSubmit={methods.handleSubmit(onSubmit, onError)}

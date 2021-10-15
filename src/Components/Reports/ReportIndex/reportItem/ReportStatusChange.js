@@ -3,10 +3,11 @@ import { useDispatch } from 'react-redux';
 import { reportActions } from '../../../../actions/reportActions';
 import { reportConstants } from '../../../../constants/report.constants';
 
-export default function ReportStatusChange({ status,reportId, reportUserIdHandler,loggedUser }) {
+export default function ReportStatusChange({ status, reportId, reportUserIdHandler, loggedUser }) {
     const dispatch = useDispatch();
     function closeStatus() {
-        dispatch(reportActions.updateStatus(reportId,reportConstants.CLOSED));
+        
+        dispatch(reportActions.updateStatus(reportId, loggedUser))
     }
     switch (status) {
         case true: {
@@ -17,7 +18,9 @@ export default function ReportStatusChange({ status,reportId, reportUserIdHandle
                         onClick={() => {
                             dispatch(reportActions.unassignHandler(reportId, reportUserIdHandler, loggedUser));
                         }}> הסר מטיפולי</button>
-                    <button className="btn btn-secondary" onClick={closeStatus}> סגור דיווח</button>
+                    <button className="btn btn-secondary"
+                        onClick={closeStatus}>
+                        סגור דיווח</button>
                 </div>
             )
         }
@@ -28,8 +31,8 @@ export default function ReportStatusChange({ status,reportId, reportUserIdHandle
                         className="mx-1 btn rounded-pill btn-success"
                         onClick={() => { dispatch(reportActions.assignHandler(reportId, reportUserIdHandler, loggedUser)); }}>
                         העבר לטיפולי</button>
-                    <button className="btn rounded-pill close-report-btn" 
-                    onClick={ closeStatus}> סיום טיפול</button>
+                    <button className="btn rounded-pill close-report-btn"
+                        onClick={closeStatus}> סיום טיפול</button>
                 </div>
             )
         }

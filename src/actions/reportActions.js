@@ -133,18 +133,17 @@ function createReport(data) {
     function failure(error) { return { type: reportConstants.CREATE_REPORT_FAILURE, error } }
 
 }
-function updateStatus(reportId,status){
-    console.log("need to implement");
-    return { type: reportConstants.UPDATESTATUS_SET_FAILURE, error:"need to implement" } 
-    /*return dispatch => {
+function updateStatus(reportId,userId){
+    
+    return dispatch => {
         dispatch(request());
 
-        reportService._updateStatus(reportId,status)
+        reportService._updateStatus(reportId,userId)
             .then(
                 report => dispatch(success(reportId)),
                 error => dispatch(failure(error.toString()))
             );
-    };*/
+    };
     function request() { return { type: reportConstants.UPDATESTATUS_SET_REQUEST } }
     function success(reportId, userId) { return { type: reportConstants.UPDATESTATUS_SET_SUCCESS, reportId, userId } }
     function failure(error) { return { type: reportConstants.UPDATESTATUS_SET_FAILURE, error } }
