@@ -8,7 +8,7 @@ export default function FilterReports() {
   const filterParam = useSelector(state => { ; return state.reports.property });
   const dispatch = useDispatch();
   const changeFilter = filtername => dispatch(reportActions.filterByProperty(filtername));
-  return (<div className={`dropdown `}>
+  return (<div className={`dropdown col-8 `}>
     <button className="btn dropdown-toggle filter-reports"
       type="button"
       data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -33,17 +33,17 @@ input {
 .headerPage{
   position: fixed !important;
   top: 70pt !important;
-  left:312pt;
-  right:320pt;
+  width:100%;
+  
   z-index:  1040 !important;  
   background-color: rgb(233, 236, 241) !important;
 }
 
 @media  (max-width: 400px){
-  .headerPage{
-    left:0pt;
-    right:8pt;
-  }
+  
+}
+@media  (min-width: 400px){
+  
 }
 .dropdown-toggle::before{
   display: inline-block;
@@ -58,10 +58,7 @@ input {
   box-sizing: border-box;
 
 }
-.filter-reports{
- padding: 0; 
- 
-}
+
 .dropdown-toggle::after{
   display: none;
  

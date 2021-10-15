@@ -45,6 +45,7 @@ export const reportFilterCatagory = {
 }
 export const reportStatus = {
     NEW: "new",
-    ASSINGED:"assigned",
-    DONE:"done"
+    HANDLED:"In progress",
+    PENDING:"Pending",
+    DONE:"Done"
 }

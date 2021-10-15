@@ -4,7 +4,7 @@ import FilterReports from './FilterReports';
 import SortReports from './SortReports';
 export default function FormReports() {
 
-    return (<div  className="d-flex flex-row  bd-highlight justify-content-between ">
+    return (<div  className="d-flex flex-row  bd-highlight text-end ">
         
         <FilterReports />
         <SortReports />
