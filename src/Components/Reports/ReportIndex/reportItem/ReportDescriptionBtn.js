@@ -1,10 +1,18 @@
 import React from 'react';
-export default function ReportDescriptionBtn({ onclick, style = {}, text="" }) {
-    return onclick ? (<div
-        className="description"
-        style={style}
-        onClick={onclick}>
-        {text}
-    </div>):
-    null
+
+export default function ReportDescriptionBtn({ reportId, onclick, style = {}, text = "" }) {
+    return onclick ? (<div>
+        
+        <div
+            className="description "
+            style={style}
+            onClick={onclick}>
+            {text}
+            
+        </div>
+        
+
+    </div>
+    ) :
+        null
 }
