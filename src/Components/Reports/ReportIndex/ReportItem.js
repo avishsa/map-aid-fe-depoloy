@@ -5,7 +5,7 @@ import ReportIcons from './reportItem/ReportIcons';
 import ReportWazeBtn from './reportItem/ReportWazeBtn';
 import ReportTimeLocation from './reportItem/ReportTimeLocation';
 import ReportStatusChange from './reportItem/ReportStatusChange';
-import FollowupsList from './reportItem/FollowupsList';
+import FollowupsList from './reportItem/followups/FollowupsList';
 //color according to : HandledByMe = red NotHandled - green  handledBySomeOne else - blank
 export default function ReportItem({ report, LOGGEDUSER, patchReport }) {
     const [description, setDescription] = useState(false);

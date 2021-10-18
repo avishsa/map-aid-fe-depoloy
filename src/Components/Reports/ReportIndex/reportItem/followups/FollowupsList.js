@@ -1,8 +1,9 @@
 
-import React,{useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { followupActions } from '../../../../actions/followupActions';
-export default function FollowupsList({ reportId }) {
+import { followupActions } from '../../../../../actions/followupActions';
+import FollowupCreate from './FollowupCreate';
+export default function FollowupsList({reportId}) {
     const dispatch = useDispatch();
     const followups = useSelector(state => { return state.followups });
 
@@ -17,7 +18,15 @@ export default function FollowupsList({ reportId }) {
                     {user_fullname}
                 </div>)
         })}
-        <button className="btn btn-primary">+ הוסף דיווח</button>
+        
+        <button
+
+            data-bs-toggle="modal" data-bs-target="#createFollowup"
+            className="btn btn-primary"
+        >
+            + הוסף דיווח
+        </button>
+        <FollowupCreate reportId={reportId}/>
     </div>
     );
 }
