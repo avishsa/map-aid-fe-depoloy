@@ -10,7 +10,7 @@ export const _logout = () => {
 
 export const _login = data => {
     
-    return fakeLogin(data)
+    return loginUser(data)
     .then(({user,token})=>{
          
         const {first_name,last_name} = user;

@@ -14,9 +14,12 @@ function getFollowupsByReportId(reportId) {
         dispatch(request(reportId));
         _getFollowupsByReportId(reportId)
             .then(
-                res => {                                                        
+                res => {
+                                                                         
                     if(res?.err)  dispatch(failure(res.err.toString()));                    
-                    else {dispatch(success(reportId));}                                      
+                    else {
+                        dispatch(success(res.data));
+                    }                                      
                 },
                 
             );

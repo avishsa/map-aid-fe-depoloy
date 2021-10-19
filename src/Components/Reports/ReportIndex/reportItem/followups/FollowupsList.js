@@ -5,27 +5,25 @@ import { followupActions } from '../../../../../actions/followupActions';
 import FollowupCreate from './FollowupCreate';
 export default function FollowupsList({reportId}) {
     const dispatch = useDispatch();
-    const followups = useSelector(state => { return state.followups });
+    const followups = useSelector(state => { return state.followups.items });
 
     useEffect(() => {
-        dispatch(followupActions.getFollowupsByReportId(followups?.reportId));
+        dispatch(followupActions.getFollowupsByReportId(reportId));
     }, [dispatch]);
-    return (<div>
+    
+    return (<div className="mt-3">
+        <ul className="mb-3">
         {followups && followups.map(el => {
-            const user_fullname = followupActions.getUserByid(el.userId);
+            
+            const user_fullname = `${el.user_first_name} ${el.user_last_name} `;
             return (
-                <div>{el.description}
-                    {user_fullname}
-                </div>)
-        })}
-        
-        <button
-
-            data-bs-toggle="modal" data-bs-target="#createFollowup"
-            className="btn btn-primary"
-        >
-            + הוסף דיווח
-        </button>
+                <li dir="rtl" className="d-flex flex-column ">
+                    <div className="text-end mb-1" style={{color:"blue"}}>{user_fullname} </div>
+                    <div className="text-end">{el.description}</div>
+                    
+                </li>)
+        })} 
+        </ul>      
         <FollowupCreate reportId={reportId}/>
     </div>
     );
