@@ -1,7 +1,8 @@
 
 const db = [{
-    reportId:"616d4f99c819d710d3bd2741",
-    userId:"1231321",
+    id:1,
+    report_id:"616d4f99c819d710d3bd2741",
+    user_id:"1231321",
     user_first_name:"אריאל",
     user_last_name:"מוסקוביץ",
     description:"הבאנו לו שמיכה ואוכל, בשיחה איתו מעוניין להשתקם ושנחזור עוד מספר פעמים"
@@ -9,18 +10,23 @@ const db = [{
 }];
 export const getReportFollowups = (reportId) => new Promise(function (resolve, reject) {    
     window.setTimeout(() => {  
-             
-        const followUps = db.filter(el=>el.reportId===reportId);
+        debugger;
+        const followUps = db.filter(el=>el.report_id===reportId);
         resolve(followUps) ;        
     }, 300);
 });
 
 
 export const createFollowups = (followUp) => new Promise(function (resolve, reject) {    
-    window.setTimeout(() => {   
-        const newId = db.length;     
-        db.push({...followUp,id:newId});
-        resolve({success:"success"}) ;        
+    window.setTimeout(() => { 
+        
+         const {report_id,user_id,description}=followUp;
+         if(!report_id || !user_id || !description) reject({err:`missing paramater ${report_id} ${user_id} ${description}`})
+        debugger;
+         const newId = db.length+1;     
+        db.push({...followUp,id:newId,user_first_name:"אבישג",
+        user_last_name:"סבן"});
+        resolve({data:db[newId-1]}) ;        
     }, 300);
 });
 

@@ -9,3 +9,5 @@ const basicAxios = process.env.JEST_WORKER_ID === undefined ? axios.create({
 export const loginUser = user => {return API('POST','/auth/user',user,basicAxios); }
 
 export const authToken = token=> API('POST','/auth/token',token,basicAxios)
+
+export const getUser = user_id => API('GET','',user_id,basicAxios); //?

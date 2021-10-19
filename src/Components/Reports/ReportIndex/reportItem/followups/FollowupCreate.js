@@ -1,31 +1,28 @@
 
 import React, { useState } from "react";
+import { useDispatch,useSelector } from 'react-redux';
 import { Modal, Button } from 'react-bootstrap';
 import { followupActions } from '../../../../../actions/followupActions';
-/**
- * <button
 
-            data-bs-toggle="modal" data-bs-target="#createFollowup"
-            className="btn btn-primary"
-        >
 
-        </button>
- */
-import { useSelector } from "react-redux";
 export default function FollowupCreate({ reportId }) {
+    const dispatch = useDispatch();
     const { id } = useSelector(state => { return state.authentication.user });
+    
     const [description, setDescription] = useState("");
-    const [show, setShow] = useState(false);
+    const show = useSelector(state => { return state.followups.isShow });
+
+
     const createFollowup = () => {
         if (description !== "") {
             console.log({ user_id: id, description, reportId });
-            followupActions.createFollowup({ user_id: id, description, reportId })
-            handleClose();
+            dispatch(followupActions.createFollowup({ user_id: id, description, report_id:reportId }));
+
         }
     }
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-    return (<>
+    const handleClose = () => {debugger; setDescription("");dispatch(followupActions.createFollowupShowModal(false));}
+    const handleShow = () => dispatch(followupActions.createFollowupShowModal(true));
+    return (<div>
         <Button className="text-end d-flex" variant="primary" onClick={handleShow}>
             + הוסף דיווח
         </Button>
@@ -34,13 +31,13 @@ export default function FollowupCreate({ reportId }) {
                 <Modal.Title>סיכום דיווח</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <textarea
-                    id=""
+                <textarea                    
                     placeholder="תיאור דיווח"
                     value={description}
                     onChange={e => setDescription(e.target.value)}
-                    className="w-100" s
-                    tyle={{ height: "200pt" }} />
+                    className="w-100" 
+                    autoFocus
+                    style={{ height: "200pt" }} />
             </Modal.Body>
             <Modal.Footer>
                 <Button className="btn rounded-pill" variant="secondary" onClick={handleClose}>
@@ -51,6 +48,6 @@ export default function FollowupCreate({ reportId }) {
                 </Button>
             </Modal.Footer>
         </Modal>
-    </>
+    </div >
     );
 }

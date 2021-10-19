@@ -6,7 +6,8 @@ import {_getFollowupsByReportId,_createFollowup} from '../services/followup.serv
 export const followupActions = {
     
     getFollowupsByReportId,
-    createFollowup
+    createFollowup,
+    createFollowupShowModal
 };
 
 function getFollowupsByReportId(reportId) {    
@@ -14,8 +15,7 @@ function getFollowupsByReportId(reportId) {
         dispatch(request(reportId));
         _getFollowupsByReportId(reportId)
             .then(
-                res => {
-                                                                         
+                res => {                                                                         
                     if(res?.err)  dispatch(failure(res.err.toString()));                    
                     else {
                         dispatch(success(res.data));
@@ -30,9 +30,9 @@ function getFollowupsByReportId(reportId) {
     function failure(error) { return { type: followupConstants.GET_FOLLOWUP_FAILURE, error } }
 }
 //{user_id,followupDescription,reportId}
-function createFollowup(data){
-    return dispatch => {
-        dispatch(request(data));
+function createFollowup(data){    
+     return dispatch => {
+        dispatch(request(data));    
         _createFollowup(data)
             .then(
                 res => {                                                        
@@ -42,10 +42,11 @@ function createFollowup(data){
                 
             );
     };
-
-    function request(data) { return { type: followupConstants.CREATE_FOLLOWUP_REQUEST,data } }
-    function success(data) { return { type: followupConstants.CREATE_FOLLOWUP_SUCCESS,data } }
+    function request(data) {return { type: followupConstants.CREATE_FOLLOWUP_REQUEST,data } }
+    function success(data) {return { type: followupConstants.CREATE_FOLLOWUP_SUCCESS,data } }
     function failure(error) { return { type: followupConstants.CREATE_FOLLOWUP_FAILURE, error } }
 }
-
+function createFollowupShowModal(isShow){
+    return {type:followupConstants.SHOW_FOLLOWUP_MODAL,data:isShow}
+}
 

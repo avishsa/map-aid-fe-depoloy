@@ -1,12 +1,14 @@
 
 import { userConstants } from '../constants/user.constants';
-import { _login,_logout ,_islogged} from '../services/user.services';
+import { _login,_logout ,_islogged, _getUser} from '../services/user.services';
 import { history } from "../helps/history";
 
 export const userActions = {
     login,
     logout,
-    isLogged
+    isLogged,
+
+    getUser
 };
 
 function login(data) {    
@@ -37,3 +39,20 @@ function isLogged(){
     return {type:userConstants.ISLOGGED,data:{logStatus}};
 }
 
+function getUser(query){
+    return dispatch => {
+        dispatch(request(query));
+        _getUser(query)
+            .then(
+                res => {                                                        
+                    if(res?.err)  dispatch(failure(res.err.toString()));                    
+                    else {dispatch(success(res.data));}                                      
+                },
+                
+            );
+    };
+
+    function request(data) { return { type: userConstants.GET_USER_REQUEST, data } }
+    function success(data) { return { type: userConstants.GET_USER_SUCCESS, data } }
+    function failure(error) { return { type: userConstants.GET_USER_FAILURE, error } }
+}

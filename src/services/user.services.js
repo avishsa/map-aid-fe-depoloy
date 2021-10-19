@@ -1,5 +1,5 @@
 import { fakeLogin } from "../api/fakeUsers";
-import {loginUser} from "../api/users";
+import {loginUser,getUser} from "../api/users";
 
 export const _logout = () => {
     
@@ -28,4 +28,14 @@ export const _login = data => {
 }
 export const _islogged = ()=>{
     return  sessionStorage.getItem('token')!==undefined;
+}
+export const _getUser = user_id =>{
+    return getUser(user_id)
+    .then((users)=>{
+        return users;
+    })
+    .catch(err=>{
+        
+        return {err};
+    })
 }
