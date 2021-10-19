@@ -11,9 +11,10 @@ export const _getFollowupsByReportId = (report_id) => {
 }
 // user_id,followupDescription,reportId
 export const _createFollowup = (followup) => {
-    debugger;
+    
     return createFollowups(followup)
-        .then(({ data }) => {
+        .then(( {data} ) => {
+            
             return { data: data };
         })
         .catch(err => { return { err: err } });

@@ -10,7 +10,7 @@ const db = [{
 }];
 export const getReportFollowups = (reportId) => new Promise(function (resolve, reject) {    
     window.setTimeout(() => {  
-        debugger;
+        
         const followUps = db.filter(el=>el.report_id===reportId);
         resolve(followUps) ;        
     }, 300);
@@ -22,7 +22,7 @@ export const createFollowups = (followUp) => new Promise(function (resolve, reje
         
          const {report_id,user_id,description}=followUp;
          if(!report_id || !user_id || !description) reject({err:`missing paramater ${report_id} ${user_id} ${description}`})
-        debugger;
+        
          const newId = db.length+1;     
         db.push({...followUp,id:newId,user_first_name:"אבישג",
         user_last_name:"סבן"});

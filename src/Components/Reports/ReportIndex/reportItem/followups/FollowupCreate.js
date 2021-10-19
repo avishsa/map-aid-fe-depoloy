@@ -20,7 +20,7 @@ export default function FollowupCreate({ reportId }) {
 
         }
     }
-    const handleClose = () => {debugger; setDescription("");dispatch(followupActions.createFollowupShowModal(false));}
+    const handleClose = () => {debugger;setDescription("");debugger;dispatch(followupActions.createFollowupShowModal(false))};
     const handleShow = () => dispatch(followupActions.createFollowupShowModal(true));
     return (<div>
         <Button className="text-end d-flex" variant="primary" onClick={handleShow}>

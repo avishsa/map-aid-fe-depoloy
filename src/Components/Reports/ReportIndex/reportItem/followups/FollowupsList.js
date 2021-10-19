@@ -5,18 +5,18 @@ import { followupActions } from '../../../../../actions/followupActions';
 import FollowupCreate from './FollowupCreate';
 export default function FollowupsList({reportId}) {
     const dispatch = useDispatch();
-    const followups = useSelector(state => { return state.followups.items[reportId] });
+    const followups= useSelector(state => { return state.followups });
     
-    useEffect(() => {
-        debugger;
+    useEffect(() => {        
         dispatch(followupActions.getFollowupsByReportId(reportId));
     }, [dispatch]);
+    
     console.log(followups);
 
     return (<div className="mt-3">
         <ul className="mb-3">
-        {followups && followups.map((el,i) => {
-            debugger;
+        {followups.items[reportId] && followups.items[reportId].map((el,i) => {
+            
             const user_fullname = `${el.user_first_name} ${el.user_last_name} `;          
             return (
                 <li dir="rtl" key={`${el.id}_${i}`} className="d-flex flex-column ">
