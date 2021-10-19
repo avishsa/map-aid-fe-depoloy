@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useEffect,useState } from "react";
 import { useDispatch,useSelector } from 'react-redux';
 import { Modal, Button } from 'react-bootstrap';
 import { followupActions } from '../../../../../actions/followupActions';
@@ -11,16 +11,18 @@ export default function FollowupCreate({ reportId }) {
     
     const [description, setDescription] = useState("");
     const show = useSelector(state => { return state.followups.isShow });
-
+    useEffect(() => {
+        setDescription("");
+        
+    }, []);
 
     const createFollowup = () => {
-        if (description !== "") {
-            console.log({ user_id: id, description, reportId });
+        if (description !== "") {            
             dispatch(followupActions.createFollowup({ user_id: id, description, report_id:reportId }));
-
         }
+        
     }
-    const handleClose = () => {debugger;setDescription("");debugger;dispatch(followupActions.createFollowupShowModal(false))};
+    const handleClose = () => {setDescription("");dispatch(followupActions.createFollowupShowModal(false))};
     const handleShow = () => dispatch(followupActions.createFollowupShowModal(true));
     return (<div>
         <Button className="text-end d-flex" variant="primary" onClick={handleShow}>
