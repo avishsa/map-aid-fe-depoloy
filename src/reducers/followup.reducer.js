@@ -5,10 +5,11 @@ export function followups(state = { items: {}, description: "" }, action) {
     switch (action.type) {
         case followupConstants.GET_FOLLOWUP_REQUEST: return { ...state };
         case followupConstants.GET_FOLLOWUP_SUCCESS: {
-            const itemKey = action.data[0].report_id;
+            const itemKey = action.data.report_id;
             const itemValue = action.data;
             const new_items = { ...state.items };
-            new_items[itemKey] = itemValue;
+            if(!new_items[itemKey]) new_items[itemKey]= [];
+            new_items[itemKey].push(itemValue);
             return { ...state, items: new_items };
         }
         case followupConstants.GET_FOLLOWUP_FAILURE: return { ...state };

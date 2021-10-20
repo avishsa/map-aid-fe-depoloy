@@ -1,11 +1,9 @@
-import { getReportFollowups, createFollowups } from "../api/fakeFollowUp";
-
+// import { getReportFollowups, createFollowups } from "../api/fakeFollowUp";
+import { getReportFollowups, createFollowups } from "../api/followUps";
 export const _getFollowupsByReportId = (report_id) => {
-    
-    return getReportFollowups(report_id)
-        .then((data) => {
-            
-            return { data: data };
+    return getReportFollowups({report_id})
+        .then(({data}) => {
+            return { data: data[0] };
         })
         .catch(err => { return { err: err } });
 }

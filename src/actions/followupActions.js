@@ -10,7 +10,7 @@ export const followupActions = {
     createFollowupShowModal
 };
 
-function getFollowupsByReportId(reportId) {    
+function getFollowupsByReportId(reportId) {  
     return dispatch => {
         dispatch(request(reportId));
         

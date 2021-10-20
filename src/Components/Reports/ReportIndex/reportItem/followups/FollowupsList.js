@@ -11,13 +11,13 @@ export default function FollowupsList({reportId}) {
         dispatch(followupActions.getFollowupsByReportId(reportId));
     }, [dispatch]);
     
-    console.log(followups);
-
+    
     return (<div className="mt-3">
         <ul className="mb-3">
         {followups.items[reportId] && followups.items[reportId].map((el,i) => {
             
-            const user_fullname = `${el.user_first_name} ${el.user_last_name} `;          
+            // const user_fullname = `${el.user_first_name} ${el.user_last_name} `;          
+            const user_fullname =`${el.user_id}`;
             return (
                 <li dir="rtl" key={`${el.id}_${i}`} className="d-flex flex-column ">
                     <div className="text-end mb-1" style={{color:"blue"}}>{user_fullname} </div>
