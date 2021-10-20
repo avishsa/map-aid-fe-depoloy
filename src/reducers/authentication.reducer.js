@@ -1,9 +1,9 @@
 import { userConstants } from '../constants/user.constants';
 
 let user = JSON.parse(sessionStorage.getItem('user'));
-let token = JSON.parse(sessionStorage.getItem('token'));
 
-const initialState = user ? { loggedIn: true, user, token } : {};
+
+const initialState = user ? { loggedIn: true, user } : {};
 
 export function authentication(state = initialState, action) {
     switch (action.type) {
@@ -30,14 +30,14 @@ export function authentication(state = initialState, action) {
                 submitting: false,
                 error: action.error,
                 user: undefined,
-                token: undefined,
+                
             };
         case userConstants.LOGOUT: {
             
             return {
                 loggedIn: false,
                 user: undefined,
-                token: undefined,
+                
                 error: null
             };
         }

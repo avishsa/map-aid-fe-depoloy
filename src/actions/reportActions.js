@@ -47,8 +47,7 @@ function filterByProperty(propertyName) {
     
     return { type: reportConstants.FILTER_BY_PROPERTY, filter: propertyName };
 }
-function filterByCatagory(catagoryName, userId) {
-    
+function filterByCatagory(catagoryName, userId) {    
     return { type: reportConstants.FILTER_BY_CATAGORY, filter: catagoryName, userId };
 }
 function sort(orderName) {

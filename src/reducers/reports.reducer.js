@@ -1,7 +1,7 @@
 
 import { reportConstants, reportFilterProperty, reportFilterCatagory, reportStatus } from "../constants/report.constants";
 
-export function reports(state = { items:[], property: "", items_filtered: [] }, action) {
+export function reports(state = { items: [], property: "", items_filtered: [] }, action) {
     switch (action.type) {
         case reportConstants.GETALL_REQUEST:
             return {
@@ -9,8 +9,8 @@ export function reports(state = { items:[], property: "", items_filtered: [] }, 
                 loading: true
             };
         case reportConstants.GETALL_SUCCESS: {
-            if(!action.reports || action.reports.length==0) return state;
-            const new_items = [...state.items,...action.reports];
+            if (!action.reports || action.reports.length == 0) return state;
+            const new_items = [...state.items, ...action.reports];
             return {
                 items: new_items.sort((el1, el2) => { return new Date(el2.report_datetime) - new Date(el1.report_datetime) }),
                 items_catagory: new_items.sort((el1, el2) => { return new Date(el2.report_datetime) - new Date(el1.report_datetime) }),
@@ -43,15 +43,17 @@ export function reports(state = { items:[], property: "", items_filtered: [] }, 
             switch (action.filter) {
                 case reportFilterCatagory.ANYBODY: break;
                 case reportFilterCatagory.NOBODY: funcFilter = el => el.status === reportStatus.PENDING; break;
-                case reportFilterCatagory.ME: funcFilter = el => {
-                    return el => el.status === reportStatus.HANDLED && el.user_id_handler === action.userId;
-                }
-                     break;
+                case reportFilterCatagory.ME: 
+                
+                    funcFilter = el => {                       
+                        return el.status === reportStatus.HANDLED  && el.user_id_handler === action.userId;
+                    }
+                    break;
                 
                 case reportFilterCatagory.STATUS_DONE: funcFilter = el => el.status === reportStatus.DONE; break;
                 default: throw new Error('filter parameter is invalid');
             }
-            
+
             return {
                 ...state,
                 items_catagory: funcFilter ? state?.items.filter(funcFilter) : state?.items,
@@ -66,8 +68,10 @@ export function reports(state = { items:[], property: "", items_filtered: [] }, 
                     ...state,
                     items_filtered: state?.items_filtered.sort((el1, el2) => { return new Date(el2.report_datetime) - new Date(el1.report_datetime) })
                 };
-                case 'decDate': return { ...state,
-                     items_filtered: state?.items_filtered.sort((el1, el2) => { return new Date(el1.report_datetime) - new Date(el2.report_datetime) }) };
+                case 'decDate': return {
+                    ...state,
+                    items_filtered: state?.items_filtered.sort((el1, el2) => { return new Date(el1.report_datetime) - new Date(el2.report_datetime) })
+                };
                 default: throw new Error('invalid sort');
             }
         }
@@ -81,9 +85,9 @@ export function reports(state = { items:[], property: "", items_filtered: [] }, 
             const reportId = action.reportId;
             const userId = action.userId;
             const funcMap = report => {
-                return report.id === reportId ? 
-                { ...report,status:reportStatus.HANDLED, user_id_handler: userId, isHandled: true }
-                : report
+                return report.id === reportId ?
+                    { ...report, status: reportStatus.HANDLED, user_id_handler: userId, isHandled: true }
+                    : report
             }
             return {
                 ...state,
@@ -111,9 +115,9 @@ export function reports(state = { items:[], property: "", items_filtered: [] }, 
             };
         }
         case reportConstants.UNASSIGN_SET_SUCCESS: {
-            const reportId = action.reportId;           
+            const reportId = action.reportId;
             const funcMap = report => {
-                return report.id === reportId ? { ...report,status:reportStatus.PENDING, user_id_handler: null, isHandled: false } : report
+                return report.id === reportId ? { ...report, status: reportStatus.PENDING, user_id_handler: null, isHandled: false } : report
             }
             return {
                 ...state,
@@ -134,7 +138,7 @@ export function reports(state = { items:[], property: "", items_filtered: [] }, 
             };
         }
         ///
-        
+
         case reportConstants.UPDATESTATUS_SET_REQUEST: {
             return {
                 ...state,
@@ -142,10 +146,10 @@ export function reports(state = { items:[], property: "", items_filtered: [] }, 
             };
         }
         case reportConstants.UPDATESTATUS_SET_SUCCESS: {
-            const reportId = action.reportId;           
-            const status = action.status;                       
+            const reportId = action.reportId;
+            const status = action.status;
             const funcMap = report => {
-                return report.id === reportId ? { ...report,status:status } : report
+                return report.id === reportId ? { ...report, status: status } : report
             }
             return {
                 ...state,
@@ -172,7 +176,7 @@ export function reports(state = { items:[], property: "", items_filtered: [] }, 
                 updateHandler: false
             }
         }
-       
+
         default: return state;
     }
 }

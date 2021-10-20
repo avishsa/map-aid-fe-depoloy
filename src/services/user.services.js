@@ -11,11 +11,10 @@ export const _logout = () => {
 export const _login = data => {
     
     return loginUser(data)
-    .then((data)=>{
-        const {first_name,last_name,token} = data;
+    .then(({data})=>{
+        debugger;       
         
-        const user_name = `${first_name} ${last_name}`;
-        sessionStorage.setItem('token', JSON.stringify(token));
+        // sessionStorage.setItem('token', JSON.stringify(token));
         sessionStorage.setItem('user', JSON.stringify(data));
         return data;
     }).catch(err=>{

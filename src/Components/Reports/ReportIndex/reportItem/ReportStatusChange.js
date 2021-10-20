@@ -6,6 +6,7 @@ import { reportStatus } from '../../../../constants/report.constants';
 export default function ReportStatusChange({ status, reportId, reportUserIdHandler, loggedUser }) {
     const dispatch = useDispatch();
     function closeStatus() {        
+        
         dispatch(reportActions.updateStatus(reportId, loggedUser))
     }
     
