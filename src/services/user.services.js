@@ -11,10 +11,7 @@ export const _logout = () => {
 export const _login = data => {
     
     return loginUser(data)
-    .then(({data})=>{
-        debugger;       
-        
-        // sessionStorage.setItem('token', JSON.stringify(token));
+    .then(({data})=>{          
         sessionStorage.setItem('user', JSON.stringify(data));
         return data;
     }).catch(err=>{

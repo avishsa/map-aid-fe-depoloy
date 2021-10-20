@@ -13,10 +13,10 @@ const _getAll = (user_id,token) => {
         .catch(err => {  return { err: err } });
 }
 const _updateHandler = (reportId, reportHandlerId, userId) => {
-    debugger;
+    
     return assignReport(reportId, userId)
         .then(res => {            
-            debugger;
+    
             return { reportId, userId }
         })
         .catch(res => { return { res } });
