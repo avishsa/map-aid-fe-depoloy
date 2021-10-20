@@ -19,7 +19,7 @@ function getFollowupsByReportId(reportId) {
                 res => {                                                                         
                     if(res?.err)  dispatch(failure(res.err.toString()));                    
                     else {
-                        dispatch(success(res.data));
+                        dispatch(success(res));
                     }                                      
                 },
                 
@@ -39,13 +39,13 @@ function createFollowup(data){
             .then(
                 res => {                                                       
                     if(res?.err)  dispatch(failure(res.err.toString()));                    
-                    else {dispatch(success(res.data));}                                      
+                    else {dispatch(success(res?.data));}                                      
                 },
                 
             );
     };
     function request(data) {return { type: followupConstants.CREATE_FOLLOWUP_REQUEST,data } }
-    function success(data) { return { type: followupConstants.CREATE_FOLLOWUP_SUCCESS,data } }
+    function success(data) {return { type: followupConstants.CREATE_FOLLOWUP_SUCCESS, data } }
     function failure(error) { return { type: followupConstants.CREATE_FOLLOWUP_FAILURE, error } }
 }
 function createFollowupShowModal(isShow){

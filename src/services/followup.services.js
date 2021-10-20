@@ -3,7 +3,9 @@ import { getReportFollowups, createFollowups } from "../api/followUps";
 export const _getFollowupsByReportId = (report_id) => {
     return getReportFollowups({report_id})
         .then(({data}) => {
-            return { data: data[0] };
+            
+            
+            return { data ,report_id};
         })
         .catch(err => { return { err: err } });
 }
@@ -11,9 +13,8 @@ export const _getFollowupsByReportId = (report_id) => {
 export const _createFollowup = (followup) => {
     
     return createFollowups(followup)
-        .then(( {data} ) => {
-            
-            return { data: data };
+        .then(( {data} ) => {            
+            return { data: followup };
         })
         .catch(err => { return { err: err } });
 }

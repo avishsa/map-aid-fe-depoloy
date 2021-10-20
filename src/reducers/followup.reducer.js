@@ -5,11 +5,13 @@ export function followups(state = { items: {}, description: "" }, action) {
     switch (action.type) {
         case followupConstants.GET_FOLLOWUP_REQUEST: return { ...state };
         case followupConstants.GET_FOLLOWUP_SUCCESS: {
-            const itemKey = action.data.report_id;
-            const itemValue = action.data;
+            
+            const {data,report_id} = action.data;
+            const itemKey = report_id ;
+            const itemValue = data;
             const new_items = { ...state.items };
-            if(!new_items[itemKey]) new_items[itemKey]= [];
-            new_items[itemKey].push(itemValue);
+            
+            new_items[itemKey]  = [...itemValue];
             return { ...state, items: new_items };
         }
         case followupConstants.GET_FOLLOWUP_FAILURE: return { ...state };
@@ -17,7 +19,7 @@ export function followups(state = { items: {}, description: "" }, action) {
         case followupConstants.CREATE_FOLLOWUP_REQUEST: { return { ...state }; }
         case followupConstants.CREATE_FOLLOWUP_SUCCESS: {
             
-            const itemKey = action.data.report_id;
+            const itemKey = action.report_id;
             const itemValue = action.data;
             const new_items = { ...state.items };
             if(!new_items[itemKey]) new_items[itemKey]= [];
