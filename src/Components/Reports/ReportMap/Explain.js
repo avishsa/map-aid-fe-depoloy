@@ -14,7 +14,7 @@ export default function Explain() {
                     </div>
                     <div className="d-flex column">
                         <div>עוד על הפעילות</div>
-                        <a className="mx-3" href="https://www.facebook.com/groups/1382205272129865/">ממש כאן</a>
+                        <a className="mx-3" style={{color:"#0d6efd"}}href="https://www.facebook.com/groups/1382205272129865/">ממש כאן</a>
                     </div>
                 </div>
                 <hr className='Line' />
