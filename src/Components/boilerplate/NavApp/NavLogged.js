@@ -21,9 +21,13 @@ export default function NavLogged() {
             <li className=" d-flex flex-row">
                 <button className="btn text-primary nav-link"
                     style={{ border: 0, boxShadow: "none" }}
+                    onClick={() => { history.push('/'); }} >דיווח חדש </button>
+            </li>
+            <li className=" d-flex flex-row">
+                <button className="btn text-primary nav-link"
+                    style={{ border: 0, boxShadow: "none" }}
                     onClick={() => { history.push('/report/index'); }} >דיווחים </button>
             </li>
-
             <li className=" d-flex flex-row">
                 <button className="btn text-primary nav-link"
                     
