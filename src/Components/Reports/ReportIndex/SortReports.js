@@ -12,7 +12,7 @@ export default function SortReports() {
     setSortParam(orderName);
     dispatch(reportActions.sort(orderName));
   }
-  return (<div className="dropdown">
+  return (<div className="dropdown col-9">
     <button
       className="btn dropdown-toggle"
       type="button"
