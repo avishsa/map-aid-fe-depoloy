@@ -18,15 +18,15 @@ export function followups(state = { items: {}, description: "" }, action) {
 
         case followupConstants.CREATE_FOLLOWUP_REQUEST: { return { ...state }; }
         case followupConstants.CREATE_FOLLOWUP_SUCCESS: {
-            
-            const itemKey = action.report_id;
+            const itemKey = action.data.report_id;
             const itemValue = action.data;
             const new_items = { ...state.items };
             if(!new_items[itemKey]) new_items[itemKey]= [];
-            new_items[itemKey] = new_items[itemKey].push(itemValue);
+            new_items[itemKey] = [...new_items[itemKey],itemValue];
             
             return {
-                ...state
+                ...state,
+                items: new_items
                 , isShow: false
                 , description: ""
             };

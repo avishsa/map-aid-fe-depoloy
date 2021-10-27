@@ -31,13 +31,13 @@ function getFollowupsByReportId(reportId) {
     function failure(error) { return { type: followupConstants.GET_FOLLOWUP_FAILURE, error } }
 }
 //{user_id,followupDescription,reportId}
-function createFollowup(data){    
+function createFollowup(data){   
      return dispatch => {
          
         dispatch(request(data));    
         _createFollowup(data)
             .then(
-                res => {                                                       
+                res => {                                                  
                     if(res?.err)  dispatch(failure(res.err.toString()));                    
                     else {dispatch(success(res?.data));}                                      
                 },
