@@ -7,8 +7,8 @@ import { followupActions } from '../../../../../actions/followupActions';
 
 export default function FollowupCreate({ reportId }) {
     const dispatch = useDispatch();
-    const { id } = useSelector(state => { return state.authentication.user });
-    
+    const { id ,first_name,last_name} = useSelector(state => { return state.authentication.user });    
+    const full_name = `${first_name} ${last_name}`;
     const [description, setDescription] = useState("");
     const show = useSelector(state => { return state.followups.isShow });
     useEffect(() => {
@@ -17,8 +17,8 @@ export default function FollowupCreate({ reportId }) {
     }, []);
 
     const createFollowup = () => {
-        if (description !== "") {            
-            dispatch(followupActions.createFollowup({ user_id: id, description, report_id:reportId }));
+        if (description !== "") {                    
+            dispatch(followupActions.createFollowup({ user_id: id, description, report_id:reportId,full_name: full_name}));
         }
         
     }

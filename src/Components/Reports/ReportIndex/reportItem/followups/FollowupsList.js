@@ -17,12 +17,11 @@ export default function FollowupsList({reportId}) {
         {followups.items[reportId] && followups.items[reportId].map((el,i) => {
             
             // const user_fullname = `${el.user_first_name} ${el.user_last_name} `;          
-            const user_fullname =`${el.user_id}`;
+            const user_fullname =el.full_name ? `${el.full_name}`: `${el.user_id}`;
             return (
                 <li dir="rtl" key={`${el.id}_${i}`} className="d-flex flex-column ">
                     <div className="text-end mb-1" style={{color:"blue"}}>{user_fullname} </div>
-                    <div className="text-end">{el.description}</div>
-                    
+                    <div className="text-end">{el.description}</div>                    
                 </li>)
         })} 
         </ul>      
