@@ -8,11 +8,13 @@ export const _logout = () => {
     
 }
 
-export const _login = data => {
+export const _login = loginData => {
     
-    return loginUser(data)
-    .then(({data})=>{          
-        sessionStorage.setItem('user', JSON.stringify(data));
+    return loginUser(loginData)
+    .then(({data})=>{    
+        ;      
+        const fullDetails = {...data, email: loginData['email']};
+        sessionStorage.setItem('user', JSON.stringify(fullDetails));
         return data;
     }).catch(err=>{
         

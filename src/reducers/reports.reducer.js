@@ -9,7 +9,7 @@ export function reports(state = { items: [], property: "", items_filtered: [] },
                 loading: true
             };
         case reportConstants.GETALL_SUCCESS: {
-            if (!action.reports || action.reports.length == 0) return state;
+            if (!action.reports || action.reports.length === 0) return state;
             const new_items = [...state.items, ...action.reports];
             return {
                 items: new_items.sort((el1, el2) => { return new Date(el2.report_datetime) - new Date(el1.report_datetime) }),

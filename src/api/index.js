@@ -1,10 +1,10 @@
 const deploy = async (method, path, data,basicAxios,authHeaders) => {
     
     switch (method) {
-        case 'POST': return data ? basicAxios.post(path, data) : basicAxios.post(path);
-        case 'DELETE': return data ? basicAxios.delete(path, data) : basicAxios.delete(path);
-        case 'PATCH': return data ? basicAxios.patch(path, data) : basicAxios.patch(path);
-        case 'GET':  return basicAxios.get(path,{headers:authHeaders});
+        case 'POST': return data ? basicAxios.post(path, data,{headers:authHeaders}) : basicAxios.post(path);
+        case 'DELETE': return data ? basicAxios.delete(path, data,{headers:authHeaders}) : basicAxios.delete(path);
+        case 'PATCH': return data ? basicAxios.patch(path, data,{headers:authHeaders}) : basicAxios.patch(path);
+        case 'GET': {return basicAxios.get(path,{headers:authHeaders});}
         case 'PUT':  return data ? basicAxios.put(path, data, { headers: authHeaders }) : basicAxios.put(path);
         default: throw new Error('invalid method');
     }

@@ -9,7 +9,7 @@ export default function FollowupsList({reportId}) {
     
     useEffect(() => {        
         dispatch(followupActions.getFollowupsByReportId(reportId));
-    }, [dispatch]);
+    }, [dispatch,reportId]);
     
     
     return (<div className="mt-3">
