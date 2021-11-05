@@ -26,7 +26,7 @@ export default function Explain() {
                     <input className=" px-3 AddressText" type="text" disabled value={report ? report.person_location:""} />
                 </div>
                 <div className='ExplainMap'>
-                    לשינוי מיקום יש לסמן על המפה או לחפש בעזרת סמל החיפוש משמאל ולסמן מיקום מדוייק.
+                    לשינוי מיקום יש לסמן על המפה או לחפש בעזרת סמל החיפוש מימין ולסמן מיקום מדוייק.
                 </div>
             </div>
         </>
