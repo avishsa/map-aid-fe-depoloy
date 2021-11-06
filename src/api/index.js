@@ -1,7 +1,6 @@
-const deploy = async (method, path, data,basicAxios,authHeaders) => {
-    
+const deploy = async (method, path, data,basicAxios,authHeaders) => {    
     switch (method) {
-        case 'POST': return data ? basicAxios.post(path, data,{headers:authHeaders}) : basicAxios.post(path);
+        case 'POST': return basicAxios.post(path, data,{headers:authHeaders}) ;
         case 'DELETE': return data ? basicAxios.delete(path, data,{headers:authHeaders}) : basicAxios.delete(path);
         case 'PATCH': return data ? basicAxios.patch(path, data,{headers:authHeaders}) : basicAxios.patch(path);
         case 'GET': {return basicAxios.get(path,{headers:authHeaders});}
