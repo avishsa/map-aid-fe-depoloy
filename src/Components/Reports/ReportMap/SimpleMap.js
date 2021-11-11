@@ -10,6 +10,7 @@ import L from 'leaflet';
 
 import * as GeoSearch from 'leaflet-geosearch';
 import { reportActions } from '../../../actions/reportActions';
+
 const LATLNG = [32.0576485, 34.7652664];
 
 function LocationMarker({ onLocationFound, position, setPosition, locationName, setLocationName, hasMap, setHasMap }) {
@@ -90,34 +91,38 @@ function LocationMarker({ onLocationFound, position, setPosition, locationName, 
 }
 
 
-export default function SimpleMap() {
-  const report = useSelector(state => state.createReport.temp);
+export default function SimpleMap({show,setModalShow}) {
+  const report = useSelector(state => state.createReport.temp);  
   const [position, setPosition] = useState(report?.location_lat && report?.location_lng ? { lat: report?.location_lat, lng: report?.location_lng } : null);
   const [locationName, setLocationName] = useState(report?.person_location);
   const [hasMap, setHasMap] = useState(false);
   const latlng = report?.location_lat && report?.location_lng ? [report.location_lat, report.location_lng] : LATLNG;
 
   const dispatch = useDispatch();
-  const onLocationFound = (name, lat, lng) => { dispatch(reportActions.saveLocation(name, lat, lng)) };
+  const onLocationFound = (name, lat, lng) => {     
+    if(show===false) dispatch(reportActions.saveLocation(name, lat, lng)) 
+  };
   const redirect = (e) => {
     e.preventDefault();
     e.stopPropagation();
     
-    if (report.person_location !== '') {
+    if ( report && report.person_location ) {
       setHasMap(false);
       history.push("/report/create");
+    }
+    else{
+      setModalShow(true)
     }
   }
 
   window.onbeforeunload = e => {
-    e.preventDefault();
+    e.preventDefault();    
     const localReport = JSON.stringify({ ...report, person_location: locationName, location_lng: position?.lng, location_lat: position?.lat })
     localStorage.setItem('report', localReport);
-  }
-
+  }  
   return (
     <MapContainer id="mapid" center={latlng} zoom={15} scrollWheelZoom={true}>
-      <LocationMarker
+      {show===false &&<LocationMarker
         onLocationFound={onLocationFound}
         position={position}
         setPosition={setPosition}
@@ -125,7 +130,7 @@ export default function SimpleMap() {
         setLocationName={setLocationName}
         hasMap={hasMap}
         setHasMap={setHasMap}
-      />
+      />}
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -134,8 +139,8 @@ export default function SimpleMap() {
         <input type="button" value="אישור ומילוי טופס"
           onClick={redirect}
           className="btnStyle span3 leaflet-control SendAddressButton" />
-
       </div>
+
     </MapContainer>
 
   )
