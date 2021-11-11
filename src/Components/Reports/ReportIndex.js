@@ -51,7 +51,8 @@ export default function ReportIndex() {
             {reports.items_filtered.map((report, index) => (
                 <li dir="rtl" className="list-group-item my-2"
                     style={{ 'borderTop': `solid ${getBorderColor(report.status)} 3pt` }}
-                    key={report.id}>
+                    id={`${report.id}_${index}`}
+                    key={`${report.id}_${index}`}>
                     <ReportItem LOGGEDUSER={user.id} report={report} />
                 </li>
             ))}

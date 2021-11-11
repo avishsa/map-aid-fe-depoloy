@@ -8,9 +8,10 @@ export function reports(state = { items: [], property: "", items_filtered: [] },
                 ...state,
                 loading: true
             };
-        case reportConstants.GETALL_SUCCESS: {
+        case reportConstants.GETALL_SUCCESS: {            
             if (!action.reports || action.reports.length === 0) return state;
-            const new_items = [...state.items, ...action.reports];
+            if(state.items.length >0) return state;
+            const new_items = [...action.reports];
             return {
                 items: new_items.sort((el1, el2) => { return new Date(el2.report_datetime) - new Date(el1.report_datetime) }),
                 items_catagory: new_items.sort((el1, el2) => { return new Date(el2.report_datetime) - new Date(el1.report_datetime) }),
