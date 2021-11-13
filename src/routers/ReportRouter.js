@@ -24,8 +24,7 @@ function ReportRouter() {
           return <ReportCreate />
         }
 
-        else {
-          
+        else {          
           return <Redirect to="/" />
         }
       }

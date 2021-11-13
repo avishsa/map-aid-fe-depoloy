@@ -10,6 +10,7 @@ import { history } from './helps/history';
 import ScrollToTop from './Components/boilerplate/ScrollToTop';
 
 import ReportRouter from './routers/ReportRouter';
+import InfoRouter from "./routers/InfoRouter";
 import UserRouter from './routers/UserRouter';
 
 const theme = createTheme({
@@ -28,6 +29,7 @@ export default function AppContent() {
           <Header />
           <ScrollToTop /> 
           <ReportRouter />
+          <InfoRouter/>
           <UserRouter />
 
           <Footer />

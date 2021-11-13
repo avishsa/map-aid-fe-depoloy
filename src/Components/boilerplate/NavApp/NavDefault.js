@@ -8,7 +8,24 @@ export default function NavDefault() {
         <ul className="d-flex flex-row p-0 m-0">
 
             <li className=" d-flex flex-row">
-                <button className="btn text-primary nav-link" style={{ border: 0, boxShadow: "none" }} onClick={() => { history.push('/user/login'); }} >כניסת משתמש </button>
+                <button className="btn text-primary nav-link" 
+                style={{ border: 0, boxShadow: "none" }} 
+                onClick={() => { history.push('/user/login'); }} >
+                    כניסת משתמש </button>
+            </li>
+            <li className=" d-flex flex-row">
+                <button className="btn text-primary nav-link"
+                    id="About"
+                    style={{ border: 0, boxShadow: "none" }}
+                    onClick={() => { history.push('/about'); }} >
+                        עלינו </button>
+            </li>
+            <li className=" d-flex flex-row">
+                <button className="btn text-primary nav-link"
+                    id="MapReport"
+                    style={{ border: 0, boxShadow: "none" }}
+                    onClick={() => { history.push('/'); }} >
+                        הוסף דיווח </button>
             </li>
             <li className=" d-flex flex-row">
                 <button className="btn text-primary nav-link"
@@ -16,6 +33,7 @@ export default function NavDefault() {
                     style={{ border: 0, boxShadow: "none" }}
                     onClick={() => { window.open('tel:106'); }} >חירום </button>
             </li>
+            
 
 
         </ul>

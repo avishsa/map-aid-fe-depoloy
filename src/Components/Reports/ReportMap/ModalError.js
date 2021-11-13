@@ -7,9 +7,10 @@ export default function ModalError({ show, onHide }) {
         onHide={onHide}
         dialogClassName="modal-90w"
         aria-labelledby="example-custom-modal-styling-title"
+        centered
     >
         <Modal.Header >
-            <Modal.Title id="example-custom-modal-styling-title">
+            <Modal.Title class="text-danger " id="example-custom-modal-styling-title">
                 הודעת שגיאה
             </Modal.Title>
         </Modal.Header>
@@ -19,7 +20,7 @@ export default function ModalError({ show, onHide }) {
             </p>
         </Modal.Body>
         <Modal.Footer>
-            <Button onClick={onHide}>סגור</Button>
+            <Button class="btn btn-danger" onClick={onHide}>סבבה</Button>
         </Modal.Footer>
     </Modal>);
 }
