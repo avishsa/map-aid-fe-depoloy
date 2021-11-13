@@ -27,7 +27,9 @@ export const reportConstants = {
     CREATE_REPORT_FAILURE: "REPORT_CREATE_FAILURE",
 
     SAVE_REPORT: "REPORT_SAVE_FULL",
-    SAVE_LOCATION: "REPORT_SAVE_LOCATION"
+    SAVE_LOCATION: "REPORT_SAVE_LOCATION",
+    
+    ERROR_MODAL:"ERROR_MODAL"
 
 };
 export const reportFilterProperty = {
@@ -48,4 +50,15 @@ export const reportStatus = {
     HANDLED:"In progress",
     PENDING:"Pending",
     DONE:"Done"
+}
+//101, 232.53125
+//295 // 229.53125
+//296 274.53125
+//106 //272.53125
+export const SUMBITBUTTON_LOCATION ={
+    MIN_X:101,
+    MAX_X:296,
+    MIN_Y:229.53125,
+    MAX_Y:272.53125,
+
 }

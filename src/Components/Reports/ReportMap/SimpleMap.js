@@ -10,10 +10,11 @@ import L from 'leaflet';
 
 import * as GeoSearch from 'leaflet-geosearch';
 import { reportActions } from '../../../actions/reportActions';
+import { reportConstants,SUMBITBUTTON_LOCATION } from '../../../constants/report.constants';
 
 const LATLNG = [32.0576485, 34.7652664];
 
-function LocationMarker({ onLocationFound, position, setPosition, locationName, setLocationName, hasMap, setHasMap, show }) {  
+function LocationMarker({ onLocationFound, position, setPosition, locationName, setLocationName, hasMap, setHasMap,trySubmit }) {  
   function setAddress({ country = "", neighbourhood = "", town = "", village = "", city = "", road = "", house_number = "", suburb = "" }) {
     let start = village;
     if (start !== "") return start;
@@ -48,10 +49,13 @@ function LocationMarker({ onLocationFound, position, setPosition, locationName, 
     locationfound(e) {
       getLocationNameByCoordinates(e.latlng, map);
     },
-    click(e) {      
-      if (show) {        
-        return getLocationNameByCoordinates(e?.latlng, map);
-      }
+    click(e) {  
+      function isSumbitButton(x,y){
+        return y >=SUMBITBUTTON_LOCATION.MIN_Y && y<=SUMBITBUTTON_LOCATION.MAX_Y
+        && x >=SUMBITBUTTON_LOCATION.MIN_X && x<=SUMBITBUTTON_LOCATION.MAX_X;
+      }      
+        if(!isSumbitButton(e.containerPoint.x,e.containerPoint.y))
+        return getLocationNameByCoordinates(e?.latlng, map);      
     }
   })
   //set map controls
@@ -92,27 +96,27 @@ function LocationMarker({ onLocationFound, position, setPosition, locationName, 
 }
 
 
-export default function SimpleMap({ show, setModalShow }) {
+export default function SimpleMap() {
   const report = useSelector(state => state.createReport.temp);
-  
+  const trySubmit = useSelector(state => state.createReport.trySubmit);
   const [position, setPosition] = useState(report?.location_lat && report?.location_lng ? { lat: report?.location_lat, lng: report?.location_lng } : null);
   const [locationName, setLocationName] = useState(report?.person_location);
   const [hasMap, setHasMap] = useState(false);
   const latlng = report?.location_lat && report?.location_lng ? [report.location_lat, report.location_lng] : LATLNG;
 
   const dispatch = useDispatch();
-  const onLocationFound = (name, lat, lng) => {    
-    if (show === false) dispatch(reportActions.saveLocation(name, lat, lng))
+  const onLocationFound = (name, lat, lng) => {           
+     dispatch(reportActions.saveLocation(name, lat, lng))
   };
   const redirect = (e) => {
     e.preventDefault();
-    e.stopPropagation();    
+    e.stopPropagation();       
     if (report && report.person_location) {
       setHasMap(false);
       history.push("/report/create");
     }
     else {
-      setModalShow(true)
+      dispatch(reportActions.setErrorModal(true))    
     }
   }
 
@@ -124,8 +128,8 @@ export default function SimpleMap({ show, setModalShow }) {
   
   return (
     <MapContainer id="mapid" center={latlng} zoom={15} scrollWheelZoom={true}>
-      {!show && <LocationMarker
-        show={show === undefined ? show : !show}
+      <LocationMarker
+        trySubmit={trySubmit}
         onLocationFound={onLocationFound}
         position={position}
         setPosition={setPosition}
@@ -133,7 +137,7 @@ export default function SimpleMap({ show, setModalShow }) {
         setLocationName={setLocationName}
         hasMap={hasMap}
         setHasMap={setHasMap}
-      />}
+      />
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

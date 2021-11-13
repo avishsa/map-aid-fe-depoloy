@@ -15,7 +15,8 @@ export const reportActions = {
 
     createReport,
     saveReport,
-    saveLocation
+    saveLocation,
+    setErrorModal
 
 };
 function getAll(user_id, token) {
@@ -158,4 +159,7 @@ function updateStatus(reportId, userId) {
     function request() { return { type: reportConstants.UPDATESTATUS_SET_REQUEST } }
     function success(reportId, userId) { return { type: reportConstants.UPDATESTATUS_SET_SUCCESS, data: { reportId, userId, status: reportStatus.DONE } } }
     function failure(error) { return { type: reportConstants.UPDATESTATUS_SET_FAILURE, error } }
+}
+function setErrorModal(isError){
+    return {type:reportConstants.ERROR_MODAL,data:isError}
 }
