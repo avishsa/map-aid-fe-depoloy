@@ -49,8 +49,7 @@ function LocationMarker({ onLocationFound, position, setPosition, locationName, 
       getLocationNameByCoordinates(e.latlng, map);
     },
     click(e) {      
-      if (e.containerPoint.y > 325 && show) {
-        debugger;
+      if (show) {        
         return getLocationNameByCoordinates(e?.latlng, map);
       }
     }
@@ -95,7 +94,7 @@ function LocationMarker({ onLocationFound, position, setPosition, locationName, 
 
 export default function SimpleMap({ show, setModalShow }) {
   const report = useSelector(state => state.createReport.temp);
-  // const clickedSubmit = useSelector(state=>state.)
+  
   const [position, setPosition] = useState(report?.location_lat && report?.location_lng ? { lat: report?.location_lat, lng: report?.location_lng } : null);
   const [locationName, setLocationName] = useState(report?.person_location);
   const [hasMap, setHasMap] = useState(false);
@@ -122,7 +121,7 @@ export default function SimpleMap({ show, setModalShow }) {
     const localReport = JSON.stringify({ ...report, person_location: locationName, location_lng: position?.lng, location_lat: position?.lat })
     localStorage.setItem('report', localReport);
   }
-  debugger;
+  
   return (
     <MapContainer id="mapid" center={latlng} zoom={15} scrollWheelZoom={true}>
       {!show && <LocationMarker

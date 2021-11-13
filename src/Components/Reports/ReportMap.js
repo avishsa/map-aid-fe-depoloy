@@ -9,8 +9,11 @@ function ReportMap() {
   return (
     <div className="d-flex flex-column">
       <Explain />
-      <SimpleMap setModalShow={setModalShow} />
-      <ModalError show={modalShow}
+      <SimpleMap 
+      show={modalShow}
+      setModalShow={setModalShow} />
+      <ModalError 
+        show={modalShow}
         onHide={() => setModalShow(false)}/>
     </div>
 

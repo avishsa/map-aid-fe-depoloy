@@ -1,6 +1,6 @@
 import { reportConstants } from "../constants/report.constants";
 const initialSaveReport = JSON.parse(localStorage.getItem('report'));
-export function createReport(state = { temp: initialSaveReport,clickedSubmit:false }, action) {
+export function createReport(state = { temp: initialSaveReport }, action) {
     switch (action.type) {
         case reportConstants.CREATE_REPORT_REQUEST: {
 
