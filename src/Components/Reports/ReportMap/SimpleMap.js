@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import '../../../css/report/SimpleMap.css';
@@ -13,7 +13,7 @@ import { reportActions } from '../../../actions/reportActions';
 
 const LATLNG = [32.0576485, 34.7652664];
 
-function LocationMarker({ onLocationFound, position, setPosition, locationName, setLocationName, hasMap, setHasMap }) {
+function LocationMarker({ onLocationFound, position, setPosition, locationName, setLocationName, hasMap, setHasMap, show }) {  
   function setAddress({ country = "", neighbourhood = "", town = "", village = "", city = "", road = "", house_number = "", suburb = "" }) {
     let start = village;
     if (start !== "") return start;
@@ -45,18 +45,20 @@ function LocationMarker({ onLocationFound, position, setPosition, locationName, 
     })
   }
   const map = useMapEvents({
-    locationfound(e) { getLocationNameByCoordinates(e.latlng, map); },
-    click(e) {
-      if (e.containerPoint.y > 325) return
-      getLocationNameByCoordinates(e?.latlng, map);
+    locationfound(e) {
+      getLocationNameByCoordinates(e.latlng, map);
+    },
+    click(e) {      
+      if (e.containerPoint.y > 325 && show) {
+        debugger;
+        return getLocationNameByCoordinates(e?.latlng, map);
+      }
     }
   })
-
+  //set map controls
   useEffect(() => {
-    
     if (!position) map.locate();
     if (hasMap) return;
-
     const search = new GeoSearch.GeoSearchControl({
       provider: new GeoSearch.OpenStreetMapProvider({
         params: {
@@ -77,7 +79,7 @@ function LocationMarker({ onLocationFound, position, setPosition, locationName, 
     map.zoomControl.setPosition('topright');
     setHasMap(true);
   }, [map, hasMap, setHasMap, position])
-
+  //add marker to map  
   if (position && locationName) {
     return (
       <Marker id="markerMap" position={position}>
@@ -91,38 +93,40 @@ function LocationMarker({ onLocationFound, position, setPosition, locationName, 
 }
 
 
-export default function SimpleMap({show,setModalShow}) {
-  const report = useSelector(state => state.createReport.temp);  
+export default function SimpleMap({ show, setModalShow }) {
+  const report = useSelector(state => state.createReport.temp);
+  // const clickedSubmit = useSelector(state=>state.)
   const [position, setPosition] = useState(report?.location_lat && report?.location_lng ? { lat: report?.location_lat, lng: report?.location_lng } : null);
   const [locationName, setLocationName] = useState(report?.person_location);
   const [hasMap, setHasMap] = useState(false);
   const latlng = report?.location_lat && report?.location_lng ? [report.location_lat, report.location_lng] : LATLNG;
 
   const dispatch = useDispatch();
-  const onLocationFound = (name, lat, lng) => {     
-    if(show===false) dispatch(reportActions.saveLocation(name, lat, lng)) 
+  const onLocationFound = (name, lat, lng) => {    
+    if (show === false) dispatch(reportActions.saveLocation(name, lat, lng))
   };
   const redirect = (e) => {
     e.preventDefault();
-    e.stopPropagation();
-    
-    if ( report && report.person_location ) {
+    e.stopPropagation();    
+    if (report && report.person_location) {
       setHasMap(false);
       history.push("/report/create");
     }
-    else{
+    else {
       setModalShow(true)
     }
   }
 
   window.onbeforeunload = e => {
-    e.preventDefault();    
+    e.preventDefault();
     const localReport = JSON.stringify({ ...report, person_location: locationName, location_lng: position?.lng, location_lat: position?.lat })
     localStorage.setItem('report', localReport);
-  }  
+  }
+  debugger;
   return (
     <MapContainer id="mapid" center={latlng} zoom={15} scrollWheelZoom={true}>
-      {show===false &&<LocationMarker
+      {!show && <LocationMarker
+        show={show === undefined ? show : !show}
         onLocationFound={onLocationFound}
         position={position}
         setPosition={setPosition}
