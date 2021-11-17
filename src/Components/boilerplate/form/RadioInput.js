@@ -1,16 +1,17 @@
 import React from "react";
-import {  useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
-export default function RadioInput({ name, label, className,classLabel,styleLabel, listOptions }) {
+export default function RadioInput({ name, label, defaultValue, className, classLabel, styleLabel, listOptions }) {
     const { register, formState: { errors } } = useFormContext();
-
     return (
         <div className="d-flex flex-column mb-3">
-            {label &&<label htmlFor={name}
+            {label && <label htmlFor={name}
                 className={`d-flex form-label flex-row ${className}`}   >{label}</label>}
 
             <div className="d-flex flex-row">
                 {
+
+
                     listOptions.map(({ value, label }, index) => (<div className="mx-1" key={index}>
                         <input
                             {...register(name)}
@@ -19,20 +20,18 @@ export default function RadioInput({ name, label, className,classLabel,styleLabe
                             id={value}
                             name={name}
                             value={value}
-                            style = {styleLabel}
+                            style={styleLabel}
                             autoComplete="off"
+                            checked={defaultValue === value}
                         />
                         <label
                             className={`${classLabel} form-check-label mx-1`}
                             htmlFor={value}
-                            >
+                        >
                             {label}
                         </label>
-                        
-
                     </div>))
                 }
-
             </div>
             <div className="d-flex flex-row invalid-feedback" id={`errMsg${name}`}>
 

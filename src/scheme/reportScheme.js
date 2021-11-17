@@ -70,17 +70,24 @@ export const formFields = {
     genderText: {
         name: "person_gender",
         label: "מין",
+        defaultValue:"",
         options: [
             {
                 value: "זכר",
                 label: "גבר",
-                className: 'btn-outline-secondary'
+                className: ''
             },
             {
                 value: "נקבה",
                 label: "אישה",
-                className: 'btn-outline-primary'
-            }]
+                className: ''
+            },
+            {
+                value: "",
+                label: "לא ידוע",
+                className:''
+            }
+        ]
     },
     tshirtColor: {
         name: "person_shirt_color",
@@ -126,9 +133,9 @@ export const reportFormSchema = yup.object().shape({
 
     isDistressed: yup.boolean().required("שדה נדרש"),
     distressed_info: yup.string(),
-    person_gender: yup.string('שדה מסוג טקסט')
-        .typeError('שגיאה: בחר מגדר')
-        .required('בחר מגדר'),
+    person_gender: yup.string('שדה מסוג טקסט'),
+        //.typeError('שגיאה: בחר מגדר')
+       // .required('בחר מגדר'),
     person_location: yup.string("שדה מסוג טקסט").required("שדה נדרש"),
     location_lng: yup.number("מספר"),
     location_lat: yup.number("מספר"),

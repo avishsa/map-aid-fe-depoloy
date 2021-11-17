@@ -11,9 +11,10 @@ export default function HomelessDetails() {
     return (<div id="homelessIdDiv" className="containerForm d-flex flex-column bd-highlight">
         <h4 className="text-end">זיהוי</h4>
         <RadioInput
-            className="required-astrix"
+            {...formFields.genderText}
             name={formFields.genderText.name}
             label={formFields.genderText.label}
+            defaultValue = {formFields.genderText.defaultValue}
             listOptions={formFields.genderText.options} />
         <InputColorImage icon="fa-tshirt" labelText ="טרם נבחר צבע לחולצה" colors={colorsValues} imgSrc={formFields.tshirtColor.imgSrc} name={formFields.tshirtColor.name} />
         <InputColorImage icon="fa-socks" labelText ="טרם נבחר צבע למכנסיים" colors={colorsValues} imgSrc={formFields.trousersColor.imgSrc} name={formFields.trousersColor.name} />

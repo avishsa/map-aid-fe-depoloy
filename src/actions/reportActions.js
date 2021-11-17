@@ -105,6 +105,8 @@ function createReport(data) {
         ...data,
         report_datetime: getDateTimeFormattedString(data["report_date"], data["report_time"])
     };
+    if( data["person_gender"]==="")
+        delete data["person_gender"];
     delete data["report_date"];
     delete data["report_time"];
 
